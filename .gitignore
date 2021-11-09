@@ -37,3 +37,6 @@ incremental_db/README
 *.pof
 *.sld
 *.sof
+db/DSDProject.quiproj.17492.rdr.flock
+*.tmp
+*.tmw_info
