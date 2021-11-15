@@ -64,7 +64,20 @@ ENTITY hw9p1 IS
     column   :  IN   INTEGER;    --column pixel coordinate
     red      :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0) := (OTHERS => '0');  --red magnitude output to DAC
     green    :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0) := (OTHERS => '0');  --green magnitude output to DAC
-    blue     :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0) := (OTHERS => '0')); --blue magnitude output to DAC
+    blue     :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0) := (OTHERS => '0'); --blue magnitude output to DAC
+	 
+	 max10_clk : in std_logic;
+	 
+	 --ports to run the accelerometer
+	 GSENSOR_CS_N : OUT	STD_LOGIC;
+	 GSENSOR_SCLK : OUT	STD_LOGIC;
+	 GSENSOR_SDI  : INOUT	STD_LOGIC;
+	 GSENSOR_SDO  : INOUT	STD_LOGIC;
+	 reset : in std_logic;
+	 
+	 reset_RNG : IN STD_LOGIC
+	 
+	 );
 END entity;
 
 ARCHITECTURE behavior OF hw9p1 IS
@@ -78,8 +91,42 @@ ARCHITECTURE behavior OF hw9p1 IS
 	signal spare_ships : INTEGER := 3;
 	signal score : INTEGER := 0;
 	signal score_bits : STD_LOGIC_VECTOR(55 downto 0) := (OTHERS => '0');
+	
+	signal clock_x, clock_y : STD_LOGIC := '0';
+	signal data_x_magnitude, data_y_magnitude : std_logic_vector(7 downto 0);
+	signal countX : integer := 1;
+	signal countY : integer := 1;
+	signal data_x, data_y, data_z : STD_LOGIC_VECTOR(15 downto 0);	
+	
+	signal RNG : std_logic_vector(9 downto 0);
 
+	
+	-- Accelerometer component
+	component ADXL345_controller is port(	
+		reset_n     : IN STD_LOGIC;
+		clk         : IN STD_LOGIC;
+		data_valid  : OUT STD_LOGIC;
+		data_x      : OUT STD_LOGIC_VECTOR(15 downto 0);
+		data_y      : OUT STD_LOGIC_VECTOR(15 downto 0);
+		data_z      : OUT STD_LOGIC_VECTOR(15 downto 0);
+		SPI_SDI     : OUT STD_LOGIC;
+		SPI_SDO     : IN STD_LOGIC;
+		SPI_CSN     : OUT STD_LOGIC;
+		SPI_CLK     : OUT STD_LOGIC	
+    );	
+    end component;
+	 
+	 -- 10 Bit RNG, the LSB repeats more often than the MSB
+	component RNG10 is
+		port (
+			set, clkToggle, clk10Mhz : in std_logic;
+			PRNG10 : buffer std_logic_vector(9 downto 0)
+		);			
+	end component;
 BEGIN
+
+	U0 : ADXL345_controller port map('1', max10_clk, open, data_x, data_y, data_z, GSENSOR_SDI, GSENSOR_SDO, GSENSOR_CS_N, GSENSOR_SCLK);
+	U1 : RNG10 port map(reset_RNG, '0', max10_clk, RNG);
 
 	PROCESS(disp_ena, row, column)
 	BEGIN
@@ -129,4 +176,112 @@ BEGIN
     END IF;
   
   END PROCESS;
+ 
+ ------Clock for X Axis Movement-----------------------------------------------------------------------------------------------------------
+
+  xAxisClock : process ( max10_clk )	
+	variable clockDivX : natural := 255;
+	begin
+		if(rising_edge(max10_clk)) then
+			for i in 0 to 7 loop
+				data_x_magnitude(i) <= data_x(i);
+			end loop;
+			if(data_x_magnitude(7 downto 4) = "0000" or data_x_magnitude(7 downto 4) = "1111") then
+				clock_x <= clock_x;
+			else
+				if(data_x(11) = '0') then -- tilt left starts with 000
+					clockDivX := 255 - to_integer(unsigned(data_x_magnitude));
+				else -- tilt right starts at FF
+					clockDivX := to_integer(unsigned(data_x_magnitude));
+				end if;
+				
+				if (clockDivX = 0) then
+					clockDivX := 255;
+				else
+					clockDivX := clockDivX;
+				end if;
+				
+				countX <= countX+1;
+				if (countX > ( 100000 * clockDivX ) ) then
+					clock_x <= NOT clock_x;
+					countX <= 1;
+				end if;
+			end if;
+		end if;	
+	end process;
+
+------Clock for Y Axis Movement-----------------------------------------------------------------------------------------------------------
+	
+	yAxisClock : process ( max10_clk )	
+	variable clockDivY : natural := 255;
+	begin
+		if(rising_edge(max10_clk)) then
+			for i in 0 to 7 loop
+				data_y_magnitude(i) <= data_y(i);
+			end loop;
+			if (data_y_magnitude(7 downto 4) = "0000" or data_y_magnitude(7 downto 4) = "1111") then
+				clock_y <= clock_y;
+			else
+				if(data_y(11) = '0') then 
+					clockDivY := 255 - to_integer(unsigned(data_y_magnitude));
+				else 
+					clockDivY := to_integer(unsigned(data_y_magnitude));
+				end if;
+				
+				if (clockDivY = 0) then
+					clockDivY := 255;
+				else
+					clockDivY := clockDivY;
+				end if;
+				
+				countY <= countY+1;
+				if (countY > ( 100000 * clockDivY ) ) then
+					clock_y <= NOT clock_y;
+					countY <= 1;
+				end if;
+			end if;	
+		end if;	
+	end process;
+
+------X Axis Movement----------------------------------------------------------------------------------------------------------------
+	
+	xLocationAdjust : process (clock_x)
+	begin
+		if(reset = '0') then
+			--redAdjust <= "0000";
+			ship_x <= ship_x;
+		else
+			if(rising_edge(clock_x)) then
+				if(data_x(11) = '1') then --left
+					--redAdjust <= std_logic_vector(unsigned(redAdjust) - 1);
+					ship_x <= ship_x-1;
+				else --right
+					--redAdjust <= std_logic_vector(unsigned(redAdjust) + 1);
+					ship_x <= ship_x+1;
+				end if;
+			end if;
+		end if;
+	end process;
+
+------Y Axis Movement------------------------------------------------------------------------------------------------------------------
+	
+	yLocationAdjust : process (clock_y)
+	begin
+		if(reset = '0') then
+			--greenadjust <= "0000";
+			ship_y <= ship_y;
+		else
+			if(rising_edge(clock_y)) then
+				if(data_y(11) = '1') then --forward/up
+					--greenAdjust <= std_logic_vector(unsigned(greenAdjust) + 1);
+					ship_y <= ship_y+1;
+				else --backward/down
+					--greenAdjust <= std_logic_vector(unsigned(greenAdjust) - 1);
+					ship_y <= ship_y+1;
+				end if;
+			end if;
+		end if;
+	end process;
+  
+  
 END architecture;

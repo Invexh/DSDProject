@@ -1,13 +1,13 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity RNG8 is
+entity RNG10 is
 	port (
 		set, clkToggle, clk10Mhz : in std_logic;
 		PRNG10 : buffer std_logic_vector(9 downto 0));			
 end entity;
 
-architecture RNG8_arch of RNG8 is	
+architecture RNG10_arch of RNG10 is	
 	component Clock_Divider is
 		port ( clk,reset: in std_logic;
 			clock_out: out std_logic);
@@ -103,29 +103,29 @@ begin
 	PRNG : process(clk,set)
 	begin
 		if(rising_edge(clk)) then
-			PRNG8(9) <= SR107(106);
-			PRNG8(8) <= SR89(88);
-			PRNG8(7) <= SR61(60);
-			PRNG8(6) <= SR31(30);
-			PRNG8(5) <= SR19(18);
-			PRNG8(4) <= SR17(16);
-			PRNG8(3) <= SR13(12);
-			PRNG8(2) <= SR7(6);
-			PRNG8(1) <= SR5(4);
-			PRNG8(0) <= SR3(2);	
+			PRNG10(9) <= SR107(106);
+			PRNG10(8) <= SR89(88);
+			PRNG10(7) <= SR61(60);
+			PRNG10(6) <= SR31(30);
+			PRNG10(5) <= SR19(18);
+			PRNG10(4) <= SR17(16);
+			PRNG10(3) <= SR13(12);
+			PRNG10(2) <= SR7(6);
+			PRNG10(1) <= SR5(4);
+			PRNG10(0) <= SR3(2);	
 		end if;
 		
 		if(set = '0') then
-			PRNG8(9) <= SR107(106);
-			PRNG8(8) <= SR89(88);
-			PRNG8(7) <= SR61(60);
-			PRNG8(6) <= SR31(30);
-			PRNG8(5) <= SR19(18);
-			PRNG8(4) <= SR17(16);
-			PRNG8(3) <= SR13(12);
-			PRNG8(2) <= SR7(6);
-			PRNG8(1) <= SR5(4);
-			PRNG8(0) <= SR3(2);	
+			PRNG10(9) <= SR107(106);
+			PRNG10(8) <= SR89(88);
+			PRNG10(7) <= SR61(60);
+			PRNG10(6) <= SR31(30);
+			PRNG10(5) <= SR19(18);
+			PRNG10(4) <= SR17(16);
+			PRNG10(3) <= SR13(12);
+			PRNG10(2) <= SR7(6);
+			PRNG10(1) <= SR5(4);
+			PRNG10(0) <= SR3(2);	
 		end if;
 	end process PRNG;
 end architecture;

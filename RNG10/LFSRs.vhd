@@ -198,9 +198,13 @@ BEGIN
 END LFSR31_arch;
 
 
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
 ENTITY LFSR61 IS
-  PORT (Clk, Rst: IN std_logic;
-        output: OUT std_logic_vector (107 DOWNTO 0));
+	PORT (
+		Clk: in std_logic;
+		Rst: IN std_logic;
+      output: OUT std_logic_vector (60 DOWNTO 0));
 END LFSR61;
 
 ARCHITECTURE LFSR61_arch OF LFSR61 IS
@@ -245,33 +249,35 @@ BEGIN
     END IF;
   END PROCESS;
   
-  feedback <= Currstate(60) XOR Currstate(59) XOR Currstate(45) XOR Currstate(44);
+  feedback <= Currstate(88) XOR Currstate(50);
   Nextstate <= feedback & Currstate(88 DOWNTO 1);
   output <= Currstate;
 
 END LFSR89_arch;
 
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
 ENTITY LFSR107 IS
   PORT (Clk, Rst: IN std_logic;
         output: OUT std_logic_vector (106 DOWNTO 0));
 END LFSR107;
 
 ARCHITECTURE LFSR107_arch OF LFSR107 IS
-  SIGNAL Nextstate, Currstate: std_logic_vector (107 DOWNTO 0) := (107 => '1', OTHERS =>'0');
+  SIGNAL Nextstate, Currstate: std_logic_vector (106 DOWNTO 0) := (106 => '1', OTHERS =>'0');
   SIGNAL feedback: std_logic;
 BEGIN
 
   StateReg: PROCESS (Clk,Rst)
   BEGIN
     IF (Rst = '0') THEN
-      Currstate <= (107 => '1', OTHERS =>'0');
+      Currstate <= (106 => '1', OTHERS =>'0');
     ELSIF (rising_edge(Clk)) THEN
       Currstate <= Nextstate;
     END IF;
   END PROCESS;
   
-  feedback <= Currstate(60) XOR Currstate(59) XOR Currstate(45) XOR Currstate(44);
-  Nextstate <= feedback & Currstate(107 DOWNTO 1);
+  feedback <= Currstate(106) XOR Currstate(104) XOR Currstate(43) XOR Currstate(41);
+  Nextstate <= feedback & Currstate(106 DOWNTO 1);
   output <= Currstate;
 
 END LFSR107_arch;
