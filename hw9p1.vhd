@@ -73,7 +73,7 @@ ENTITY hw9p1 IS
 	 GSENSOR_SCLK : OUT	STD_LOGIC;
 	 GSENSOR_SDI  : INOUT	STD_LOGIC;
 	 GSENSOR_SDO  : INOUT	STD_LOGIC;
-	 reset : in std_logic;
+	 reset_accel : in std_logic := '1';
 	 
 	 reset_RNG : IN STD_LOGIC
 	 
@@ -247,7 +247,7 @@ BEGIN
 	
 	xLocationAdjust : process (clock_x)
 	begin
-		if(reset = '0') then
+		if(reset_accel = '0') then
 			--redAdjust <= "0000";
 			ship_x <= ship_x;
 		else
@@ -267,7 +267,7 @@ BEGIN
 	
 	yLocationAdjust : process (clock_y)
 	begin
-		if(reset = '0') then
+		if(reset_accel = '0') then
 			--greenadjust <= "0000";
 			ship_y <= ship_y;
 		else
