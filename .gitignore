@@ -40,3 +40,5 @@ incremental_db/README
 db/DSDProject.quiproj.17492.rdr.flock
 *.tmp
 *.tmw_info
+*.flock
+db/DSDProject.ram0_gsensor_889e66e.hdl.mif
