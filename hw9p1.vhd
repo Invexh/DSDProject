@@ -255,20 +255,18 @@ BEGIN
 			ship_x <= ship_x;
 		else
 			if(rising_edge(clock_x)) then
-				if(data_x(11) = '1') then --left
-					--redAdjust <= std_logic_vector(unsigned(redAdjust) - 1);
-					ship_x <= ship_x+1;
-				else --right
-					--redAdjust <= std_logic_vector(unsigned(redAdjust) + 1);
-					ship_x <= ship_x-1;
-				end if;
-				
-				if (ship_x > x_max) then
-					ship_x <= x_max;
-				elsif (ship_x < x_min) then
-					ship_x <= x_min;
-				--else 
-				--	ship_x <= ship_x;
+				if(data_x(11) = '1') then		--RIGHT
+					if (ship_x = x_max) then
+						ship_x <= x_max;
+					else
+						ship_x <= ship_x+1;
+					end if;
+				else 									--LEFT
+					if (ship_x = x_min) then
+						ship_x <= x_min;
+					else	
+						ship_x <= ship_x-1;
+					end if;
 				end if;
 			end if;
 		end if;
@@ -284,19 +282,17 @@ BEGIN
 		else
 			if(rising_edge(clock_y)) then
 				if(data_y(11) = '1') then --forward/up
-					--greenAdjust <= std_logic_vector(unsigned(greenAdjust) + 1);
-					ship_y <= ship_y-1;
-				else --backward/down
-					--greenAdjust <= std_logic_vector(unsigned(greenAdjust) - 1);
-					ship_y <= ship_y+1;
-				end if;
-				
-				if (ship_y < y_max + ship_height) then
-					ship_y <= y_max + ship_height;
-				elsif (ship_y > y_min) then
-					ship_y <= y_min;
-				--else 
-				--	ship_y <= ship_y;
+					if (ship_y = y_max + ship_height) then
+						ship_y <= y_max + ship_height;
+					else
+						ship_y <= ship_y-1;
+					end if;
+				else 							--backward/down
+					if (ship_y = y_min) then
+						ship_y <= y_min;
+					else
+						ship_y <= ship_y+1;
+					end if;
 				end if;
 			end if;
 		end if;
