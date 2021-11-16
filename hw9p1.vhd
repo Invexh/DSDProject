@@ -66,7 +66,7 @@ ENTITY hw9p1 IS
     green    :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0) := (OTHERS => '0');  --green magnitude output to DAC
     blue     :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0) := (OTHERS => '0'); --blue magnitude output to DAC
 	 
-	 max10_clk : in std_logic;
+	 max10_clk : inout std_logic;
 	 
 	 --ports to run the accelerometer
 	 GSENSOR_CS_N : OUT	STD_LOGIC;
@@ -74,6 +74,7 @@ ENTITY hw9p1 IS
 	 GSENSOR_SDI  : INOUT	STD_LOGIC;
 	 GSENSOR_SDO  : INOUT	STD_LOGIC;
 	 reset_accel : in std_logic := '1';
+	 clkfucka, clkfuckb : OUT STD_LOGIC;
 	 
 	 reset_RNG : IN STD_LOGIC
 	 
@@ -124,6 +125,8 @@ ARCHITECTURE behavior OF hw9p1 IS
 		);			
 	end component;
 BEGIN
+	clkfucka <= clock_x;
+	clkfuckb <= clock_y;
 
 	U0 : ADXL345_controller port map('1', max10_clk, open, data_x, data_y, data_z, GSENSOR_SDI, GSENSOR_SDO, GSENSOR_CS_N, GSENSOR_SCLK);
 	U1 : RNG10 port map(reset_RNG, '0', max10_clk, RNG);
@@ -202,7 +205,7 @@ BEGIN
 				end if;
 				
 				countX <= countX+1;
-				if (countX > ( 100000 * clockDivX ) ) then
+				if (countX > ( 10000 * clockDivX ) ) then
 					clock_x <= NOT clock_x;
 					countX <= 1;
 				end if;
@@ -235,7 +238,7 @@ BEGIN
 				end if;
 				
 				countY <= countY+1;
-				if (countY > ( 100000 * clockDivY ) ) then
+				if (countY > ( 10000 * clockDivY ) ) then
 					clock_y <= NOT clock_y;
 					countY <= 1;
 				end if;
@@ -254,10 +257,18 @@ BEGIN
 			if(rising_edge(clock_x)) then
 				if(data_x(11) = '1') then --left
 					--redAdjust <= std_logic_vector(unsigned(redAdjust) - 1);
-					ship_x <= ship_x-1;
+					ship_x <= ship_x+1;
 				else --right
 					--redAdjust <= std_logic_vector(unsigned(redAdjust) + 1);
-					ship_x <= ship_x+1;
+					ship_x <= ship_x-1;
+				end if;
+				
+				if (ship_x > x_max) then
+					ship_x <= x_max;
+				elsif (ship_x < x_min) then
+					ship_x <= x_min;
+				--else 
+				--	ship_x <= ship_x;
 				end if;
 			end if;
 		end if;
@@ -274,10 +285,18 @@ BEGIN
 			if(rising_edge(clock_y)) then
 				if(data_y(11) = '1') then --forward/up
 					--greenAdjust <= std_logic_vector(unsigned(greenAdjust) + 1);
-					ship_y <= ship_y+1;
+					ship_y <= ship_y-1;
 				else --backward/down
 					--greenAdjust <= std_logic_vector(unsigned(greenAdjust) - 1);
 					ship_y <= ship_y+1;
+				end if;
+				
+				if (ship_y < y_max + ship_height) then
+					ship_y <= y_max + ship_height;
+				elsif (ship_y > y_min) then
+					ship_y <= y_min;
+				--else 
+				--	ship_y <= ship_y;
 				end if;
 			end if;
 		end if;

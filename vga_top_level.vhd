@@ -18,7 +18,7 @@ entity vga_top is
 	
 		-- Inputs for image generation
 		
-		pixel_clk_m		:	IN	STD_LOGIC;     -- pixel clock for VGA mode being used 
+		pixel_clk_m		:	INOUT	STD_LOGIC;     -- pixel clock for VGA mode being used 
 		reset_n_m		:	IN	STD_LOGIC; --active low asycnchronous reset
 		
 		-- Outputs for image generation 
@@ -35,6 +35,8 @@ entity vga_top is
 		GSENSOR_SDI  : INOUT	STD_LOGIC;
 		GSENSOR_SDO  : INOUT	STD_LOGIC;
 		reset_accel : in std_logic := '1';
+		
+		clkfucka, clkfuckb : OUT STD_LOGIC;
 	 
 		reset_RNG : IN STD_LOGIC
 	
@@ -83,12 +85,16 @@ architecture vga_structural of vga_top is
 			red      :  OUT STD_LOGIC_VECTOR(7 DOWNTO 0) := (OTHERS => '0');  --red magnitude output to DAC
 			green    :  OUT STD_LOGIC_VECTOR(7 DOWNTO 0) := (OTHERS => '0');  --green magnitude output to DAC
 			blue     :  OUT STD_LOGIC_VECTOR(7 DOWNTO 0) := (OTHERS => '0');   --blue magnitude output to DAC
+			
+			max10_clk : inout std_logic;
 		
 			GSENSOR_CS_N : OUT	STD_LOGIC;
 			GSENSOR_SCLK : OUT	STD_LOGIC;
 			GSENSOR_SDI  : INOUT	STD_LOGIC;
 			GSENSOR_SDO  : INOUT	STD_LOGIC;
 			reset_accel : in std_logic := '1';
+			
+			clkfucka, clkfuckb : OUT STD_LOGIC;
 			
 			reset_RNG : IN STD_LOGIC
 				
@@ -105,6 +111,6 @@ begin
 -- Just need 3 components for VGA system 
 	U1	:	vga_pll_25_175 port map(pixel_clk_m, pll_OUT_to_vga_controller_IN);
 	U2	:	vga_controller port map(pll_OUT_to_vga_controller_IN, reset_n_m, h_sync_m, v_sync_m, dispEn, colSignal, rowSignal, open, open);
-	U3	:	hw9p1 port map(dispEn, rowSignal, colSignal, red_m, green_m, blue_m, GSENSOR_CS_N, GSENSOR_SCLK, GSENSOR_SDI, GSENSOR_SDO, reset_accel, reset_RNG);
+	U3	:	hw9p1 port map(dispEn, rowSignal, colSignal, red_m, green_m, blue_m, pixel_clk_m, GSENSOR_CS_N, GSENSOR_SCLK, GSENSOR_SDI, GSENSOR_SDO, reset_accel, clkfucka, clkfuckb, reset_RNG);
 
 end vga_structural;
