@@ -33,7 +33,7 @@ USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
 USE work.integer_array.all;
 
-ENTITY hw9p1 IS
+ENTITY dsdproject IS
   GENERIC(
 		
 		y_max : INTEGER := 67;
@@ -81,7 +81,7 @@ ENTITY hw9p1 IS
 	 );
 END entity;
 
-ARCHITECTURE behavior OF hw9p1 IS
+ARCHITECTURE behavior OF dsdproject IS
 	signal colorconcat : STD_LOGIC_VECTOR(11 downto 0);
 	signal ship_x : INTEGER := x_min;
 	signal ship_y : INTEGER := (240 + ship_height/2);

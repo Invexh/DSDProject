@@ -68,6 +68,14 @@ set_location_assignment PIN_N2 -to blue_m[3]
 set_location_assignment PIN_P1 -to blue_m[0]
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_location_assignment PIN_AB15 -to GSENSOR_SCLK
+set_location_assignment PIN_V11 -to GSENSOR_SDI
+set_location_assignment PIN_V12 -to GSENSOR_SDO
+set_location_assignment PIN_AB16 -to GSENSOR_CS_N
+set_location_assignment PIN_B8 -to reset_accel
+set_location_assignment PIN_A8 -to clkfucka
+set_location_assignment PIN_A9 -to clkfuckb
+set_global_assignment -name VHDL_FILE dsdproject.vhd
 set_global_assignment -name SYSTEMVERILOG_FILE Accelerometer/spi.sv
 set_global_assignment -name SYSTEMVERILOG_FILE Accelerometer/gsensor.sv
 set_global_assignment -name VHDL_FILE Accelerometer/ADXL345_controller.vhd
@@ -76,12 +84,4 @@ set_global_assignment -name VHDL_FILE RNG10/LFSRs.vhd
 set_global_assignment -name VHDL_FILE vga_top_level.vhd
 set_global_assignment -name VHDL_FILE vga_pll_25_175.vhd
 set_global_assignment -name VHDL_FILE vga_controller.vhd
-set_global_assignment -name VHDL_FILE hw9p1.vhd
-set_location_assignment PIN_AB15 -to GSENSOR_SCLK
-set_location_assignment PIN_V11 -to GSENSOR_SDI
-set_location_assignment PIN_V12 -to GSENSOR_SDO
-set_location_assignment PIN_AB16 -to GSENSOR_CS_N
-set_location_assignment PIN_B8 -to reset_accel
-set_location_assignment PIN_A8 -to clkfucka
-set_location_assignment PIN_A9 -to clkfuckb
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
