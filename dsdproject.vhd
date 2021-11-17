@@ -97,7 +97,6 @@ ENTITY dsdproject IS
 	 GSENSOR_SDI  : INOUT	STD_LOGIC;
 	 GSENSOR_SDO  : INOUT	STD_LOGIC;
 	 reset_accel : in std_logic := '1';
-	 clkfucka, clkfuckb : OUT STD_LOGIC;
 	 
 	 reset_RNG : IN STD_LOGIC
 	 
@@ -199,8 +198,6 @@ ARCHITECTURE behavior OF dsdproject IS
 	
 	
 	BEGIN
-	clkfucka <= clock_x;
-	clkfuckb <= clock_y;
 
 	U0 : ADXL345_controller port map('1', max10_clk, open, data_x, data_y, data_z, GSENSOR_SDI, GSENSOR_SDO, GSENSOR_CS_N, GSENSOR_SCLK);
 	U1 : RNG10 port map(reset_RNG, '0', max10_clk, RNG);
@@ -374,8 +371,8 @@ ARCHITECTURE behavior OF dsdproject IS
 		else
 			if(rising_edge(clock_x)) then
 				if(data_x(11) = '1') then		--RIGHT
-					if (ship.x = x_max-ship.length) then
-						ship.x <= x_max-ship.length;
+					if (ship.x = x_max-ship_length) then
+						ship.x <= x_max-ship_length;
 					else
 						ship.x <= ship.x+1;
 					end if;
