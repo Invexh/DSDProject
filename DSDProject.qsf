@@ -75,6 +75,7 @@ set_location_assignment PIN_AB16 -to GSENSOR_CS_N
 set_location_assignment PIN_B8 -to reset_accel
 set_location_assignment PIN_A8 -to clkfucka
 set_location_assignment PIN_A9 -to clkfuckb
+set_global_assignment -name VHDL_FILE aliens.vhd
 set_global_assignment -name VHDL_FILE dsdproject.vhd
 set_global_assignment -name SYSTEMVERILOG_FILE Accelerometer/spi.sv
 set_global_assignment -name SYSTEMVERILOG_FILE Accelerometer/gsensor.sv

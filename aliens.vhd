@@ -74,7 +74,7 @@ begin
 	
 	begin
 		if(rising_edge(movement_clock) AND alive = '1') then
-			case size is
+			case size_unsigned is
 				when "011" | "000" =>	-- floaty
 					if(floaty > 500) then
 						if(RNG(9) = '1') then
@@ -228,7 +228,7 @@ architecture beh of AlienTimer is
 	signal RNG_instance 			: std_logic_vector(9 downto 0);
 	signal i 						: std_logic;
 	signal movement_clock 		: std_logic;
-	signal size_unsigned			: unsigned(2 downto 0)
+	signal size_unsigned			: unsigned(2 downto 0);
 	
 begin
 	initialize : process(alive)
@@ -468,7 +468,7 @@ begin
 	
 	begin
 		if(rising_edge(movement_clock) AND alive = '1') then
-			case size is
+			case size_unsigned is
 				when "011"|"000" =>	-- floaty
 					if(floaty > 500) then
 						if(RNG(8) = '1') then
@@ -495,7 +495,7 @@ begin
 								x_pos <= x_pos - 1;
 							end if;
 							
-							if(y_pos = y_max + ((size+1)*8) then
+							if (y_pos = y_max + ((size+1)*8)) then
 								diagonalDir := 1;
 							else
 								y_pos <= y_pos - 1;
