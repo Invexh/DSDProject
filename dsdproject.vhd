@@ -24,14 +24,37 @@
 -- Test pattern is now 8 equally spaced 
 -- different color vertical bars, from black (left) to white (right)
 
-package integer_array is
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
+
+package custom_types is
+	type alien_t is record
+		alive : STD_LOGIC;
+		size : INTEGER;
+		color : STD_LOGIC_VECTOR(11 downto 0);
+		x : INTEGER;
+		y : INTEGER;
+		collision : STD_LOGIC := '0';
+	end record alien_t;
+	
+	type ship_t is record
+		alive : STD_LOGIC := '1';
+		x : INTEGER;
+		y : INTEGER;
+		collision : STD_LOGIC := '0';
+	end record ship_t;
+	
+	type alien_array is array (integer range <>) of alien_t;
+	
 	type int_array is array (integer range <>) of integer;
+	
 end package;
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
-USE work.integer_array.all;
+USE work.custom_types.all;
 
 ENTITY dsdproject IS
   GENERIC(
@@ -83,15 +106,13 @@ END entity;
 
 ARCHITECTURE behavior OF dsdproject IS
 	signal colorconcat : STD_LOGIC_VECTOR(11 downto 0);
-	signal ship_x : INTEGER := x_min;
-	signal ship_y : INTEGER := (240 + ship_height/2);
-	signal calc_y : INTEGER;
-	signal calc_x : INTEGER;
-	signal calc_gen : INTEGER;
+	signal ship : ship_t := (x => x_min, y => (240 + ship_height/2));
+	-- signal ship_x : INTEGER := x_min;
+	-- signal ship_y : INTEGER := (240 + ship_height/2);
 	
 	signal spare_ships : INTEGER := 3;
 	signal score : INTEGER := 0;
-	signal score_bits : STD_LOGIC_VECTOR(55 downto 0) := (OTHERS => '0');
+	signal alien : alien_array(11 downto 0);
 	
 	signal clock_x, clock_y : STD_LOGIC := '0';
 	signal data_x_magnitude, data_y_magnitude : std_logic_vector(7 downto 0);
@@ -132,6 +153,10 @@ BEGIN
 	U1 : RNG10 port map(reset_RNG, '0', max10_clk, RNG);
 
 	PROCESS(disp_ena, row, column)
+		variable calcA : INTEGER;
+		variable calcB : INTEGER;
+		variable calcC : INTEGER;
+		
 	BEGIN
 
     IF(disp_ena = '1') THEN        --display time
@@ -143,26 +168,51 @@ BEGIN
 			colorconcat <= "111111111111";
 		END IF;
 		
-------DRAWS THE PLAYER SHIP ON THE SCREEN--------------------------------------------------------------------------------------------------
-		IF ( ((ship_y - row) <= (ship_height - (((column-ship_x)*ship_height)/ship_length))) AND ((column-ship_x) <= ship_length) AND ((ship_y - row) > 0) AND ((column - ship_x) > 0) ) THEN
-			IF ( ((ship_y - row) = (ship_height - (((column-ship_x)*ship_height)/ship_length))) OR ((column - ship_x) = 1) OR ((ship_y - row) = 1) OR ((column - ship_x) = ship_length) ) THEN
+------DRAWS THE PLAYER SHIP ON THE SCREEN----------------------------------------------------
+		calcA := column - ship.x;		--Relative X position
+		calcB := ship.y - row;			--Relative Y position
+		calcC := -(ship_height * calcA)/ship_length + ship_height;	--Check if in area
+
+		IF ((calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0)) THEN
+			IF ((calcA = 1 OR calcA = ship_length) OR (calcB = 1 OR calcB = calcC)) THEN
 				colorconcat <= "000000000000";
 			ELSE
 				colorconcat <= "111100000000";
 			END IF;
 		END IF;
 		
-------DRAWS THE REMAINING LIVES ON THE SCREEN---------------------------------------------------------------------------------------------
+------DRAWS THE REMAINING LIVES ON THE SCREEN-------------------------------------------------
 		FOR i in 0 to 2 LOOP
-			IF (spare_ships > i) THEN
-				IF ( ((ss_y - row) <= (ship_height - (((column-ss_x(i))*ship_height)/ship_length))) AND ((column-ss_x(i)) <= ship_length) AND ((ss_y - row) > 0) AND ((column - ss_x(i)) > 0) ) THEN
-					IF ( ((ss_y - row) = (ship_height - (((column-ss_x(i))*ship_height)/ship_length))) OR ((column - ss_x(i)) = 1) OR ((ss_y - row) = 1) OR ((column - ss_x(i)) = ship_length) ) THEN
-						colorconcat <= "000000000000";
-					ELSE
-						colorconcat <= "111100000000";
-					END IF;
+		IF (spare_ships > i) THEN
+			calcA := column - ss_x(i);		--Relative X position
+			calcB := ss_y - row;			--Relative Y position
+			calcC := -(ship_height * calcA)/ship_length + ship_height;	--Check if in area
+			
+			IF ((calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0)) THEN
+				IF ((calcA = 1 OR calcA = ship_length) OR (calcB = 1 OR calcB = calcC)) THEN
+					colorconcat <= "000000000000";
+				ELSE
+					colorconcat <= "111100000000";
 				END IF;
 			END IF;
+		END IF;
+		END LOOP;
+
+------DRAWS THE ENEMIES ON THE SCREEN----------------------------------------------------------
+		FOR i in 0 to 11 LOOP
+		IF (alien(i).alive = true) THEN
+			calcA := column - alien(i).x_pos;	--Relative X position
+			calcB := alien(i).y_pos - row;		--Relative Y position
+			calcC := alien(i).size * 8;			--Calc adjusted size
+			
+			IF ((calcB <= calcC AND calcB >= 0) AND (calcA <= calcC AND calcA >= 0)) THEN
+				IF ((calcB = calcC OR calcB = 0) OR (calcA = calcC OR calcA = 0)) THEN
+					colorconcat <= "000000000000";
+				ELSE
+					colorconcat <= alien(i).color;
+				END IF;
+			END IF;
+		END IF;
 		END LOOP;
 
 ------DRAWS THE SCOREBOARD ON THE SCREEN----------------------------------------------------------------------------------------------------
