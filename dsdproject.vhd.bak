@@ -35,14 +35,14 @@ package custom_types is
 		color : STD_LOGIC_VECTOR(11 downto 0);
 		x : INTEGER;
 		y : INTEGER;
-		collision : STD_LOGIC;
+		collision : STD_LOGIC := '0';
 	end record alien_t;
 	
 	type ship_t is record
-		alive : STD_LOGIC;
+		alive : STD_LOGIC := '1';
 		x : INTEGER;
 		y : INTEGER;
-		collision : STD_LOGIC;
+		collision : STD_LOGIC := '0';
 	end record ship_t;
 	
 	type alien_array is array (integer range <>) of alien_t;
@@ -106,9 +106,9 @@ END entity;
 
 ARCHITECTURE behavior OF dsdproject IS
 	signal colorconcat : STD_LOGIC_VECTOR(11 downto 0);
-	signal ship : ship_t := (alive => '1', x => x_min, y => (240 + ship_height/2), collision => '0');
-	-- signal ship.x : INTEGER := x_min;
-	-- signal ship.y : INTEGER := (240 + ship_height/2);
+	signal ship : ship_t := (x => x_min, y => (240 + ship_height/2));
+	-- signal ship_x : INTEGER := x_min;
+	-- signal ship_y : INTEGER := (240 + ship_height/2);
 	
 	signal spare_ships : INTEGER := 3;
 	signal score : INTEGER := 0;
@@ -200,9 +200,9 @@ BEGIN
 
 ------DRAWS THE ENEMIES ON THE SCREEN----------------------------------------------------------
 		FOR i in 0 to 11 LOOP
-		IF (alien(i).alive = '1') THEN
-			calcA := column - alien(i).x;	--Relative X position
-			calcB := alien(i).y - row;		--Relative Y position
+		IF (alien(i).alive = true) THEN
+			calcA := column - alien(i).x_pos;	--Relative X position
+			calcB := alien(i).y_pos - row;		--Relative Y position
 			calcC := alien(i).size * 8;			--Calc adjusted size
 			
 			IF ((calcB <= calcC AND calcB >= 0) AND (calcA <= calcC AND calcA >= 0)) THEN
@@ -302,20 +302,20 @@ BEGIN
 	begin
 		if(reset_accel = '0') then
 			--redAdjust <= "0000";
-			ship.x <= ship.x;
+			ship_x <= ship_x;
 		else
 			if(rising_edge(clock_x)) then
 				if(data_x(11) = '1') then		--RIGHT
-					if (ship.x = x_max) then
-						ship.x <= x_max;
+					if (ship_x = x_max) then
+						ship_x <= x_max;
 					else
-						ship.x <= ship.x+1;
+						ship_x <= ship_x+1;
 					end if;
 				else 									--LEFT
-					if (ship.x = x_min) then
-						ship.x <= x_min;
+					if (ship_x = x_min) then
+						ship_x <= x_min;
 					else	
-						ship.x <= ship.x-1;
+						ship_x <= ship_x-1;
 					end if;
 				end if;
 			end if;
@@ -328,20 +328,20 @@ BEGIN
 	begin
 		if(reset_accel = '0') then
 			--greenadjust <= "0000";
-			ship.y <= ship.y;
+			ship_y <= ship_y;
 		else
 			if(rising_edge(clock_y)) then
 				if(data_y(11) = '1') then --forward/up
-					if (ship.y = y_max + ship_height) then
-						ship.y <= y_max + ship_height;
+					if (ship_y = y_max + ship_height) then
+						ship_y <= y_max + ship_height;
 					else
-						ship.y <= ship.y-1;
+						ship_y <= ship_y-1;
 					end if;
 				else 							--backward/down
-					if (ship.y = y_min) then
-						ship.y <= y_min;
+					if (ship_y = y_min) then
+						ship_y <= y_min;
 					else
-						ship.y <= ship.y+1;
+						ship_y <= ship_y+1;
 					end if;
 				end if;
 			end if;
