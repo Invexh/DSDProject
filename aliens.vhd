@@ -32,17 +32,15 @@ architecture beh of AlienRNG is
 begin
 	initialize : process(alive)
 	begin
-		if(rising_edge(alive)) then
-			if(i = '0') then				-- save RNG instance
-				RNG_instance <= RNG;
-				i <= '1';
-			elsif(falling_edge(alive)) then
-				i <= '0';
-			end if;
-		
-			size_unsigned(2 downto 0) <= unsigned(RNG_instance(6 downto 4));
-			color <= "101000001111";
+		if(rising_edge(alive)) then		-- save RNG instance			
+			RNG_instance <= RNG;
+			i <= '1';
+			size_unsigned(2 downto 0) <= unsigned(RNG_instance(3 downto 1));
+			color <= "110000001111";
 			size <= to_integer(size_unsigned);
+			
+		elsif(falling_edge(alive)) then
+			i <= '0';			
 		end if;
 	end process;
 		
@@ -187,10 +185,10 @@ begin
 	end process;
 	
 	spawning : process (max10_clk)
-	variable timeSinceLastSpawn : unsigned(31 downto 0) := (OTHERS => '0');
+	variable timeSinceLastSpawn : unsigned(63 downto 0) := (OTHERS => '0');
 	begin
 		timeSinceLastSpawn := timeSinceLastSpawn + 1;
-		if( (RNG AND RNG_bit_map) = RNG_bit_map AND alive = '0' AND timeSinceLastSpawn > (50000000*min_period)) then
+		if( (RNG AND RNG_bit_map) = RNG_bit_map AND alive = '0' AND timeSinceLastSpawn > to_unsigned(50000000*min_period,63) ) then
 			alive <= '1';
 			timeSinceLastSpawn := (OTHERS => '0');
 		end if;
@@ -233,17 +231,15 @@ architecture beh of AlienTimer is
 begin
 	initialize : process(alive)
 	begin
-		if(rising_edge(alive)) then
-			if(i = '0') then				-- save RNG instance
-				RNG_instance <= RNG;
-				i <= '1';
-			elsif(falling_edge(alive)) then
-				i <= '0';				
-			end if;
-		
-			size_unsigned(2 downto 0) <= unsigned(RNG_instance(9 downto 7));
+		if(rising_edge(alive)) then		-- save RNG instance			
+			RNG_instance <= RNG;
+			i <= '1';
+			size_unsigned(2 downto 0) <= unsigned(RNG_instance(3 downto 1));
 			color <= "000011110000";
 			size <= to_integer(size_unsigned);
+			
+		elsif(falling_edge(alive)) then
+			i <= '0';			
 		end if;
 	end process;	
 
@@ -271,7 +267,7 @@ begin
 	variable y_min : INTEGER := 413;
 	variable x_max : INTEGER := 640;
 	variable x_min : INTEGER := 25;
-	
+		
 	begin
 		if(rising_edge(movement_clock) AND alive = '1') then
 			case size_unsigned is
@@ -384,10 +380,10 @@ begin
 	end process;
 	
 	spawning : process (max10_clk)
-	variable timeSinceLastSpawn : unsigned(31 downto 0)  := (OTHERS => '0');
+	variable timeSinceLastSpawn : unsigned(63 downto 0)  := (OTHERS => '0');
 	begin
 		timeSinceLastSpawn := timeSinceLastSpawn + 1;
-		if(alive = '0' AND timeSinceLastSpawn > (50000000*period_seconds)) then
+		if(alive = '0' AND timeSinceLastSpawn > to_unsigned(50000000*period_seconds, 63)) then
 			alive <= '1';
 			timeSinceLastSpawn := (OTHERS => '0');
 		end if;	
@@ -427,17 +423,15 @@ architecture beh of AlienScoreTimer is
 begin
 	initialize : process(alive)
 	begin
-		if(rising_edge(alive)) then
-			if(i = '0') then				-- save RNG instance
-				RNG_instance <= RNG;
-				i <= '1';
-			elsif(falling_edge(alive)) then
-				i <= '0';			
-			end if;
-		
+		if(rising_edge(alive)) then		-- save RNG instance			
+			RNG_instance <= RNG;
+			i <= '1';
 			size_unsigned(2 downto 0) <= unsigned(RNG_instance(3 downto 1));
 			color <= "000000001111";
 			size <= to_integer(size_unsigned);
+			
+		elsif(falling_edge(alive)) then
+			i <= '0';			
 		end if;
 	end process;
 	
@@ -589,7 +583,7 @@ begin
 			period := min_period_seconds;
 		end if;
 		
-		if(alive = '0' AND timeSinceLastSpawn > (50000000*period)) then
+		if(alive = '0' AND timeSinceLastSpawn > to_unsigned(50000000*period, 63) ) then
 			alive <= '1';
 			timeSinceLastSpawn := (OTHERS => '0');
 			numSpawns := numSpawns + 1;
