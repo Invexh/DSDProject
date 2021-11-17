@@ -145,12 +145,80 @@ ARCHITECTURE behavior OF dsdproject IS
 			PRNG10 : buffer std_logic_vector(9 downto 0)
 		);			
 	end component;
-BEGIN
+
+	-- Alien that spawns when timer and RNG conditions are met
+	component AlienRNG is 
+		port(
+			max10_clk 			: in std_logic := '0';
+			RNG 					: in std_logic_vector(9 downto 0) := "0000000000";
+			alive					: inout std_logic := '0';
+			size 					: out unsigned(2 downto 0);
+			color					: out std_logic_vector(11 downto 0);
+			x_pos					: inout integer := 640;
+			y_pos					: inout integer := 240;
+			min_period			: in integer := 5;
+			RNG_bit_map			: in std_logic_vector(9 downto 0) := "1111111111";
+			ship_x				: in integer := 0;
+			ship_y 				: in integer := 0
+		);
+	end component;
+	
+	-- Alien that spawns on a constant timer
+	component AlienTimer is 
+		port(
+			max10_clk 			: in std_logic := '0';
+			RNG 					: in std_logic_vector(9 downto 0) := "0000000000";
+			alive					: inout std_logic := '0';
+			size 					: inout unsigned(2 downto 0);
+			color					: out std_logic_vector(11 downto 0);
+			x_pos					: inout integer;
+			y_pos					: inout integer;
+			period_seconds 	: in integer;
+			ship_x				: in integer := 0;
+			ship_y 				: in integer := 0
+		);
+	end component;
+	
+	-- Alien that spawns on a timer that gets faster as the game progresses
+	component AlienScoreTimer is 
+		port(
+			max10_clk 				: in std_logic := '0';
+			RNG 						: in std_logic_vector(9 downto 0) := "0000000000";
+			alive						: inout std_logic := '0';
+			size 						: inout unsigned(2 downto 0);
+			color						: out std_logic_vector(11 downto 0);
+			x_pos						: inout integer;
+			y_pos						: inout integer;
+			max_period_seconds	: in integer;
+			min_period_seconds	: in integer;
+			current_score			: in integer;
+			ship_x					: in integer;
+			ship_y 					: in integer
+		);
+	end component;	
+	
+	
+	BEGIN
 	clkfucka <= clock_x;
 	clkfuckb <= clock_y;
 
 	U0 : ADXL345_controller port map('1', max10_clk, open, data_x, data_y, data_z, GSENSOR_SDI, GSENSOR_SDO, GSENSOR_CS_N, GSENSOR_SCLK);
 	U1 : RNG10 port map(reset_RNG, '0', max10_clk, RNG);
+	
+-------- Alien AIs ---------------------------------------------------------------------------------	
+	U02 : AlienRNG port map(max10_clk, RNG, alien(0).alive, alien(0).size, alien(0).color, alien(0).x, alien(0).y, 11, "1101111010", ship_x, ship_y);
+	U03 : AlienRNG port map(max10_clk, RNG, alien(1).alive, alien(1).size, alien(1).color, alien(1).x, alien(1).y, 20, "0110110111", ship_x, ship_y);
+	U04 : AlienRNG port map(max10_clk, RNG, alien(2).alive, alien(2).size, alien(2).color, alien(2).x, alien(2).y, 29, "1011101101", ship_x, ship_y);
+	U05 : AlienRNG port map(max10_clk, RNG, alien(3).alive, alien(3).size, alien(3).color, alien(3).x, alien(3).y, 35, "0011011111", ship_x, ship_y);
+	U06 : AlienTimer port map(max10_clk, RNG, alien(4).alive, alien(4).size, alien(4).color, alien(4).x, alien(4).y, 10, ship_x, ship_y);
+	U07 : AlienTimer port map(max10_clk, RNG, alien(5).alive, alien(5).size, alien(5).color, alien(5).x, alien(5).y, 17, ship_x, ship_y);
+	U08 : AlienTimer port map(max10_clk, RNG, alien(6).alive, alien(6).size, alien(6).color, alien(6).x, alien(6).y, 23, ship_x, ship_y);
+	U09 : AlienTimer port map(max10_clk, RNG, alien(7).alive, alien(7).size, alien(7).color, alien(7).x, alien(7).y, 13, ship_x, ship_y);
+	U10 : AlienScoreTimer port map(max10_clk, RNG, alien(8).alive, alien(8).size, alien(8).color, alien(8).x, alien(8).y, 30, 4, score, ship_x, ship_y);
+	U11 : AlienScoreTimer port map(max10_clk, RNG, alien(9).alive, alien(9).size, alien(9).color, alien(9).x, alien(9).y, 45, 5, score, ship_x, ship_y);
+	U12 : AlienScoreTimer port map(max10_clk, RNG, alien(10).alive, alien(10).size, alien(10).color, alien(10).x, alien(10).y, 50, 3, score, ship_x, ship_y);
+	U13 : AlienScoreTimer port map(max10_clk, RNG, alien(11).alive, alien(11).size, alien(11).color, alien(11).x, alien(11).y, 60, 7, score, ship_x, ship_y);
+	
 
 	PROCESS(disp_ena, row, column)
 		variable calcA : INTEGER;
