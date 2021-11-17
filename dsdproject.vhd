@@ -406,7 +406,7 @@ ARCHITECTURE behavior OF dsdproject IS
 						ship.y <= ship.y-1;
 					end if;
 				else 							--backward/down
-					if (ship.y = y_min) then
+					if (ship.y = y_min+1) then
 						ship.y <= y_min;
 					else
 						ship.y <= ship.y+1;
