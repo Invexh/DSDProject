@@ -374,8 +374,8 @@ ARCHITECTURE behavior OF dsdproject IS
 		else
 			if(rising_edge(clock_x)) then
 				if(data_x(11) = '1') then		--RIGHT
-					if (ship.x = x_max) then
-						ship.x <= x_max;
+					if (ship.x = x_max-ship.length) then
+						ship.x <= x_max-ship.length;
 					else
 						ship.x <= ship.x+1;
 					end if;
@@ -407,7 +407,7 @@ ARCHITECTURE behavior OF dsdproject IS
 					end if;
 				else 							--backward/down
 					if (ship.y = y_min+1) then
-						ship.y <= y_min;
+						ship.y <= y_min+1;
 					else
 						ship.y <= ship.y+1;
 					end if;
