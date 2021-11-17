@@ -98,7 +98,9 @@ ENTITY dsdproject IS
 	 GSENSOR_SDO  : INOUT	STD_LOGIC;
 	 reset_accel : in std_logic := '1';
 	 
-	 reset_RNG : IN STD_LOGIC
+	 reset_RNG : IN STD_LOGIC;
+	 
+	 pause_toggle	: in std_logic
 	 
 	 );
 END entity;
@@ -120,6 +122,8 @@ ARCHITECTURE behavior OF dsdproject IS
 	signal data_x, data_y, data_z : STD_LOGIC_VECTOR(15 downto 0);	
 	
 	signal RNG : std_logic_vector(9 downto 0);
+	
+	signal pause 	: std_logic := '0';
 
 	
 	-- Accelerometer component
@@ -203,18 +207,18 @@ ARCHITECTURE behavior OF dsdproject IS
 	U1 : RNG10 port map(reset_RNG, '0', max10_clk, RNG);
 	
 -------- Alien AIs ---------------------------------------------------------------------------------	
-	U02 : AlienRNG port map(max10_clk, RNG, alien(0).alive, alien(0).size, alien(0).color, alien(0).x, alien(0).y, 11, "1101111010", ship.x, ship.y);
-	U03 : AlienRNG port map(max10_clk, RNG, alien(1).alive, alien(1).size, alien(1).color, alien(1).x, alien(1).y, 20, "0110110111", ship.x, ship.y);
-	U04 : AlienRNG port map(max10_clk, RNG, alien(2).alive, alien(2).size, alien(2).color, alien(2).x, alien(2).y, 29, "1011101101", ship.x, ship.y);
-	U05 : AlienRNG port map(max10_clk, RNG, alien(3).alive, alien(3).size, alien(3).color, alien(3).x, alien(3).y, 35, "0011011111", ship.x, ship.y);
-	U06 : AlienTimer port map(max10_clk, RNG, alien(4).alive, alien(4).size, alien(4).color, alien(4).x, alien(4).y, 10, ship.x, ship.y);
-	U07 : AlienTimer port map(max10_clk, RNG, alien(5).alive, alien(5).size, alien(5).color, alien(5).x, alien(5).y, 17, ship.x, ship.y);
-	U08 : AlienTimer port map(max10_clk, RNG, alien(6).alive, alien(6).size, alien(6).color, alien(6).x, alien(6).y, 23, ship.x, ship.y);
-	U09 : AlienTimer port map(max10_clk, RNG, alien(7).alive, alien(7).size, alien(7).color, alien(7).x, alien(7).y, 13, ship.x, ship.y);
-	U10 : AlienScoreTimer port map(max10_clk, RNG, alien(8).alive, alien(8).size, alien(8).color, alien(8).x, alien(8).y, 30, 4, score, ship.x, ship.y);
-	U11 : AlienScoreTimer port map(max10_clk, RNG, alien(9).alive, alien(9).size, alien(9).color, alien(9).x, alien(9).y, 45, 5, score, ship.x, ship.y);
-	U12 : AlienScoreTimer port map(max10_clk, RNG, alien(10).alive, alien(10).size, alien(10).color, alien(10).x, alien(10).y, 50, 3, score, ship.x, ship.y);
-	U13 : AlienScoreTimer port map(max10_clk, RNG, alien(11).alive, alien(11).size, alien(11).color, alien(11).x, alien(11).y, 60, 7, score, ship.x, ship.y);
+	U02 : AlienRNG port map(max10_clk AND NOT pause, RNG, alien(0).alive, alien(0).size, alien(0).color, alien(0).x, alien(0).y, 11, "1101111010", ship.x, ship.y);
+	U03 : AlienRNG port map(max10_clk AND NOT pause, RNG, alien(1).alive, alien(1).size, alien(1).color, alien(1).x, alien(1).y, 20, "0110110111", ship.x, ship.y);
+	U04 : AlienRNG port map(max10_clk AND NOT pause, RNG, alien(2).alive, alien(2).size, alien(2).color, alien(2).x, alien(2).y, 29, "1011101101", ship.x, ship.y);
+	U05 : AlienRNG port map(max10_clk AND NOT pause, RNG, alien(3).alive, alien(3).size, alien(3).color, alien(3).x, alien(3).y, 35, "0011011111", ship.x, ship.y);
+	U06 : AlienTimer port map(max10_clk AND NOT pause, RNG, alien(4).alive, alien(4).size, alien(4).color, alien(4).x, alien(4).y, 10, ship.x, ship.y);
+	U07 : AlienTimer port map(max10_clk AND NOT pause, RNG, alien(5).alive, alien(5).size, alien(5).color, alien(5).x, alien(5).y, 17, ship.x, ship.y);
+	U08 : AlienTimer port map(max10_clk AND NOT pause, RNG, alien(6).alive, alien(6).size, alien(6).color, alien(6).x, alien(6).y, 23, ship.x, ship.y);
+	U09 : AlienTimer port map(max10_clk AND NOT pause, RNG, alien(7).alive, alien(7).size, alien(7).color, alien(7).x, alien(7).y, 13, ship.x, ship.y);
+	U10 : AlienScoreTimer port map(max10_clk AND NOT pause, RNG, alien(8).alive, alien(8).size, alien(8).color, alien(8).x, alien(8).y, 30, 4, score, ship.x, ship.y);
+	U11 : AlienScoreTimer port map(max10_clk AND NOT pause, RNG, alien(9).alive, alien(9).size, alien(9).color, alien(9).x, alien(9).y, 45, 5, score, ship.x, ship.y);
+	U12 : AlienScoreTimer port map(max10_clk AND NOT pause, RNG, alien(10).alive, alien(10).size, alien(10).color, alien(10).x, alien(10).y, 50, 3, score, ship.x, ship.y);
+	U13 : AlienScoreTimer port map(max10_clk AND NOT pause, RNG, alien(11).alive, alien(11).size, alien(11).color, alien(11).x, alien(11).y, 60, 7, score, ship.x, ship.y);
 	
 
 	PROCESS(disp_ena, row, column)
@@ -223,6 +227,10 @@ ARCHITECTURE behavior OF dsdproject IS
 		variable calcC : INTEGER;
 		
 	BEGIN
+	
+	 if(falling_edge(pause_toggle)) then
+		pause <= not pause;
+	 end if;
 
     IF(disp_ena = '1') THEN        --display time
 	 

@@ -51,7 +51,6 @@ set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_location_assignment PIN_P11 -to pixel_clk_m
-set_location_assignment PIN_A7 -to reset_n_m
 set_location_assignment PIN_N3 -to h_sync_m
 set_location_assignment PIN_N1 -to v_sync_m
 set_location_assignment PIN_V1 -to red_m[1]
@@ -73,8 +72,6 @@ set_location_assignment PIN_V11 -to GSENSOR_SDI
 set_location_assignment PIN_V12 -to GSENSOR_SDO
 set_location_assignment PIN_AB16 -to GSENSOR_CS_N
 set_location_assignment PIN_B8 -to reset_accel
-set_location_assignment PIN_A8 -to clkfucka
-set_location_assignment PIN_A9 -to clkfuckb
 set_global_assignment -name VHDL_FILE aliens.vhd
 set_global_assignment -name VHDL_FILE dsdproject.vhd
 set_global_assignment -name SYSTEMVERILOG_FILE Accelerometer/spi.sv
@@ -86,3 +83,4 @@ set_global_assignment -name VHDL_FILE vga_top_level.vhd
 set_global_assignment -name VHDL_FILE vga_pll_25_175.vhd
 set_global_assignment -name VHDL_FILE vga_controller.vhd
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_location_assignment PIN_A7 -to pause_toggle
