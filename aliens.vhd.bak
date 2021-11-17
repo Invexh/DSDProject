@@ -11,7 +11,7 @@ entity AlienRNG is
 		max10_clk 			: in std_logic;
 		RNG 					: in std_logic_vector(9 downto 0);
 		alive					: inout std_logic := '0';
-		size 					: inout integer;
+		size 					: inout unsigned(2 downto 0);
 		color					: out std_logic_vector(11 downto 0);
 		x_pos					: inout integer := 641;
 		y_pos					: inout integer := 240;
@@ -27,7 +27,6 @@ architecture beh of AlienRNG is
 	signal RNG_instance 			: std_logic_vector(9 downto 0);
 	signal i 						: std_logic := '0';
 	signal movement_clock 		: std_logic;
-	signal size_unsigned			: unsigned(2 downto 0);
 	
 begin
 	initialize : process(alive)
@@ -40,9 +39,8 @@ begin
 				i <= '0';
 			end if;
 		
-			size_unsigned(2 downto 0) <= unsigned(RNG_instance(6 downto 4));
+			size(2 downto 0) <= unsigned(RNG_instance(6 downto 4));
 			color <= "101000001111";
-			size <= to_integer(size_unsigned);
 		end if;
 	end process;
 		
@@ -101,7 +99,7 @@ begin
 								x_pos <= x_pos - 1;
 							end if;
 							
-							if(y_pos = y_max + (size+1)*8) then
+							if(y_pos = y_max + (to_integer(size)+1)*8) then
 								diagonalDir := 1;
 							else
 								y_pos <= y_pos - 1;
@@ -141,7 +139,7 @@ begin
 								x_pos <= x_pos + 1;
 							end if;	
 								
-							if(y_pos = y_max + (size+1)*8) then
+							if(y_pos = y_max + (to_integer(size)+1)*8) then
 								diagonalDir := 2;
 							else
 								y_pos <= y_pos - 1;
@@ -213,7 +211,7 @@ entity AlienTimer is
 		max10_clk 			: in std_logic;
 		RNG 					: in std_logic_vector(9 downto 0);
 		alive					: inout std_logic := '0';
-		size 					: inout integer;
+		size 					: inout unsigned(2 downto 0);
 		color					: out std_logic_vector(11 downto 0);
 		x_pos					: inout integer := 641;
 		y_pos					: inout integer := 153;
@@ -228,7 +226,6 @@ architecture beh of AlienTimer is
 	signal RNG_instance 			: std_logic_vector(9 downto 0);
 	signal i 						: std_logic;
 	signal movement_clock 		: std_logic;
-	signal size_unsigned			: unsigned(2 downto 0)
 	
 begin
 	initialize : process(alive)
@@ -241,9 +238,8 @@ begin
 				i <= '0';				
 			end if;
 		
-			size_unsigned(2 downto 0) <= unsigned(RNG_instance(9 downto 7));
+			size(2 downto 0) <= unsigned(RNG_instance(9 downto 7));
 			color <= "000011110000";
-			size <= to_integer(size_unsigned);
 		end if;
 	end process;	
 
@@ -274,7 +270,7 @@ begin
 	
 	begin
 		if(rising_edge(movement_clock) AND alive = '1') then
-			case size_unsigned is
+			case size is
 				when "011"|"000" =>	-- floaty
 					if(floaty > 500) then
 						if(RNG(5) = '1') then
@@ -301,7 +297,7 @@ begin
 								x_pos <= x_pos - 1;
 							end if;
 							
-							if(y_pos = y_max + (size+1)*8) then
+							if(y_pos = y_max + (to_integer(size)+1)*8) then
 								diagonalDir := 1;
 							else
 								y_pos <= y_pos - 1;
@@ -341,7 +337,7 @@ begin
 								x_pos <= x_pos + 1;
 							end if;	
 								
-							if(y_pos = y_max + (size+1)*8) then
+							if(y_pos = y_max + (to_integer(size)+1)*8) then
 								diagonalDir := 2;
 							else
 								y_pos <= y_pos - 1;
@@ -405,7 +401,7 @@ entity AlienScoreTimer is
 		max10_clk 				: in std_logic;
 		RNG 						: in std_logic_vector(9 downto 0);
 		alive						: inout std_logic := '0';
-		size 						: inout integer;
+		size 						: inout unsigned(2 downto 0);
 		color						: out std_logic_vector(11 downto 0);
 		x_pos						: inout integer := 641; 
 		y_pos						: inout integer := 326;
@@ -422,7 +418,6 @@ architecture beh of AlienScoreTimer is
 	signal RNG_instance 			: std_logic_vector(9 downto 0);
 	signal i 						: std_logic;
 	signal movement_clock 		: std_logic;
-	signal size_unsigned			: unsigned(2 downto 0);
 	
 begin
 	initialize : process(alive)
@@ -435,9 +430,8 @@ begin
 				i <= '0';			
 			end if;
 		
-			size_unsigned(2 downto 0) <= unsigned(RNG_instance(3 downto 1));
+			size(2 downto 0) <= unsigned(RNG_instance(3 downto 1));
 			color <= "000000001111";
-			size <= to_integer(size_unsigned);
 		end if;
 	end process;
 	
@@ -495,7 +489,7 @@ begin
 								x_pos <= x_pos - 1;
 							end if;
 							
-							if(y_pos = y_max + ((size+1)*8) then
+							if(y_pos = y_max + (to_integer(size)+1)*8) then
 								diagonalDir := 1;
 							else
 								y_pos <= y_pos - 1;
@@ -535,7 +529,7 @@ begin
 								x_pos <= x_pos + 1;
 							end if;	
 								
-							if(y_pos = y_max + (size+1)*8) then
+							if(y_pos = y_max + (to_integer(size)+1)*8) then
 								diagonalDir := 2;
 							else
 								y_pos <= y_pos - 1;
