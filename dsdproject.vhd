@@ -20,7 +20,17 @@ package custom_types is
 		y : INTEGER;
 		collision : STD_LOGIC;
 	end record ship_t;
-	
+
+	type seg_digit is record
+		A : STD_LOGIC;
+		B : STD_LOGIC;
+		C : STD_LOGIC;
+		D : STD_LOGIC;
+		E : STD_LOGIC;
+		F : STD_LOGIC;
+		G : STD_LOGIC;
+	end record seg_digit;
+
 	type player_proj is record
 		x : INTEGER; --Y POS
 		y : INTEGER; --X POS
@@ -31,6 +41,7 @@ package custom_types is
 	
 	type player_proj_array is array (integer range <>) of player_proj;
 	type alien_array is array (integer range <>) of alien_t;
+	type seg_array is array (integer range <>) of seg_digit;
 	
 end package;
 
@@ -59,12 +70,12 @@ ENTITY dsdproject IS
 		max_pproj : INTEGER := 20;
 		
 		--X AND Y FOR SCORE ARE BOTTOM RIGHT COORD
-		score_x : INTEGER := 630;
+		score_x : INTEGER := 480;
 		score_y : INTEGER := 48;
 		
 		--Scoreboard data
 		max_digits : INTEGER := 6;
-		digit_height : INTEGER := 19;
+		digit_height : INTEGER := 30;
 		digit_spacing : INTEGER := 4;
 		digit_thickness : INTEGER := 3;
 		
@@ -108,6 +119,7 @@ ARCHITECTURE behavior OF dsdproject IS
 
 	--SCORE AND SCOREBOARD--
 	signal score : INTEGER := 0;
+	signal digit : seg_array(max_digits-1 downto 0);
 
 	--ENTITIES--
 	signal alien : alien_array(11 downto 0);
@@ -225,6 +237,7 @@ ARCHITECTURE behavior OF dsdproject IS
 		variable calcA : INTEGER;
 		variable calcB : INTEGER;
 		variable calcC : INTEGER;
+		variable calcD : INTEGER;
 		
 	BEGIN
 
@@ -283,6 +296,7 @@ ARCHITECTURE behavior OF dsdproject IS
 				END IF;
 			END IF;
 		END LOOP;
+		
 ------DRAWS THE PLAYER PROJECTILES ON THE SCREEN---------------------------------------------
 		FOR i in 0 to 19 LOOP
 			IF (p_proj(i).e = '1') THEN
@@ -291,7 +305,49 @@ ARCHITECTURE behavior OF dsdproject IS
 				END IF;
 			END IF;
 		END LOOP;
+------DRAWS THE SCOREBOARD TO THE SCREEN-----------------------------------------------------
+		calcA := (digit_thickness - 1)/2;	--Onesided thickness of digit
+		calcB := (digit_height - 3)/2;		--Segment Length 
+		FOR i in 0 to (max_digits - 1) LOOP
+			digit(i).A <= '1';
+			digit(i).B <= '1';
+			digit(i).C <= '1';
+			digit(i).D <= '1';
+			digit(i).E <= '1';
+			digit(i).F <= '1';
+			digit(i).G <= '1';
 
+			calcC := column - (score_x + i*(digit_spacing + 2*calcA + calcB));	--Relative x position
+			calcD := score_y - row; --Relative y position
+
+			IF (digit(i).A = '1' AND (calcC > 0 AND calcC <= (calcB + 2*calcA)) AND (calcD >= 2*(calcB + calcA) AND calcD <= (2*calcB + 1 + 3*calcA))) THEN
+				colorconcat <= "111100000000";
+			END IF;
+
+			IF (digit(i).B = '1' AND (calcC >= (calcB + calcA) AND calcC <= (calcB + 2*calcA + 1)) AND (calcD > (calcB + 2*calcA) AND calcD <= (2*calcB + 1 + 2*calcA))) THEN
+				colorconcat <= "111100000000";
+			END IF;
+
+			IF (digit(i).C = '1' AND (calcC >= (calcB + calcA) AND calcC <= (calcB + 2*calcA + 1)) AND (calcD > 0 AND calcD <= (calcB + 1))) THEN
+				colorconcat <= "111100000000";
+			END IF;
+
+			IF (digit(i).D = '1' AND (calcC > 0 AND calcC <= (calcB + 2*calcA)) AND (calcD >= 0 AND calcD <= (1 + calcA))) THEN
+				colorconcat <= "111100000000";
+			END IF;
+
+			IF (digit(i).E = '1' AND (calcC >= 0 AND calcC <= (1 + calcA)) AND (calcD > 0 AND calcD <= (calcB + 1))) THEN
+				colorconcat <= "111100000000";
+			END IF;
+
+			IF (digit(i).F = '1' AND (calcC >= 0 AND calcC <= (1 + calcA)) AND (calcD > (calcB + calcA + 1) AND calcD <= (2*calcB + 1 + 2*calcA))) THEN
+				colorconcat <= "111100000000";
+			END IF;
+
+			IF (digit(i).G = '1' AND (calcC > 0 AND calcC <= (calcB + 2*calcA)) AND (calcD >= (calcB + calcA) AND calcD <= (calcB + 1 + 3*calcA))) THEN
+				colorconcat <= "111100000000";
+			END IF;
+		END LOOP;
 ------OUTPUTS THE RESULTING COLORS TO THE SCREEN---------------------------------------------
 		red <= "0000" & colorconcat(11 downto 8);
 		green <= "0000" & colorconcat(7 downto 4);
@@ -432,7 +488,7 @@ ARCHITECTURE behavior OF dsdproject IS
 		end if;
 	end process;
 	
-------Player Laser Data----------------------------------------------------------------------
+------PLAYER LASER DATA----------------------------------------------------------------------
 	
 	projectileMoveClock : process (max10_clk, pause)
 	variable proj_clock_counter : integer := 0;
