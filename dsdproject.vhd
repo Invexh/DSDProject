@@ -29,6 +29,8 @@ USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
 
 package custom_types is
+	type int_array is array (integer range <>) of integer;
+
 	type alien_t is record
 		alive : STD_LOGIC;
 		size : INTEGER;
@@ -45,9 +47,15 @@ package custom_types is
 		collision : STD_LOGIC;
 	end record ship_t;
 	
-	type alien_array is array (integer range <>) of alien_t;
+	type player_proj is record
+		x : int_array(19 downto 0); --Y POS
+		y : int_array(19 downto 0); --X POS
+		hs1 : STD_LOGIC_VECTOR(19 downto 0);	--Entity Handshake 1
+		hs2 : STD_LOGIC_VECTOR(19 downto 0);	--Entity Handshake 2
+		e : STD_LOGIC_VECTOR(19 downto 0); --Entity bit
+	end record player_proj;
 	
-	type int_array is array (integer range <>) of integer;
+	type alien_array is array (integer range <>) of alien_t;
 	
 end package;
 
@@ -100,7 +108,8 @@ ENTITY dsdproject IS
 	 
 	 reset_RNG : IN STD_LOGIC;
 	 
-	 pause_toggle	: in std_logic
+	 pause_toggle	: in std_logic;
+	 shoot			: in std_logic
 	 
 	 );
 END entity;
@@ -108,8 +117,6 @@ END entity;
 ARCHITECTURE behavior OF dsdproject IS
 	signal colorconcat : STD_LOGIC_VECTOR(11 downto 0);
 	signal ship : ship_t := (alive => '1', x => x_min, y => (240 + ship_height/2), collision => '0');
-	-- signal ship.x : INTEGER := x_min;
-	-- signal ship.y : INTEGER := (240 + ship_height/2);
 	
 	signal spare_ships : INTEGER := 3;
 	signal score : INTEGER := 0;
@@ -126,6 +133,9 @@ ARCHITECTURE behavior OF dsdproject IS
 	signal pause 	: std_logic := '0';
 	signal clockWithPause 		: std_logic := '0';
 
+	signal p_proj : player_proj := (x => (OTHERS => 0), y => (OTHERS => 0), hs1 => (OTHERS => '0'), hs2 => (OTHERS => '0'), e => (OTHERS => '0'));
+	
+	signal projectile_clock : std_logic := '0';
 	
 	-- Accelerometer component
 	component ADXL345_controller is port(	
@@ -284,6 +294,14 @@ ARCHITECTURE behavior OF dsdproject IS
 			END IF;
 		END IF;
 		END LOOP;
+------DRAWS THE PROJECTILES ON THE SCREEN----------------------------------------------------------
+		FOR i in 0 to 19 LOOP
+			IF (p_proj.e(i) = '1') THEN
+				IF (row = p_proj.y(i) AND column >= p_proj.x(i) AND column <= (p_proj.x(i) + 20)) THEN
+					colorconcat <= "111100000000";
+				END IF;
+			END IF;
+		END LOOP;																								      
 
 ------DRAWS THE SCOREBOARD ON THE SCREEN----------------------------------------------------------------------------------------------------
 
@@ -429,5 +447,51 @@ ARCHITECTURE behavior OF dsdproject IS
 		end if;
 	end process;
   
+ ------Ship Bullet Movement------------------------------------------------------------------------------------------------------------------
+	
+	projectileMoveClock : process (max10_clk, pause)
+	variable proj_clock_counter : integer := 0;
+	begin
+		if(rising_edge(max10_clk) AND pause = '0') then
+			proj_clock_counter := proj_clock_counter + 1;		
+		end if;
+		
+		if (proj_clock_counter > 70000) then
+			projectile_clock <= NOT projectile_clock;
+			proj_clock_counter := 0;
+		end if;
+
+	end process;
+
+	hndl_Projectile : PROCESS (shoot)
+	VARIABLE ei : INTEGER; --Entity Index
+	BEGIN
+		IF (pause = '0' AND rising_edge(shoot)) THEN
+			p_proj.e(ei) <= '1';
+			p_proj.hs1(ei) <= '1';
+			ei := ((ei + 1) mod 20);
+		END IF;
+		FOR i in 0 to 19 LOOP
+			IF (p_proj.hs2(i) = '1') THEN
+				p_proj.hs1(i) <= '0';
+			END IF;
+		END LOOP;
+	END PROCESS;
   
+	move_Projectile : PROCESS (projectile_clock)
+	BEGIN
+		IF (rising_edge(projectile_clock)) THEN	
+			FOR i in 0 to 19 LOOP
+				IF (p_proj.hs1(i) = '1') THEN
+					p_proj.hs2(i) <= '1';
+					p_proj.x(i) <= ship.x + ship_length;
+					p_proj.y(i) <= ship.y;
+				ELSE
+					p_proj.x(i) <= p_proj.x(i) + 1;
+					p_proj.hs2(i) <= '0';
+				END IF;
+			END LOOP;
+		END IF;
+	END PROCESS;
+	
 END architecture;
