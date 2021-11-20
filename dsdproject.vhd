@@ -265,11 +265,11 @@ ARCHITECTURE behavior OF dsdproject IS
 		END LOOP;
 
 ------DRAWS THE ENEMIES ON THE SCREEN--------------------------------------------------------
-		FOR i in 0 to 11 LOOP
-			IF (alien(i).alive = '1') THEN
-				calcA := column - alien(i).x;	--Relative X position
-				calcB := alien(i).y - row;		--Relative Y position
-				calcC := alien(i).size+1;			--Calc adjusted size
+		--FOR i in 0 to 11 LOOP
+			--IF (alien(i).alive = '1') THEN
+				--calcA := column - alien(i).x;	--Relative X position
+				--calcB := alien(i).y - row;		--Relative Y position
+				--calcC := alien(i).size+1;			--Calc adjusted size
 				
 				--IF ((calcB <= calcC AND calcB >= 0) AND (calcA <= calcC AND calcA >= 0)) THEN
 				--	IF ((calcB = calcC OR calcB = 0) OR (calcA = calcC OR calcA = 0)) THEN
@@ -279,11 +279,86 @@ ARCHITECTURE behavior OF dsdproject IS
 				--	END IF;
 				--END IF;
 				
-				if(row >= alien(i).y AND (row <= alien(i).y-(alien(i).size+1)*8) AND column >= alien(i).x AND column <= (alien(i).x+(alien(i).size+1)*8)) then
-					colorconcat <= alien(i).color;
-				end if;
-			END IF;
-		END LOOP;
+				--if(row <= alien(i).y AND (row >= alien(i).y-(alien(i).size+1)*8) AND column >= alien(i).x AND column <= (alien(i).x+(alien(i).size+1)*8)) then
+				--	colorconcat <= alien(i).color;
+				--end if;
+			--END IF;
+		--END LOOP;
+		
+		
+		IF (alien(0).alive = '1') THEN
+			if(row <= alien(0).y AND (row >= alien(0).y-((alien(0).size+1)*8)) AND column >= alien(0).x AND column <= (alien(0).x+(alien(0).size+1)*8)) then
+				colorconcat <= alien(0).color;
+			end if;
+		END IF;
+		
+		IF (alien(1).alive = '1') THEN
+			if(row <= alien(1).y AND (row >= alien(1).y-((alien(1).size+1)*8)) AND column >= alien(1).x AND column <= (alien(1).x+(alien(1).size+1)*8)) then
+				colorconcat <= alien(1).color;
+			end if;
+		END IF;
+		
+		IF (alien(2).alive = '1') THEN
+			if(row <= alien(2).y AND (row >= alien(2).y-((alien(2).size+1)*8)) AND column >= alien(2).x AND column <= (alien(2).x+(alien(2).size+1)*8)) then
+				colorconcat <= alien(2).color;
+			end if;
+		END IF;
+		
+		IF (alien(3).alive = '1') THEN
+			if(row <= alien(3).y AND (row >= alien(3).y-((alien(3).size+1)*8)) AND column >= alien(3).x AND column <= (alien(3).x+(alien(3).size+1)*8)) then
+				colorconcat <= alien(3).color;
+			end if;
+		END IF;
+		
+		IF (alien(4).alive = '1') THEN
+			if(row <= alien(4).y AND (row >= alien(4).y-((alien(4).size+1)*8)) AND column >= alien(4).x AND column <= (alien(4).x+(alien(4).size+1)*8)) then
+				colorconcat <= alien(4).color;
+			end if;
+		END IF;
+		
+		IF (alien(5).alive = '1') THEN
+			if(row <= alien(5).y AND (row >= alien(5).y-((alien(5).size+1)*8)) AND column >= alien(5).x AND column <= (alien(5).x+(alien(5).size+1)*8)) then
+				colorconcat <= alien(5).color;
+			end if;
+		END IF;
+		
+		IF (alien(6).alive = '1') THEN
+			if(row <= alien(6).y AND (row >= alien(6).y-((alien(6).size+1)*8)) AND column >= alien(6).x AND column <= (alien(6).x+(alien(6).size+1)*8)) then
+				colorconcat <= alien(6).color;
+			end if;
+		END IF;
+		
+		IF (alien(7).alive = '1') THEN
+			if(row <= alien(7).y AND (row >= alien(7).y-((alien(7).size+1)*8)) AND column >= alien(7).x AND column <= (alien(7).x+(alien(7).size+1)*8)) then
+				colorconcat <= alien(7).color;
+			end if;
+		END IF;
+		
+		IF (alien(8).alive = '1') THEN
+			if(row <= alien(8).y AND (row >= alien(8).y-((alien(8).size+1)*8)) AND column >= alien(8).x AND column <= (alien(8).x+(alien(8).size+1)*8)) then
+				colorconcat <= alien(8).color;
+			end if;
+		END IF;
+		
+		IF (alien(9).alive = '1') THEN
+			if(row <= alien(9).y AND (row >= alien(9).y-((alien(9).size+1)*8)) AND column >= alien(9).x AND column <= (alien(9).x+(alien(9).size+1)*8)) then
+				colorconcat <= alien(9).color;
+			end if;
+		END IF;
+		
+		IF (alien(10).alive = '1') THEN
+			if(row <= alien(10).y AND (row >= alien(10).y-((alien(10).size+1)*8)) AND column >= alien(10).x AND column <= (alien(10).x+(alien(10).size+1)*8)) then
+				colorconcat <= alien(10).color;
+			end if;
+		END IF;
+		
+		IF (alien(11).alive = '1') THEN
+			if(row <= alien(11).y AND (row >= (alien(11).y-((alien(11).size+1)*8))) AND column >= alien(11).x AND column <= (alien(11).x+((alien(11).size+1)*8))) then
+				colorconcat <= alien(11).color;
+			end if;
+		END IF;
+		
+
 ------DRAWS THE PLAYER PROJECTILES ON THE SCREEN---------------------------------------------
 		FOR i in 0 to 19 LOOP
 			IF (p_proj.e(i) = '1') THEN
@@ -472,7 +547,7 @@ ARCHITECTURE behavior OF dsdproject IS
 				IF (p_proj.hs1(i) = '1') THEN
 					p_proj.hs2(i) <= '1';
 					p_proj.x(i) <= ship.x + ship_length;
-					p_proj.y(i) <= ship.y;
+					p_proj.y(i) <= ship.y + 1;
 				ELSE
 					p_proj.x(i) <= p_proj.x(i) + 1;
 					p_proj.hs2(i) <= '0';
@@ -482,7 +557,7 @@ ARCHITECTURE behavior OF dsdproject IS
 	END PROCESS;
 	
 	
--- collision/kill flags
+-- collision/kill flags --------------------------------------------------------------------------------------------------------------
 	alienCollisionFlags : process (shoot, alien(0).alive, alien(1).alive, alien(2).alive, alien(3).alive, alien(4).alive, 
 											alien(5).alive, alien(6).alive, alien(7).alive, alien(8).alive, alien(9).alive, alien(10).alive, 
 											alien(11).alive)
@@ -491,7 +566,7 @@ ARCHITECTURE behavior OF dsdproject IS
 											--alien(9).collision, alien(10).collision, alien(11).collision)
 	begin
 		for i in 0 to 11 loop
-			if ( shoot = '0' ) then --**COLLISION DETECTION**-- 
+			if ( alien(i).x < x_min OR shoot = '0' ) then --**COLLISION DETECTION**-- 
 				alien(i).collision <= '1';
 			elsif (alien(i).alive = '1') then
 				alien(i).collision <= '0';

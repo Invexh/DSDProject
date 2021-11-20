@@ -68,15 +68,22 @@ begin
 	variable x_min : INTEGER := 25;
 	
 	begin
-		if(rising_edge(movement_clock) AND alive = '1') then
+		if(spawn = '1') then
+			x_pos <= 641;
+			y_pos <= 240;
+		elsif(rising_edge(movement_clock) AND alive = '1') then
 			case size_unsigned is
-				when "011" | "000" =>	-- floaty
+				when "011"|"000" =>	-- floaty
 					if(floaty > 500) then
-						if(RNG(9) = '1') then
+						if(RNG(8) = '1') then
 							x_pos <= x_pos - 1;
 						end if;
 						
-						if (RNG(6) = '1') then
+						if (y_pos <= y_max) then
+							y_pos <= y_pos + 1;
+						elsif (y_pos >= y_min) then
+							y_pos <= y_pos - 1;
+						elsif (RNG(0) = '1') then
 							y_pos <= y_pos + 1;
 						else
 							y_pos <= y_pos - 1;
@@ -87,29 +94,29 @@ begin
 					end if;
 					
 					
-				when "100" | "101" =>	-- diagonal
+				when "100"|"101" =>	-- diagonal
 					if(diagonalSpeed > 10) then
 						if(diagonalDir = 0) then	--up left
-							if(x_pos = x_min) then
+							if(x_pos <= x_min) then
 								diagonalDir := 3;
 							else
 								x_pos <= x_pos - 1;
 							end if;
 							
-							if(y_pos = y_max + (size+1)*8) then
+							if (y_pos <= y_max - ((size+1)*8)) then
 								diagonalDir := 1;
 							else
 								y_pos <= y_pos - 1;
 							end if;
 							
 						elsif(diagonalDir = 1) then	-- down left
-							if(x_pos = x_min) then
+							if(x_pos <= x_min) then
 								diagonalDir := 2;
 							else
 								x_pos <= x_pos - 1;
 							end if;
 							
-							if(y_pos = y_min) then
+							if(y_pos >= y_min) then
 								diagonalDir := 0;
 							else
 								y_pos <= y_pos + 1;
@@ -117,26 +124,26 @@ begin
 							
 							
 						elsif(diagonalDir = 2) then	-- down right
-							if(x_pos = x_max) then
+							if(x_pos >= x_max - ((size+1)*8)) then
 								diagonalDir := 1;
 							else
 								x_pos <= x_pos + 1;
 							end if;	
 								
-							if(y_pos = y_min) then
+							if(y_pos >= y_min) then
 								diagonalDir := 3;
 							else
 								y_pos <= y_pos + 1;
 							end if;
 							
 						else									-- up right
-							if(x_pos = x_max) then
+							if(x_pos >= x_max- ((size+1)*8)) then
 								diagonalDir := 0;
 							else
 								x_pos <= x_pos + 1;
 							end if;	
 								
-							if(y_pos = y_max + (size+1)*8) then
+							if(y_pos <= y_max + (size+1)*8) then
 								diagonalDir := 2;
 							else
 								y_pos <= y_pos - 1;
@@ -149,7 +156,7 @@ begin
 					
 					
 					
-				when "001" | "010" =>	-- horizontal fast
+				when "001"|"010" =>	-- horizontal fast
 					if(fast > 5) then
 						x_pos <= x_pos - 1;
 						fast := 0;
@@ -157,7 +164,7 @@ begin
 						fast := fast + 1;
 					end if;
 					
-				when "110" | "111" =>	-- slowly approach player
+				when "110"|"111" =>	-- slowly approach player
 					if (slow > 20) then
 						if (ship_x > x_pos) then
 							x_pos <= x_pos + 1;
@@ -175,9 +182,6 @@ begin
 						slow := slow + 1;
 					end if;
 			end case;
-		--else								--default starting point
-		--	x_pos <= 640;
-		--	y_pos <= 240;
 		end if;
 	end process;
 	
@@ -274,17 +278,24 @@ begin
 	variable y_min : INTEGER := 413;
 	variable x_max : INTEGER := 640;
 	variable x_min : INTEGER := 25;
-		
+	
 	begin
-		if(rising_edge(movement_clock) AND alive = '1') then
+		if(spawn = '1') then
+			x_pos <= 641;
+			y_pos <= 153;
+		elsif(rising_edge(movement_clock) AND alive = '1') then
 			case size_unsigned is
 				when "011"|"000" =>	-- floaty
 					if(floaty > 500) then
-						if(RNG(5) = '1') then
+						if(RNG(8) = '1') then
 							x_pos <= x_pos - 1;
 						end if;
 						
-						if (RNG(3) = '1') then
+						if (y_pos <= y_max) then
+							y_pos <= y_pos + 1;
+						elsif (y_pos >= y_min) then
+							y_pos <= y_pos - 1;
+						elsif (RNG(0) = '1') then
 							y_pos <= y_pos + 1;
 						else
 							y_pos <= y_pos - 1;
@@ -298,26 +309,26 @@ begin
 				when "100"|"101" =>	-- diagonal
 					if(diagonalSpeed > 10) then
 						if(diagonalDir = 0) then	--up left
-							if(x_pos = x_min) then
+							if(x_pos <= x_min) then
 								diagonalDir := 3;
 							else
 								x_pos <= x_pos - 1;
 							end if;
 							
-							if(y_pos = y_max + (size+1)*8) then
+							if (y_pos <= y_max - ((size+1)*8)) then
 								diagonalDir := 1;
 							else
 								y_pos <= y_pos - 1;
 							end if;
 							
 						elsif(diagonalDir = 1) then	-- down left
-							if(x_pos = x_min) then
+							if(x_pos <= x_min) then
 								diagonalDir := 2;
 							else
 								x_pos <= x_pos - 1;
 							end if;
 							
-							if(y_pos = y_min) then
+							if(y_pos >= y_min) then
 								diagonalDir := 0;
 							else
 								y_pos <= y_pos + 1;
@@ -325,26 +336,26 @@ begin
 							
 							
 						elsif(diagonalDir = 2) then	-- down right
-							if(x_pos = x_max) then
+							if(x_pos >= x_max - ((size+1)*8)) then
 								diagonalDir := 1;
 							else
 								x_pos <= x_pos + 1;
 							end if;	
 								
-							if(y_pos = y_min) then
+							if(y_pos >= y_min) then
 								diagonalDir := 3;
 							else
 								y_pos <= y_pos + 1;
 							end if;
 							
 						else									-- up right
-							if(x_pos = x_max) then
+							if(x_pos >= x_max- ((size+1)*8)) then
 								diagonalDir := 0;
 							else
 								x_pos <= x_pos + 1;
 							end if;	
 								
-							if(y_pos = y_max + (size+1)*8) then
+							if(y_pos <= y_max + (size+1)*8) then
 								diagonalDir := 2;
 							else
 								y_pos <= y_pos - 1;
@@ -385,7 +396,6 @@ begin
 			end case;
 		end if;
 	end process;
-	
 	spawning : process (max10_clk, alive)
 	variable timeSinceLastSpawn : unsigned(63 downto 0)  := (OTHERS => '0');
 	begin
@@ -463,7 +473,7 @@ begin
 			movement_counter := movement_counter + 1;		
 		end if;
 		
-		if (movement_counter <= 100000) then
+		if (movement_counter <= 10000000) then
 			movement_clock <= NOT movement_clock;
 			movement_counter := 0;			
 		end if;
@@ -482,7 +492,10 @@ begin
 	variable x_min : INTEGER := 25;
 	
 	begin
-		if(rising_edge(movement_clock) AND alive = '1') then
+		if(spawn = '1') then
+			x_pos <= 641;
+			y_pos <= 326;
+		elsif(rising_edge(movement_clock) AND alive = '1') then
 			case size_unsigned is
 				when "011"|"000" =>	-- floaty
 					if(floaty > 500) then
@@ -490,7 +503,11 @@ begin
 							x_pos <= x_pos - 1;
 						end if;
 						
-						if (RNG(0) = '1') then
+						if (y_pos <= y_max) then
+							y_pos <= y_pos + 1;
+						elsif (y_pos >= y_min) then
+							y_pos <= y_pos - 1;
+						elsif (RNG(0) = '1') then
 							y_pos <= y_pos + 1;
 						else
 							y_pos <= y_pos - 1;
@@ -504,26 +521,26 @@ begin
 				when "100"|"101" =>	-- diagonal
 					if(diagonalSpeed > 10) then
 						if(diagonalDir = 0) then	--up left
-							if(x_pos = x_min) then
+							if(x_pos <= x_min) then
 								diagonalDir := 3;
 							else
 								x_pos <= x_pos - 1;
 							end if;
 							
-							if (y_pos = y_max + ((size+1)*8)) then
+							if (y_pos <= y_max - ((size+1)*8)) then
 								diagonalDir := 1;
 							else
 								y_pos <= y_pos - 1;
 							end if;
 							
 						elsif(diagonalDir = 1) then	-- down left
-							if(x_pos = x_min) then
+							if(x_pos <= x_min) then
 								diagonalDir := 2;
 							else
 								x_pos <= x_pos - 1;
 							end if;
 							
-							if(y_pos = y_min) then
+							if(y_pos >= y_min) then
 								diagonalDir := 0;
 							else
 								y_pos <= y_pos + 1;
@@ -531,26 +548,26 @@ begin
 							
 							
 						elsif(diagonalDir = 2) then	-- down right
-							if(x_pos = x_max) then
+							if(x_pos >= x_max - ((size+1)*8)) then
 								diagonalDir := 1;
 							else
 								x_pos <= x_pos + 1;
 							end if;	
 								
-							if(y_pos = y_min) then
+							if(y_pos >= y_min) then
 								diagonalDir := 3;
 							else
 								y_pos <= y_pos + 1;
 							end if;
 							
 						else									-- up right
-							if(x_pos = x_max) then
+							if(x_pos >= x_max- ((size+1)*8)) then
 								diagonalDir := 0;
 							else
 								x_pos <= x_pos + 1;
 							end if;	
 								
-							if(y_pos = y_max + (size+1)*8) then
+							if(y_pos <= y_max + (size+1)*8) then
 								diagonalDir := 2;
 							else
 								y_pos <= y_pos - 1;
@@ -591,7 +608,6 @@ begin
 			end case;
 		end if;
 	end process;
-	
 	--spawn flag
 	spawning : process (max10_clk, alive)
 	variable timeSinceLastSpawn : unsigned(31 downto 0)  := (OTHERS => '0');
