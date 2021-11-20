@@ -1,29 +1,3 @@
---------------------------------------------------------------------------------
---
---   FileName:         hw_image_generator.vhd
---   Dependencies:     none
---   Design Software:  Quartus II 64-bit Version 12.1 Build 177 SJ Full Version
---
---   HDL CODE IS PROVIDED "AS IS."  DIGI-KEY EXPRESSLY DISCLAIMS ANY
---   WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT
---   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
---   PARTICULAR PURPOSE, OR NON-INFRINGEMENT. IN NO EVENT SHALL DIGI-KEY
---   BE LIABLE FOR ANY INCIDENTAL, SPECIAL, INDIRECT OR CONSEQUENTIAL
---   DAMAGES, LOST PROFITS OR LOST DATA, HARM TO YOUR EQUIPMENT, COST OF
---   PROCUREMENT OF SUBSTITUTE GOODS, TECHNOLOGY OR SERVICES, ANY CLAIMS
---   BY THIRD PARTIES (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF),
---   ANY CLAIMS FOR INDEMNITY OR CONTRIBUTION, OR OTHER SIMILAR COSTS.
---
---   Version History
---   Version 1.0 05/10/2013 Scott Larson
---     Initial Public Release
---    
---------------------------------------------------------------------------------
---
--- Altered 10/13/19 - Tyler McCormick 
--- Test pattern is now 8 equally spaced 
--- different color vertical bars, from black (left) to white (right)
-
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
@@ -87,8 +61,8 @@ ENTITY dsdproject IS
 		
 		ss_x : int_array(0 to 2) := (25, 70, 115);
 		ss_y : INTEGER := 57 --(y_max - bar_thickness - 5)
+	);
 
-	);  
   PORT(
     disp_ena :  IN   STD_LOGIC;  --display enable ('1' = display time, '0' = blanking time)
     row      :  IN   INTEGER;    --row pixel coordinate
@@ -97,44 +71,50 @@ ENTITY dsdproject IS
     green    :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0) := (OTHERS => '0');  --green magnitude output to DAC
     blue     :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0) := (OTHERS => '0'); --blue magnitude output to DAC
 	 
-	 max10_clk : inout std_logic;
-	 
-	 --ports to run the accelerometer
-	 GSENSOR_CS_N : OUT	STD_LOGIC;
-	 GSENSOR_SCLK : OUT	STD_LOGIC;
-	 GSENSOR_SDI  : INOUT	STD_LOGIC;
-	 GSENSOR_SDO  : INOUT	STD_LOGIC;
-	 reset_accel : in std_logic := '1';
-	 
-	 reset_RNG : IN STD_LOGIC;
-	 
-	 pause_toggle	: in std_logic;
-	 shoot			: in std_logic
-	 
-	 );
+	max10_clk : inout std_logic;
+	
+	--ports to run the accelerometer
+	GSENSOR_CS_N : OUT	STD_LOGIC;
+	GSENSOR_SCLK : OUT	STD_LOGIC;
+	GSENSOR_SDI  : INOUT	STD_LOGIC;
+	GSENSOR_SDO  : INOUT	STD_LOGIC;
+	reset_accel : in std_logic := '1';
+	
+	reset_RNG : IN STD_LOGIC;
+	
+	pause_toggle	: in std_logic;
+	shoot			: in std_logic
+	
+	);
 END entity;
 
 ARCHITECTURE behavior OF dsdproject IS
+	--FOR DRAWING COLOR W/ ONE VECTOR--
 	signal colorconcat : STD_LOGIC_VECTOR(11 downto 0);
+
+	--PLAYER DATA--
 	signal ship : ship_t := (alive => '1', x => x_min, y => (240 + ship_height/2), collision => '0');
-	
 	signal spare_ships : INTEGER := 3;
+
+	--SCORE AND SCOREBOARD--
 	signal score : INTEGER := 0;
+
+	--ENTITIES--
 	signal alien : alien_array(11 downto 0);
-	
+	signal p_proj : player_proj := (x => (OTHERS => 0), y => (OTHERS => 0), hs1 => (OTHERS => '0'), hs2 => (OTHERS => '0'), e => (OTHERS => '0'));
+
+	--CLOCK RELATED DATA--
 	signal clock_x, clock_y : STD_LOGIC := '0';
 	signal data_x_magnitude, data_y_magnitude : std_logic_vector(7 downto 0);
 	signal countX : integer := 1;
 	signal countY : integer := 1;
 	signal data_x, data_y, data_z : STD_LOGIC_VECTOR(15 downto 0);	
-	
-	signal RNG : std_logic_vector(9 downto 0);
-	
-	signal pause 	: std_logic := '0';
 	signal clockWithPause 		: std_logic := '0';
-	signal p_proj : player_proj := (x => (OTHERS => 0), y => (OTHERS => 0), hs1 => (OTHERS => '0'), hs2 => (OTHERS => '0'), e => (OTHERS => '0'));
-	
 	signal projectile_clock : std_logic := '0';
+
+	--OTHER--
+	signal RNG : std_logic_vector(9 downto 0);
+	signal pause 	: std_logic := '0';
 	
 	-- Accelerometer component
 	component ADXL345_controller is port(	
@@ -240,7 +220,7 @@ ARCHITECTURE behavior OF dsdproject IS
 
     IF(disp_ena = '1') THEN        --display time
 	 
-------DRAWS THE HORIZONTAL BARS THAT DEFINE PLAY REGION---------------------------------------------------------------------------------
+------DRAWS THE HORIZONTAL BARS THAT DEFINE PLAY REGION--------------------------------------
 		IF( ((row < y_max) AND (row > (y_max - bar_thickness))) OR ((row > y_min) AND (row < (y_min + bar_thickness)))  ) THEN
 			colorconcat <= "000000000000";
 		ELSE
@@ -260,40 +240,40 @@ ARCHITECTURE behavior OF dsdproject IS
 			END IF;
 		END IF;
 		
-------DRAWS THE REMAINING LIVES ON THE SCREEN-------------------------------------------------
+------DRAWS THE REMAINING LIVES ON THE SCREEN------------------------------------------------
 		FOR i in 0 to 2 LOOP
-		IF (spare_ships > i) THEN
-			calcA := column - ss_x(i);		--Relative X position
-			calcB := ss_y - row;			--Relative Y position
-			calcC := -(ship_height * calcA)/ship_length + ship_height;	--Check if in area
-			
-			IF ((calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0)) THEN
-				IF ((calcA = 1 OR calcA = ship_length) OR (calcB = 1 OR calcB = calcC)) THEN
-					colorconcat <= "000000000000";
-				ELSE
-					colorconcat <= "111100000000";
+			IF (spare_ships > i) THEN
+				calcA := column - ss_x(i);		--Relative X position
+				calcB := ss_y - row;			--Relative Y position
+				calcC := -(ship_height * calcA)/ship_length + ship_height;	--Check if in area
+				
+				IF ((calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0)) THEN
+					IF ((calcA = 1 OR calcA = ship_length) OR (calcB = 1 OR calcB = calcC)) THEN
+						colorconcat <= "000000000000";
+					ELSE
+						colorconcat <= "111100000000";
+					END IF;
 				END IF;
 			END IF;
-		END IF;
 		END LOOP;
 
-------DRAWS THE ENEMIES ON THE SCREEN----------------------------------------------------------
+------DRAWS THE ENEMIES ON THE SCREEN--------------------------------------------------------
 		FOR i in 0 to 11 LOOP
-		IF (alien(i).alive = '1') THEN
-			calcA := column - alien(i).x;	--Relative X position
-			calcB := alien(i).y - row;		--Relative Y position
-			calcC := (alien(i).size+1) * 8;			--Calc adjusted size
-			
-			IF ((calcB <= calcC AND calcB >= 0) AND (calcA <= calcC AND calcA >= 0)) THEN
-				IF ((calcB = calcC OR calcB = 0) OR (calcA = calcC OR calcA = 0)) THEN
-					colorconcat <= "000000000000";
-				ELSE
-					colorconcat <= alien(i).color;
+			IF (alien(i).alive = '1') THEN
+				calcA := column - alien(i).x;	--Relative X position
+				calcB := alien(i).y - row;		--Relative Y position
+				calcC := (alien(i).size+1) * 8;			--Calc adjusted size
+				
+				IF ((calcB <= calcC AND calcB >= 0) AND (calcA <= calcC AND calcA >= 0)) THEN
+					IF ((calcB = calcC OR calcB = 0) OR (calcA = calcC OR calcA = 0)) THEN
+						colorconcat <= "000000000000";
+					ELSE
+						colorconcat <= alien(i).color;
+					END IF;
 				END IF;
 			END IF;
-		END IF;
 		END LOOP;
-------DRAWS THE PROJECTILES ON THE SCREEN----------------------------------------------------------
+------DRAWS THE PLAYER PROJECTILES ON THE SCREEN---------------------------------------------
 		FOR i in 0 to 19 LOOP
 			IF (p_proj.e(i) = '1') THEN
 				IF (row = p_proj.y(i) AND column >= p_proj.x(i) AND column <= (p_proj.x(i) + 20)) THEN
@@ -302,9 +282,8 @@ ARCHITECTURE behavior OF dsdproject IS
 			END IF;
 		END LOOP;
 
-------DRAWS THE SCOREBOARD ON THE SCREEN----------------------------------------------------------------------------------------------------
 
-		
+------OUTPUTS THE RESULTING COLORS TO THE SCREEN---------------------------------------------
 		red <= "0000" & colorconcat(11 downto 8);
 		green <= "0000" & colorconcat(7 downto 4);
 		blue <= "0000" & colorconcat(3 downto 0);
@@ -361,7 +340,7 @@ ARCHITECTURE behavior OF dsdproject IS
 		end if;	
 	end process;
 
-------Clock for Y Axis Movement-----------------------------------------------------------------------------------------------------------
+------Clock for Y Axis Movement--------------------------------------------------------------
 	
 	yAxisClock : process ( max10_clk, pause )	
 	variable clockDivY : natural := 255;
@@ -394,12 +373,11 @@ ARCHITECTURE behavior OF dsdproject IS
 		end if;	
 	end process;
 
-------X Axis Movement----------------------------------------------------------------------------------------------------------------
+------X Axis Movement------------------------------------------------------------------------
 	
 	xLocationAdjust : process (clock_x)
 	begin
 		if(reset_accel = '0') then
-			--redAdjust <= "0000";
 			ship.x <= ship.x;
 		else
 			if(rising_edge(clock_x)) then
@@ -420,12 +398,11 @@ ARCHITECTURE behavior OF dsdproject IS
 		end if;
 	end process;
 
-------Y Axis Movement------------------------------------------------------------------------------------------------------------------
+------Y Axis Movement------------------------------------------------------------------------
 	
 	yLocationAdjust : process (clock_y)
 	begin
 		if(reset_accel = '0') then
-			--greenadjust <= "0000";
 			ship.y <= ship.y;
 		else
 			if(rising_edge(clock_y)) then
@@ -446,7 +423,7 @@ ARCHITECTURE behavior OF dsdproject IS
 		end if;
 	end process;
 	
-------Ship Bullet Movement------------------------------------------------------------------------------------------------------------------
+------Player Laser Data----------------------------------------------------------------------
 	
 	projectileMoveClock : process (max10_clk, pause)
 	variable proj_clock_counter : integer := 0;
