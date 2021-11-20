@@ -196,7 +196,7 @@ ARCHITECTURE behavior OF dsdproject IS
 	U0 : ADXL345_controller port map('1', max10_clk, open, data_x, data_y, data_z, GSENSOR_SDI, GSENSOR_SDO, GSENSOR_CS_N, GSENSOR_SCLK);
 	U1 : RNG10 port map(reset_RNG, '0', max10_clk, RNG);
 	
--------- Alien AIs ---------------------------------------------------------------------------------	
+------Alien AIs------------------------------------------------------------------------------	
 	U02 : AlienRNG port map(clockWithPause, RNG, alien(0).alive, alien(0).size, alien(0).color, alien(0).x, alien(0).y, 11, "1101111010", ship.x, ship.y);
 	U03 : AlienRNG port map(clockWithPause, RNG, alien(1).alive, alien(1).size, alien(1).color, alien(1).x, alien(1).y, 20, "0110110111", ship.x, ship.y);
 	U04 : AlienRNG port map(clockWithPause, RNG, alien(2).alive, alien(2).size, alien(2).color, alien(2).x, alien(2).y, 29, "1011101101", ship.x, ship.y);
@@ -282,7 +282,6 @@ ARCHITECTURE behavior OF dsdproject IS
 			END IF;
 		END LOOP;
 
-
 ------OUTPUTS THE RESULTING COLORS TO THE SCREEN---------------------------------------------
 		red <= "0000" & colorconcat(11 downto 8);
 		green <= "0000" & colorconcat(7 downto 4);
@@ -296,7 +295,7 @@ ARCHITECTURE behavior OF dsdproject IS
   
   END PROCESS;
   
- ------ Pause ------------------------------------------ -----------------------------------------------------------------------------
+------Pause----------------------------------------------------------------------------------
 	pauseProcess : process ( max10_clk )
 	begin	
 		 if(falling_edge(pause_toggle)) then
@@ -307,7 +306,7 @@ ARCHITECTURE behavior OF dsdproject IS
 	
 	end process;
  
- ------Clock for X Axis Movement-----------------------------------------------------------------------------------------------------------
+------Clock for X Axis Movement--------------------------------------------------------------
 
   xAxisClock : process ( max10_clk, pause )	
 	variable clockDivX : natural := 255;
