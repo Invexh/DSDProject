@@ -22,13 +22,14 @@ package custom_types is
 	end record ship_t;
 	
 	type player_proj is record
-		x : int_array(19 downto 0); --Y POS
-		y : int_array(19 downto 0); --X POS
-		hs1 : STD_LOGIC_VECTOR(19 downto 0);	--Entity Handshake 1
-		hs2 : STD_LOGIC_VECTOR(19 downto 0);	--Entity Handshake 2
-		e : STD_LOGIC_VECTOR(19 downto 0); --Entity bit
+		x : INTEGER; --Y POS
+		y : INTEGER; --X POS
+		hs1 : STD_LOGIC;	--Entity Handshake 1
+		hs2 : STD_LOGIC;	--Entity Handshake 2
+		e : STD_LOGIC; --Entity bit
 	end record player_proj;
 	
+	type player_proj_array is array (integer range <>) of player_proj;
 	type alien_array is array (integer range <>) of alien_t;
 	
 end package;
@@ -41,24 +42,33 @@ USE work.custom_types.all;
 ENTITY dsdproject IS
   GENERIC(
 		
+		--Play area bounds
 		y_max : INTEGER := 67;
 		y_min : INTEGER := 413;
 		x_max : INTEGER := 320;
 		x_min : INTEGER := 25;
 		
+		--Horizontal Bar
 		bar_thickness : INTEGER := 5;
+
+		--Player ship data
 		ship_height : INTEGER := 18;
 		ship_length : INTEGER := 36;
+
+		--Player projectiles data
+		max_pproj : INTEGER := 20;
 		
 		--X AND Y FOR SCORE ARE BOTTOM RIGHT COORD
 		score_x : INTEGER := 630;
 		score_y : INTEGER := 48;
 		
+		--Scoreboard data
 		max_digits : INTEGER := 6;
 		digit_height : INTEGER := 19;
 		digit_spacing : INTEGER := 4;
 		digit_thickness : INTEGER := 3;
 		
+		--Spare ship data
 		ss_x : int_array(0 to 2) := (25, 70, 115);
 		ss_y : INTEGER := 57 --(y_max - bar_thickness - 5)
 	);
@@ -101,7 +111,7 @@ ARCHITECTURE behavior OF dsdproject IS
 
 	--ENTITIES--
 	signal alien : alien_array(11 downto 0);
-	signal p_proj : player_proj := (x => (OTHERS => 0), y => (OTHERS => 0), hs1 => (OTHERS => '0'), hs2 => (OTHERS => '0'), e => (OTHERS => '0'));
+	signal p_proj : player_proj_array(19 downto 0);
 
 	--CLOCK RELATED DATA--
 	signal clock_x, clock_y : STD_LOGIC := '0';
@@ -275,8 +285,8 @@ ARCHITECTURE behavior OF dsdproject IS
 		END LOOP;
 ------DRAWS THE PLAYER PROJECTILES ON THE SCREEN---------------------------------------------
 		FOR i in 0 to 19 LOOP
-			IF (p_proj.e(i) = '1') THEN
-				IF (row = p_proj.y(i) AND column >= p_proj.x(i) AND column <= (p_proj.x(i) + 20)) THEN
+			IF (p_proj(i).e = '1') THEN
+				IF (row = p_proj(i).y AND column >= p_proj(i).x AND column <= (p_proj(i).x + 20)) THEN
 					colorconcat <= "111100000000";
 				END IF;
 			END IF;
@@ -431,7 +441,7 @@ ARCHITECTURE behavior OF dsdproject IS
 			proj_clock_counter := proj_clock_counter + 1;		
 		end if;
 		
-		if (proj_clock_counter > 70000) then
+		if (proj_clock_counter > 90000) then
 			projectile_clock <= NOT projectile_clock;
 			proj_clock_counter := 0;
 		end if;
@@ -442,13 +452,13 @@ ARCHITECTURE behavior OF dsdproject IS
 	VARIABLE ei : INTEGER; --Entity Index
 	BEGIN
 		IF (pause = '0' AND rising_edge(shoot)) THEN
-			p_proj.e(ei) <= '1';
-			p_proj.hs1(ei) <= '1';
+			p_proj(ei).e <= '1';
+			p_proj(ei).hs1 <= '1';
 			ei := ((ei + 1) mod 20);
 		END IF;
 		FOR i in 0 to 19 LOOP
-			IF (p_proj.hs2(i) = '1') THEN
-				p_proj.hs1(i) <= '0';
+			IF (p_proj(i).hs2 = '1') THEN
+				p_proj(i).hs1 <= '0';
 			END IF;
 		END LOOP;
 	END PROCESS;
@@ -457,13 +467,13 @@ ARCHITECTURE behavior OF dsdproject IS
 	BEGIN
 		IF (rising_edge(projectile_clock)) THEN	
 			FOR i in 0 to 19 LOOP
-				IF (p_proj.hs1(i) = '1') THEN
-					p_proj.hs2(i) <= '1';
-					p_proj.x(i) <= ship.x + ship_length;
-					p_proj.y(i) <= ship.y;
+				IF (p_proj(i).hs1 = '1') THEN
+					p_proj(i).hs2 <= '1';
+					p_proj(i).x <= ship.x + ship_length;
+					p_proj(i).y <= ship.y;
 				ELSE
-					p_proj.x(i) <= p_proj.x(i) + 1;
-					p_proj.hs2(i) <= '0';
+					p_proj(i).x <= p_proj(i).x + 1;
+					p_proj(i).hs2 <= '0';
 				END IF;
 			END LOOP;
 		END IF;
