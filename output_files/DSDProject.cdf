@@ -4,7 +4,7 @@ JedecChain;
 	DefaultMfr(6E);
 
 	P ActionCode(Cfg)
-		Device PartName(10M50DAF484ES) Path("D:/Documents/GitHub/DSDProject/output_files/") File("DSDProject.sof") MfrSpec(OpMask(1));
+		Device PartName(10M50DAF484ES) Path("C:/Users/mmafi/OneDrive/Documents/DSDProject/output_files/") File("DSDProject.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 

@@ -132,7 +132,6 @@ ARCHITECTURE behavior OF dsdproject IS
 	
 	signal pause 	: std_logic := '0';
 	signal clockWithPause 		: std_logic := '0';
-
 	signal p_proj : player_proj := (x => (OTHERS => 0), y => (OTHERS => 0), hs1 => (OTHERS => '0'), hs2 => (OTHERS => '0'), e => (OTHERS => '0'));
 	
 	signal projectile_clock : std_logic := '0';
@@ -301,7 +300,7 @@ ARCHITECTURE behavior OF dsdproject IS
 					colorconcat <= "111100000000";
 				END IF;
 			END IF;
-		END LOOP;																								      
+		END LOOP;
 
 ------DRAWS THE SCOREBOARD ON THE SCREEN----------------------------------------------------------------------------------------------------
 
@@ -446,8 +445,8 @@ ARCHITECTURE behavior OF dsdproject IS
 			end if;
 		end if;
 	end process;
-  
- ------Ship Bullet Movement------------------------------------------------------------------------------------------------------------------
+	
+------Ship Bullet Movement------------------------------------------------------------------------------------------------------------------
 	
 	projectileMoveClock : process (max10_clk, pause)
 	variable proj_clock_counter : integer := 0;
@@ -493,5 +492,4 @@ ARCHITECTURE behavior OF dsdproject IS
 			END LOOP;
 		END IF;
 	END PROCESS;
-	
 END architecture;

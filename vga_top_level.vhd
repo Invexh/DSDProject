@@ -38,7 +38,8 @@ entity vga_top is
 	 
 		reset_RNG : IN STD_LOGIC;
 		
-		pause_toggle	: in std_logic
+		pause_toggle	: in std_logic;
+		shoot				: in std_logic
 	
 	);
 	
@@ -96,7 +97,8 @@ architecture vga_structural of vga_top is
 			
 			reset_RNG : IN STD_LOGIC;
 			
-			pause_toggle	: in std_logic
+			pause_toggle	: in std_logic;
+			shoot				: in std_logic
 				
 		);
 		
@@ -111,6 +113,6 @@ begin
 -- Just need 3 components for VGA system 
 	U1	:	vga_pll_25_175 port map(pixel_clk_m, pll_OUT_to_vga_controller_IN);
 	U2	:	vga_controller port map(pll_OUT_to_vga_controller_IN, reset_n_m, h_sync_m, v_sync_m, dispEn, colSignal, rowSignal, open, open);
-	U3	:	dsdproject port map(dispEn, rowSignal, colSignal, red_m, green_m, blue_m, pixel_clk_m, GSENSOR_CS_N, GSENSOR_SCLK, GSENSOR_SDI, GSENSOR_SDO, reset_accel, reset_RNG, pause_toggle);
+	U3	:	dsdproject port map(dispEn, rowSignal, colSignal, red_m, green_m, blue_m, pixel_clk_m, GSENSOR_CS_N, GSENSOR_SCLK, GSENSOR_SDI, GSENSOR_SDO, reset_accel, reset_RNG, pause_toggle, shoot);
 
 end vga_structural;
