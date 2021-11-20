@@ -12,6 +12,7 @@ package custom_types is
 		x : INTEGER;
 		y : INTEGER;
 		collision : STD_LOGIC;
+		spawn : std_logic;
 	end record alien_t;
 	
 	type ship_t is record
@@ -152,7 +153,9 @@ ARCHITECTURE behavior OF dsdproject IS
 			min_period			: in integer := 5;
 			RNG_bit_map			: in std_logic_vector(9 downto 0) := "1111111111";
 			ship_x				: in integer := 0;
-			ship_y 				: in integer := 0
+			ship_y 				: in integer := 0;
+			collision			: inout std_logic;
+			spawn					: inout std_logic
 		);
 	end component;
 	
@@ -168,7 +171,9 @@ ARCHITECTURE behavior OF dsdproject IS
 			y_pos					: inout integer;
 			period_seconds 	: in integer;
 			ship_x				: in integer := 0;
-			ship_y 				: in integer := 0
+			ship_y 				: in integer := 0;
+			collision			: inout std_logic;
+			spawn					: inout std_logic
 		);
 	end component;
 	
@@ -186,7 +191,9 @@ ARCHITECTURE behavior OF dsdproject IS
 			min_period_seconds	: in integer;
 			current_score			: in integer;
 			ship_x					: in integer;
-			ship_y 					: in integer
+			ship_y 					: in integer;
+			collision			: inout std_logic;
+			spawn					: inout std_logic
 		);
 	end component;	
 	
@@ -197,18 +204,18 @@ ARCHITECTURE behavior OF dsdproject IS
 	U1 : RNG10 port map(reset_RNG, '0', max10_clk, RNG);
 	
 -------- Alien AIs ---------------------------------------------------------------------------------	
-	U02 : AlienRNG port map(clockWithPause, RNG, alien(0).alive, alien(0).size, alien(0).color, alien(0).x, alien(0).y, 11, "1101111010", ship.x, ship.y);
-	U03 : AlienRNG port map(clockWithPause, RNG, alien(1).alive, alien(1).size, alien(1).color, alien(1).x, alien(1).y, 20, "0110110111", ship.x, ship.y);
-	U04 : AlienRNG port map(clockWithPause, RNG, alien(2).alive, alien(2).size, alien(2).color, alien(2).x, alien(2).y, 29, "1011101101", ship.x, ship.y);
-	U05 : AlienRNG port map(clockWithPause, RNG, alien(3).alive, alien(3).size, alien(3).color, alien(3).x, alien(3).y, 35, "0011011111", ship.x, ship.y);
-	U06 : AlienTimer port map(clockWithPause, RNG, alien(4).alive, alien(4).size, alien(4).color, alien(4).x, alien(4).y, 10, ship.x, ship.y);
-	U07 : AlienTimer port map(clockWithPause, RNG, alien(5).alive, alien(5).size, alien(5).color, alien(5).x, alien(5).y, 17, ship.x, ship.y);
-	U08 : AlienTimer port map(clockWithPause, RNG, alien(6).alive, alien(6).size, alien(6).color, alien(6).x, alien(6).y, 23, ship.x, ship.y);
-	U09 : AlienTimer port map(clockWithPause, RNG, alien(7).alive, alien(7).size, alien(7).color, alien(7).x, alien(7).y, 13, ship.x, ship.y);
-	U10 : AlienScoreTimer port map(clockWithPause, RNG, alien(8).alive, alien(8).size, alien(8).color, alien(8).x, alien(8).y, 30, 4, score, ship.x, ship.y);
-	U11 : AlienScoreTimer port map(clockWithPause, RNG, alien(9).alive, alien(9).size, alien(9).color, alien(9).x, alien(9).y, 45, 5, score, ship.x, ship.y);
-	U12 : AlienScoreTimer port map(clockWithPause, RNG, alien(10).alive, alien(10).size, alien(10).color, alien(10).x, alien(10).y, 50, 3, score, ship.x, ship.y);
-	U13 : AlienScoreTimer port map(clockWithPause, RNG, alien(11).alive, alien(11).size, alien(11).color, alien(11).x, alien(11).y, 60, 7, score, ship.x, ship.y);
+	U02 : AlienRNG port map(clockWithPause, RNG, alien(0).alive, alien(0).size, alien(0).color, alien(0).x, alien(0).y, 11, "1101111010", ship.x, ship.y, alien(0).collision, alien(0).spawn );
+	U03 : AlienRNG port map(clockWithPause, RNG, alien(1).alive, alien(1).size, alien(1).color, alien(1).x, alien(1).y, 20, "0110110111", ship.x, ship.y, alien(1).collision, alien(1).spawn);
+	U04 : AlienRNG port map(clockWithPause, RNG, alien(2).alive, alien(2).size, alien(2).color, alien(2).x, alien(2).y, 29, "1011101101", ship.x, ship.y, alien(2).collision, alien(2).spawn);
+	U05 : AlienRNG port map(clockWithPause, RNG, alien(3).alive, alien(3).size, alien(3).color, alien(3).x, alien(3).y, 35, "0011011111", ship.x, ship.y, alien(3).collision, alien(3).spawn);
+	U06 : AlienTimer port map(clockWithPause, RNG, alien(4).alive, alien(4).size, alien(4).color, alien(4).x, alien(4).y, 10, ship.x, ship.y, alien(4).collision, alien(4).spawn);
+	U07 : AlienTimer port map(clockWithPause, RNG, alien(5).alive, alien(5).size, alien(5).color, alien(5).x, alien(5).y, 17, ship.x, ship.y, alien(5).collision, alien(5).spawn);
+	U08 : AlienTimer port map(clockWithPause, RNG, alien(6).alive, alien(6).size, alien(6).color, alien(6).x, alien(6).y, 23, ship.x, ship.y, alien(6).collision, alien(6).spawn);
+	U09 : AlienTimer port map(clockWithPause, RNG, alien(7).alive, alien(7).size, alien(7).color, alien(7).x, alien(7).y, 13, ship.x, ship.y, alien(7).collision, alien(7).spawn);
+	U10 : AlienScoreTimer port map(clockWithPause, RNG, alien(8).alive, alien(8).size, alien(8).color, alien(8).x, alien(8).y, 30, 4, score, ship.x, ship.y, alien(8).collision, alien(8).spawn);
+	U11 : AlienScoreTimer port map(clockWithPause, RNG, alien(9).alive, alien(9).size, alien(9).color, alien(9).x, alien(9).y, 45, 5, score, ship.x, ship.y, alien(9).collision, alien(9).spawn);
+	U12 : AlienScoreTimer port map(clockWithPause, RNG, alien(10).alive, alien(10).size, alien(10).color, alien(10).x, alien(10).y, 50, 3, score, ship.x, ship.y, alien(10).collision, alien(10).spawn);
+	U13 : AlienScoreTimer port map(clockWithPause, RNG, alien(11).alive, alien(11).size, alien(11).color, alien(11).x, alien(11).y, 60, 7, score, ship.x, ship.y, alien(11).collision, alien(11).spawn);
 	
 
 	PROCESS(disp_ena, row, column)
@@ -262,15 +269,19 @@ ARCHITECTURE behavior OF dsdproject IS
 			IF (alien(i).alive = '1') THEN
 				calcA := column - alien(i).x;	--Relative X position
 				calcB := alien(i).y - row;		--Relative Y position
-				calcC := (alien(i).size+1) * 8;			--Calc adjusted size
+				calcC := alien(i).size+1;			--Calc adjusted size
 				
-				IF ((calcB <= calcC AND calcB >= 0) AND (calcA <= calcC AND calcA >= 0)) THEN
-					IF ((calcB = calcC OR calcB = 0) OR (calcA = calcC OR calcA = 0)) THEN
-						colorconcat <= "000000000000";
-					ELSE
-						colorconcat <= alien(i).color;
-					END IF;
-				END IF;
+				--IF ((calcB <= calcC AND calcB >= 0) AND (calcA <= calcC AND calcA >= 0)) THEN
+				--	IF ((calcB = calcC OR calcB = 0) OR (calcA = calcC OR calcA = 0)) THEN
+				--		colorconcat <= "000000000000";
+				--	ELSE
+				--		colorconcat <= alien(i).color;
+				--	END IF;
+				--END IF;
+				
+				if(row >= alien(i).y AND (row <= alien(i).y-(alien(i).size+1)*8) AND column >= alien(i).x AND column <= (alien(i).x+(alien(i).size+1)*8)) then
+					colorconcat <= alien(i).color;
+				end if;
 			END IF;
 		END LOOP;
 ------DRAWS THE PLAYER PROJECTILES ON THE SCREEN---------------------------------------------
@@ -469,4 +480,24 @@ ARCHITECTURE behavior OF dsdproject IS
 			END LOOP;
 		END IF;
 	END PROCESS;
+	
+	
+-- collision/kill flags
+	alienCollisionFlags : process (shoot, alien(0).alive, alien(1).alive, alien(2).alive, alien(3).alive, alien(4).alive, 
+											alien(5).alive, alien(6).alive, alien(7).alive, alien(8).alive, alien(9).alive, alien(10).alive, 
+											alien(11).alive)
+											--, alien(0).collision, alien(1).collision, alien(2).collision, alien(3).collision, 
+											--alien(4).collision, alien(5).collision, alien(6).collision, alien(7).collision, alien(8).collision, 
+											--alien(9).collision, alien(10).collision, alien(11).collision)
+	begin
+		for i in 0 to 11 loop
+			if ( shoot = '0' ) then --**COLLISION DETECTION**-- 
+				alien(i).collision <= '1';
+			elsif (alien(i).alive = '1') then
+				alien(i).collision <= '0';
+			else
+				alien(i).collision <= alien(i).collision;
+			end if;
+		end loop;	
+	end process;	
 END architecture;

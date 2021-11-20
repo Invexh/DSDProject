@@ -18,14 +18,15 @@ entity AlienRNG is
 		min_period			: in integer := 5;
 		RNG_bit_map			: in std_logic_vector(9 downto 0);
 		ship_x				: in integer;
-		ship_y 				: in integer
+		ship_y 				: in integer;
+		collision			: inout std_logic := '0';
+		spawn					: inout std_logic := '0'
 	);
 end entity;
 
 architecture beh of AlienRNG is
 
 	signal RNG_instance 			: std_logic_vector(9 downto 0);
-	signal i 						: std_logic := '0';
 	signal movement_clock 		: std_logic;
 	signal size_unsigned			: unsigned(2 downto 0);
 	
@@ -34,13 +35,9 @@ begin
 	begin
 		if(rising_edge(alive)) then		-- save RNG instance			
 			RNG_instance <= RNG;
-			i <= '1';
 			size_unsigned(2 downto 0) <= unsigned(RNG_instance(3 downto 1));
 			color <= "110000001111";
 			size <= to_integer(size_unsigned);
-			
-		elsif(falling_edge(alive)) then
-			i <= '0';			
 		end if;
 	end process;
 		
@@ -184,19 +181,31 @@ begin
 		end if;
 	end process;
 	
-	spawning : process (max10_clk)
+	spawning : process (max10_clk, alive)
 	variable timeSinceLastSpawn : unsigned(63 downto 0) := (OTHERS => '0');
 	begin
 		timeSinceLastSpawn := timeSinceLastSpawn + 1;
 		if( (RNG AND RNG_bit_map) = RNG_bit_map AND alive = '0' AND timeSinceLastSpawn > to_unsigned(50000000*min_period,63) ) then
-			alive <= '1';
+			spawn <= '1';
 			timeSinceLastSpawn := (OTHERS => '0');
+		elsif ( rising_edge(alive) ) then
+			spawn <= '0';			
+		else
+			spawn <= spawn;
 		end if;
-	
-	
 	end process;
 	
-	
+	-- alive flag
+	alienAliveFlag : process (max10_clk, collision, spawn)
+	begin
+		if(spawn = '1') then
+			alive <= '1';
+		elsif( collision = '1' ) then
+			alive <= '0';
+		else
+			alive <= alive;
+		end if;
+	end process;
 	
 end architecture;
 
@@ -217,7 +226,9 @@ entity AlienTimer is
 		y_pos					: inout integer := 153;
 		period_seconds 	: in integer;
 		ship_x				: in integer;
-		ship_y 				: in integer
+		ship_y 				: in integer;
+		collision			: inout std_logic := '0';
+		spawn					: inout std_logic := '0'
 	);
 end entity;
 
@@ -233,13 +244,9 @@ begin
 	begin
 		if(rising_edge(alive)) then		-- save RNG instance			
 			RNG_instance <= RNG;
-			i <= '1';
 			size_unsigned(2 downto 0) <= unsigned(RNG_instance(3 downto 1));
 			color <= "000011110000";
 			size <= to_integer(size_unsigned);
-			
-		elsif(falling_edge(alive)) then
-			i <= '0';			
 		end if;
 	end process;	
 
@@ -379,14 +386,30 @@ begin
 		end if;
 	end process;
 	
-	spawning : process (max10_clk)
+	spawning : process (max10_clk, alive)
 	variable timeSinceLastSpawn : unsigned(63 downto 0)  := (OTHERS => '0');
 	begin
 		timeSinceLastSpawn := timeSinceLastSpawn + 1;
 		if(alive = '0' AND timeSinceLastSpawn > to_unsigned(50000000*period_seconds, 63)) then
-			alive <= '1';
+			spawn <= '1';
 			timeSinceLastSpawn := (OTHERS => '0');
+		elsif ( rising_edge(alive) ) then
+			spawn <= '0';
+		else
+			spawn <= spawn;
 		end if;	
+	end process;
+	
+	-- alive flag
+	alienAliveFlag : process (max10_clk, collision, spawn)
+	begin
+		if(spawn = '1') then
+			alive <= '1';
+		elsif( collision = '1' ) then
+			alive <= '0';
+		else
+			alive <= alive;
+		end if;
 	end process;
 end architecture;
 
@@ -409,7 +432,9 @@ entity AlienScoreTimer is
 		min_period_seconds	: in integer;
 		current_score			: in integer;
 		ship_x				: in integer;
-		ship_y 				: in integer
+		ship_y 				: in integer;
+		collision			: inout std_logic := '0';
+		spawn					: inout std_logic := '0'
 	);
 end entity;
 
@@ -425,13 +450,9 @@ begin
 	begin
 		if(rising_edge(alive)) then		-- save RNG instance			
 			RNG_instance <= RNG;
-			i <= '1';
 			size_unsigned(2 downto 0) <= unsigned(RNG_instance(3 downto 1));
 			color <= "000000001111";
 			size <= to_integer(size_unsigned);
-			
-		elsif(falling_edge(alive)) then
-			i <= '0';			
 		end if;
 	end process;
 	
@@ -571,7 +592,8 @@ begin
 		end if;
 	end process;
 	
-	spawning : process (max10_clk)
+	--spawn flag
+	spawning : process (max10_clk, alive)
 	variable timeSinceLastSpawn : unsigned(31 downto 0)  := (OTHERS => '0');
 	variable numSpawns : integer := 0;
 	variable period : integer := max_period_seconds;
@@ -583,10 +605,26 @@ begin
 			period := min_period_seconds;
 		end if;
 		
-		if(alive = '0' AND timeSinceLastSpawn > to_unsigned(50000000*period, 63) ) then
-			alive <= '1';
+		if(alive = '0' AND timeSinceLastSpawn > (50000000*period) ) then
+			spawn <= '1';
 			timeSinceLastSpawn := (OTHERS => '0');
 			numSpawns := numSpawns + 1;
+		elsif ( rising_edge(alive) ) then
+			spawn <= '0';		
+		else
+			spawn <= spawn;
+		end if;
+	end process;
+	
+	-- alive flag
+	alienAliveFlag : process (max10_clk, collision, spawn)
+	begin
+		if(spawn = '1') then
+			alive <= '1';
+		elsif( collision = '1' ) then
+			alive <= '0';
+		else
+			alive <= alive;
 		end if;
 	end process;
 end architecture;
