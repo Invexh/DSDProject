@@ -42,3 +42,5 @@ db/DSDProject.quiproj.17492.rdr.flock
 *.tmw_info
 *.flock
 db/DSDProject.ram0_gsensor_889e66e.hdl.mif
+incremental_db/compiled_partitions/DSDProject.root_partition.cmp.rcfdb.wrk
+DSDProject.qsf
