@@ -22,13 +22,7 @@ package custom_types is
 	end record ship_t;
 
 	type seg_digit is record
-		A : STD_LOGIC;
-		B : STD_LOGIC;
-		C : STD_LOGIC;
-		D : STD_LOGIC;
-		E : STD_LOGIC;
-		F : STD_LOGIC;
-		G : STD_LOGIC;
+		s : STD_LOGIC_VECTOR(0 to 6);
 	end record seg_digit;
 
 	type player_proj is record
@@ -69,15 +63,13 @@ ENTITY dsdproject IS
 		--Player projectiles data
 		max_pproj : INTEGER := 20;
 		
-		--X AND Y FOR SCORE ARE BOTTOM RIGHT COORD
-		score_x : INTEGER := 480;
-		score_y : INTEGER := 48;
-		
 		--Scoreboard data
 		max_digits : INTEGER := 6;
 		digit_height : INTEGER := 30;
 		digit_spacing : INTEGER := 4;
 		digit_thickness : INTEGER := 3;
+		score_x : INTEGER := 500;
+		score_y : INTEGER := 48;
 		
 		--Spare ship data
 		ss_x : int_array(0 to 2) := (25, 70, 115);
@@ -298,7 +290,7 @@ ARCHITECTURE behavior OF dsdproject IS
 		END LOOP;
 		
 ------DRAWS THE PLAYER PROJECTILES ON THE SCREEN---------------------------------------------
-		FOR i in 0 to 19 LOOP
+		FOR i in 0 to (max_pproj - 1) LOOP
 			IF (p_proj(i).e = '1') THEN
 				IF (row = p_proj(i).y AND column >= p_proj(i).x AND column <= (p_proj(i).x + 20)) THEN
 					colorconcat <= "111100000000";
@@ -309,45 +301,38 @@ ARCHITECTURE behavior OF dsdproject IS
 		calcA := (digit_thickness - 1)/2;	--Onesided thickness of digit
 		calcB := (digit_height - 3)/2;		--Segment Length 
 		FOR i in 0 to (max_digits - 1) LOOP
-			digit(i).A <= '1';
-			digit(i).B <= '1';
-			digit(i).C <= '1';
-			digit(i).D <= '1';
-			digit(i).E <= '1';
-			digit(i).F <= '1';
-			digit(i).G <= '1';
-
 			calcC := column - (score_x + i*(digit_spacing + 2*calcA + calcB));	--Relative x position
 			calcD := score_y - row; --Relative y position
 
-			IF (digit(i).A = '1' AND (calcC > 0 AND calcC <= (calcB + 2*calcA)) AND (calcD >= 2*(calcB + calcA) AND calcD <= (2*calcB + 1 + 3*calcA))) THEN
+			IF (digit(i).s(0) = '1' AND (calcC > 0 AND calcC <= (calcB + 2*calcA)) AND (calcD >= 2*(calcB + calcA) AND calcD <= (2*calcB + 1 + 3*calcA))) THEN
 				colorconcat <= "111100000000";
 			END IF;
 
-			IF (digit(i).B = '1' AND (calcC >= (calcB + calcA) AND calcC <= (calcB + 2*calcA + 1)) AND (calcD > (calcB + 2*calcA) AND calcD <= (2*calcB + 1 + 2*calcA))) THEN
+			IF (digit(i).s(1) = '1' AND (calcC >= (calcB + calcA) AND calcC <= (calcB + 2*calcA + 1)) AND (calcD > (calcB + 2*calcA) AND calcD <= (2*calcB + 1 + 2*calcA))) THEN
 				colorconcat <= "111100000000";
 			END IF;
 
-			IF (digit(i).C = '1' AND (calcC >= (calcB + calcA) AND calcC <= (calcB + 2*calcA + 1)) AND (calcD > 0 AND calcD <= (calcB + 1))) THEN
+			IF (digit(i).s(2) = '1' AND (calcC >= (calcB + calcA) AND calcC <= (calcB + 2*calcA + 1)) AND (calcD > 0 AND calcD <= (calcB + 1))) THEN
 				colorconcat <= "111100000000";
 			END IF;
 
-			IF (digit(i).D = '1' AND (calcC > 0 AND calcC <= (calcB + 2*calcA)) AND (calcD >= 0 AND calcD <= (1 + calcA))) THEN
+			IF (digit(i).s(3) = '1' AND (calcC > 0 AND calcC <= (calcB + 2*calcA)) AND (calcD >= 0 AND calcD <= (1 + calcA))) THEN
 				colorconcat <= "111100000000";
 			END IF;
 
-			IF (digit(i).E = '1' AND (calcC >= 0 AND calcC <= (1 + calcA)) AND (calcD > 0 AND calcD <= (calcB + 1))) THEN
+			IF (digit(i).s(4) = '1' AND (calcC >= 0 AND calcC <= (1 + calcA)) AND (calcD > 0 AND calcD <= (calcB + 1))) THEN
 				colorconcat <= "111100000000";
 			END IF;
 
-			IF (digit(i).F = '1' AND (calcC >= 0 AND calcC <= (1 + calcA)) AND (calcD > (calcB + calcA + 1) AND calcD <= (2*calcB + 1 + 2*calcA))) THEN
+			IF (digit(i).s(5) = '1' AND (calcC >= 0 AND calcC <= (1 + calcA)) AND (calcD > (calcB + calcA + 1) AND calcD <= (2*calcB + 1 + 2*calcA))) THEN
 				colorconcat <= "111100000000";
 			END IF;
 
-			IF (digit(i).G = '1' AND (calcC > 0 AND calcC <= (calcB + 2*calcA)) AND (calcD >= (calcB + calcA) AND calcD <= (calcB + 1 + 3*calcA))) THEN
+			IF (digit(i).s(6) = '1' AND (calcC > 0 AND calcC <= (calcB + 2*calcA)) AND (calcD >= (calcB + calcA) AND calcD <= (calcB + 1 + 3*calcA))) THEN
 				colorconcat <= "111100000000";
 			END IF;
 		END LOOP;
+
 ------OUTPUTS THE RESULTING COLORS TO THE SCREEN---------------------------------------------
 		red <= "0000" & colorconcat(11 downto 8);
 		green <= "0000" & colorconcat(7 downto 4);
@@ -510,9 +495,10 @@ ARCHITECTURE behavior OF dsdproject IS
 		IF (pause = '0' AND rising_edge(shoot)) THEN
 			p_proj(ei).e <= '1';
 			p_proj(ei).hs1 <= '1';
-			ei := ((ei + 1) mod 20);
+			ei := ((ei + 1) mod max_pproj);
+			score <= score + 10;
 		END IF;
-		FOR i in 0 to 19 LOOP
+		FOR i in 0 to (max_pproj - 1) LOOP
 			IF (p_proj(i).hs2 = '1') THEN
 				p_proj(i).hs1 <= '0';
 			END IF;
@@ -522,7 +508,7 @@ ARCHITECTURE behavior OF dsdproject IS
 	move_Projectile : PROCESS (projectile_clock)
 	BEGIN
 		IF (rising_edge(projectile_clock)) THEN	
-			FOR i in 0 to 19 LOOP
+			FOR i in 0 to (max_pproj - 1) LOOP
 				IF (p_proj(i).hs1 = '1') THEN
 					p_proj(i).hs2 <= '1';
 					p_proj(i).x <= ship.x + ship_length;
@@ -533,5 +519,30 @@ ARCHITECTURE behavior OF dsdproject IS
 				END IF;
 			END LOOP;
 		END IF;
+	END PROCESS;
+
+------UPDATE DIGTIS WITH SCORE VALUE---------------------------------------------------------
+	hndl_Digits : process(score)
+	VARIABLE valu : INTEGER;
+	VARIABLE modC : INTEGER;
+	begin
+		FOR i in 0 to (max_digits - 1) LOOP
+			valu := (score/(10 ** i)) mod 10;
+			
+			case valu is
+				--when 10 => digit(max_digits-i-1).s <= "1111110";
+				when 9 => digit(max_digits-i-1).s <= "1110011";
+				when 8 => digit(max_digits-i-1).s <= "1111111";
+				when 7 => digit(max_digits-i-1).s <= "1110000";
+				when 6 => digit(max_digits-i-1).s <= "1011111";
+				when 5 => digit(max_digits-i-1).s <= "1011011";
+				when 4 => digit(max_digits-i-1).s <= "0110011";
+				when 3 => digit(max_digits-i-1).s <= "1111001";
+				when 2 => digit(max_digits-i-1).s <= "1101101";
+				when 1 => digit(max_digits-i-1).s <= "0110000";
+				when 0 => digit(max_digits-i-1).s <= "1111110";
+				when others => digit(max_digits-i-1).s <= "1000111";
+			end case;
+		END LOOP;
 	END PROCESS;
 END architecture;
