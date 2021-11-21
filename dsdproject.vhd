@@ -204,10 +204,10 @@ ARCHITECTURE behavior OF dsdproject IS
 	U1 : RNG10 port map(reset_RNG, '0', max10_clk, RNG);
 	
 -------- Alien AIs ---------------------------------------------------------------------------------	
-	U02 : AlienRNG port map(clockWithPause, RNG, alien(0).alive, alien(0).size, alien(0).color, alien(0).x, alien(0).y, 5, "1101011010", ship.x, ship.y, alien(0).collision, alien(0).spawn );
-	U03 : AlienRNG port map(clockWithPause, RNG, alien(1).alive, alien(1).size, alien(1).color, alien(1).x, alien(1).y, 8, "0110100111", ship.x, ship.y, alien(1).collision, alien(1).spawn);
-	U04 : AlienRNG port map(clockWithPause, RNG, alien(2).alive, alien(2).size, alien(2).color, alien(2).x, alien(2).y, 13, "1001101101", ship.x, ship.y, alien(2).collision, alien(2).spawn);
-	U05 : AlienRNG port map(clockWithPause, RNG, alien(3).alive, alien(3).size, alien(3).color, alien(3).x, alien(3).y, 5, "0011011011", ship.x, ship.y, alien(3).collision, alien(3).spawn);
+	U02 : AlienRNG port map(clockWithPause, RNG, alien(0).alive, alien(0).size, alien(0).color, alien(0).x, alien(0).y, 5,  "1101110000", ship.x, ship.y, alien(0).collision, alien(0).spawn );
+	U03 : AlienRNG port map(clockWithPause, RNG, alien(1).alive, alien(1).size, alien(1).color, alien(1).x, alien(1).y, 8,  "0110100011", ship.x, ship.y, alien(1).collision, alien(1).spawn);
+	U04 : AlienRNG port map(clockWithPause, RNG, alien(2).alive, alien(2).size, alien(2).color, alien(2).x, alien(2).y, 13, "1001001100", ship.x, ship.y, alien(2).collision, alien(2).spawn);
+	U05 : AlienRNG port map(clockWithPause, RNG, alien(3).alive, alien(3).size, alien(3).color, alien(3).x, alien(3).y, 5,  "0010011101", ship.x, ship.y, alien(3).collision, alien(3).spawn);
 	U06 : AlienTimer port map(clockWithPause, RNG, alien(4).alive, alien(4).size, alien(4).color, alien(4).x, alien(4).y, 10, ship.x, ship.y, alien(4).collision, alien(4).spawn);
 	U07 : AlienTimer port map(clockWithPause, RNG, alien(5).alive, alien(5).size, alien(5).color, alien(5).x, alien(5).y, 17, ship.x, ship.y, alien(5).collision, alien(5).spawn);
 	U08 : AlienTimer port map(clockWithPause, RNG, alien(6).alive, alien(6).size, alien(6).color, alien(6).x, alien(6).y, 23, ship.x, ship.y, alien(6).collision, alien(6).spawn);
@@ -265,98 +265,98 @@ ARCHITECTURE behavior OF dsdproject IS
 		END LOOP;
 
 ------DRAWS THE ENEMIES ON THE SCREEN--------------------------------------------------------
-		--FOR i in 0 to 11 LOOP
-		--	IF (alien(i).alive = '1') THEN
-		--		calcA := column - alien(i).x;	--Relative X position
-		--		calcB := alien(i).y - row;		--Relative Y position
-		--		calcC := alien(i).size+1;			--Calc adjusted size
-		--		
-		--		IF ((calcB <= calcC AND calcB >= 0) AND (calcA <= calcC AND calcA >= 0)) THEN
-		--			IF ((calcB = calcC OR calcB = 0) OR (calcA = calcC OR calcA = 0)) THEN
-		--				colorconcat <= "000000000000";
-		--			ELSE
-		--				colorconcat <= alien(i).color;
-		--			END IF;
-		--		END IF;
-		--		
-		--		if(row <= alien(i).y AND (row >= alien(i).y-(alien(i).size+1)*8) AND column >= alien(i).x AND column <= (alien(i).x+(alien(i).size+1)*8)) then
-		--			colorconcat <= alien(i).color;
-		--		end if;
-		--	END IF;
-		--END LOOP;
-		
-		IF (alien(0).alive = '1') THEN
-			if(row <= alien(0).y AND (row >= alien(0).y-((alien(0).size+1)*8)) AND column >= alien(0).x AND column <= (alien(0).x+((alien(0).size+1)*8))) then
-				colorconcat <= alien(0).color;
-			end if;
-		END IF;
-		
-		IF (alien(1).alive = '1') THEN
-			if(row <= alien(1).y AND (row >= alien(1).y-((alien(1).size+1)*8)) AND column >= alien(1).x AND column <= (alien(1).x+((alien(1).size+1)*8))) then
-				colorconcat <= alien(1).color;
-			end if;
-		END IF;
-		
-		IF (alien(2).alive = '1') THEN
-			if(row <= alien(2).y AND (row >= alien(2).y-((alien(2).size+1)*8)) AND column >= alien(2).x AND column <= (alien(2).x+((alien(2).size+1)*8))) then
-				colorconcat <= alien(2).color;
-			end if;
-		END IF;
-		
-		IF (alien(3).alive = '1') THEN
-			if(row <= alien(3).y AND (row >= alien(3).y-((alien(3).size+1)*8)) AND column >= alien(3).x AND column <= (alien(3).x+((alien(3).size+1)*8))) then
-				colorconcat <= alien(3).color;
-			end if;
-		END IF;
-		
-		IF (alien(4).alive = '1') THEN
-			if(row <= alien(4).y AND (row >= alien(4).y-((alien(4).size+1)*8)) AND column >= alien(4).x AND column <= (alien(4).x+((alien(4).size+1)*8))) then
-				colorconcat <= alien(4).color;
-			end if;
-		END IF;
-		
-		IF (alien(5).alive = '1') THEN
-			if(row <= alien(5).y AND (row >= alien(5).y-((alien(5).size+1)*8)) AND column >= alien(5).x AND column <= (alien(5).x+((alien(5).size+1)*8))) then
-				colorconcat <= alien(5).color;
-			end if;
-		END IF;
-		
-		IF (alien(6).alive = '1') THEN
-			if(row <= alien(6).y AND (row >= alien(6).y-((alien(6).size+1)*8)) AND column >= alien(6).x AND column <= (alien(6).x+((alien(6).size+1)*8))) then
-				colorconcat <= alien(6).color;
-			end if;
-		END IF;
-		
-		IF (alien(7).alive = '1') THEN
-			if(row <= alien(7).y AND (row >= alien(7).y-((alien(7).size+1)*8)) AND column >= alien(7).x AND column <= (alien(7).x+((alien(7).size+1)*8))) then
-				colorconcat <= alien(7).color;
-			end if;
-		END IF;
-		
-		IF (alien(8).alive = '1') THEN
-			if(row <= alien(8).y AND (row >= alien(8).y-((alien(8).size+1)*8)) AND column >= alien(8).x AND column <= (alien(8).x+((alien(8).size+1)*8))) then
-				colorconcat <= alien(8).color;
-			end if;
-		END IF;
-		
-		IF (alien(9).alive = '1') THEN
-			if(row <= alien(9).y AND (row >= alien(9).y-((alien(9).size+1)*8)) AND column >= alien(9).x AND column <= (alien(9).x+((alien(9).size+1)*8))) then
-				colorconcat <= alien(9).color;
-			end if;
-		END IF;
-		
-		IF (alien(10).alive = '1') THEN
-			if(row <= alien(10).y AND (row >= alien(10).y-((alien(10).size+1)*8)) AND column >= alien(10).x AND column <= (alien(10).x+((alien(10).size+1)*8))) then
-				colorconcat <= alien(10).color;
-			end if;
-		END IF;
-		
-		IF (alien(11).alive = '1') THEN
-			if(row <= alien(11).y AND (row >= alien(11).y-((alien(11).size+1)*8)) AND column >= alien(11).x AND column <= (alien(11).x+((alien(11).size+1)*8))) then
-				colorconcat <= alien(11).color;
-			end if;
-		END IF;		
-		
+		FOR i in 0 to 11 LOOP
+			IF (alien(i).alive = '1') THEN
+				calcA := column - alien(i).x;	--Relative X position
+				calcB := alien(i).y - row;		--Relative Y position
+				calcC := alien(i).size+1;			--Calc adjusted size
+				
+				IF ((calcB <= calcC AND calcB >= 0) AND (calcA <= calcC AND calcA >= 0)) THEN
+					IF ((calcB = calcC OR calcB = 0) OR (calcA = calcC OR calcA = 0)) THEN
+						colorconcat <= "000000000000";
+					ELSE
+						colorconcat <= alien(i).color;
+					END IF;
+				END IF;
+				
+				if(row <= alien(i).y AND (row >= alien(i).y-(alien(i).size+1)*8) AND column >= alien(i).x AND column <= (alien(i).x+(alien(i).size+1)*8)) then
+					colorconcat <= alien(i).color;
+				end if;
+			END IF;
+		END LOOP;
+--		
+--		IF (alien(0).alive = '1') THEN
+--			if(row <= alien(0).y AND (row >= alien(0).y-((alien(0).size+1)*8)) AND column >= alien(0).x AND column <= (alien(0).x+((alien(0).size+1)*8))) then
+--				colorconcat <= alien(0).color;
+--			end if;
+--		END IF;
+--		
+--		IF (alien(1).alive = '1') THEN
+--			if(row <= alien(1).y AND (row >= alien(1).y-((alien(1).size+1)*8)) AND column >= alien(1).x AND column <= (alien(1).x+((alien(1).size+1)*8))) then
+--				colorconcat <= alien(1).color;
+--			end if;
+--		END IF;
+--		
+--		IF (alien(2).alive = '1') THEN
+--			if(row <= alien(2).y AND (row >= alien(2).y-((alien(2).size+1)*8)) AND column >= alien(2).x AND column <= (alien(2).x+((alien(2).size+1)*8))) then
+--				colorconcat <= alien(2).color;
+--			end if;
+--		END IF;
+--		
+--		IF (alien(3).alive = '1') THEN
+--			if(row <= alien(3).y AND (row >= alien(3).y-((alien(3).size+1)*8)) AND column >= alien(3).x AND column <= (alien(3).x+((alien(3).size+1)*8))) then
+--				colorconcat <= alien(3).color;
+--			end if;
+--		END IF;
+--		
+--		IF (alien(4).alive = '1') THEN
+--			if(row <= alien(4).y AND (row >= alien(4).y-((alien(4).size+1)*8)) AND column >= alien(4).x AND column <= (alien(4).x+((alien(4).size+1)*8))) then
+--				colorconcat <= alien(4).color;
+--			end if;
+--		END IF;
+--		
+--		IF (alien(5).alive = '1') THEN
+--			if(row <= alien(5).y AND (row >= alien(5).y-((alien(5).size+1)*8)) AND column >= alien(5).x AND column <= (alien(5).x+((alien(5).size+1)*8))) then
+--				colorconcat <= alien(5).color;
+--			end if;
+--		END IF;
+--		
+--		IF (alien(6).alive = '1') THEN
+--			if(row <= alien(6).y AND (row >= alien(6).y-((alien(6).size+1)*8)) AND column >= alien(6).x AND column <= (alien(6).x+((alien(6).size+1)*8))) then
+--				colorconcat <= alien(6).color;
+--			end if;
+--		END IF;
+--		
+--		IF (alien(7).alive = '1') THEN
+--			if(row <= alien(7).y AND (row >= alien(7).y-((alien(7).size+1)*8)) AND column >= alien(7).x AND column <= (alien(7).x+((alien(7).size+1)*8))) then
+--				colorconcat <= alien(7).color;
+--			end if;
+--		END IF;
+--		
+--		IF (alien(8).alive = '1') THEN
+--			if(row <= alien(8).y AND (row >= alien(8).y-((alien(8).size+1)*8)) AND column >= alien(8).x AND column <= (alien(8).x+((alien(8).size+1)*8))) then
+--				colorconcat <= alien(8).color;
+--			end if;
+--		END IF;
+--		
+--		IF (alien(9).alive = '1') THEN
+--			if(row <= alien(9).y AND (row >= alien(9).y-((alien(9).size+1)*8)) AND column >= alien(9).x AND column <= (alien(9).x+((alien(9).size+1)*8))) then
+--				colorconcat <= alien(9).color;
+--			end if;
+--		END IF;
+--		
+--		IF (alien(10).alive = '1') THEN
+--			if(row <= alien(10).y AND (row >= alien(10).y-((alien(10).size+1)*8)) AND column >= alien(10).x AND column <= (alien(10).x+((alien(10).size+1)*8))) then
+--				colorconcat <= alien(10).color;
+--			end if;
+--		END IF;
+--		
+--		IF (alien(11).alive = '1') THEN
+--			if(row <= alien(11).y AND (row >= alien(11).y-((alien(11).size+1)*8)) AND column >= alien(11).x AND column <= (alien(11).x+((alien(11).size+1)*8))) then
+--				colorconcat <= alien(11).color;
+--			end if;
+--		END IF;		
+--		
 
 ------DRAWS THE PLAYER PROJECTILES ON THE SCREEN---------------------------------------------
 		FOR i in 0 to 19 LOOP
