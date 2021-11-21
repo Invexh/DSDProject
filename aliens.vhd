@@ -66,125 +66,134 @@ begin
 	variable y_max : INTEGER := 67;
 	variable y_min : INTEGER := 413;
 	variable x_max : INTEGER := 640;
-	variable x_min : INTEGER := 25;
+	variable x_min : INTEGER := -100;
 	
 	begin
 		if(rising_edge(movement_clock)) then
 			if(spawn = '1') then
 				x_pos <= 641;
-				y_pos <= 153;
+				y_pos <= 240;
 				diagonalDir := 0;
 			elsif(alive = '1') then
-				case size_unsigned is
-				when "011"|"000" =>	-- floaty
-					if(floaty > 5000) then
-						if(RNG(8) = '1') then
-							x_pos <= x_pos - 1;
-						end if;
-						
-						if (y_pos <= y_max - (size*8)) then
-							y_pos <= y_pos + 1;
-						elsif (y_pos >= y_min) then
-							y_pos <= y_pos - 1;
-						elsif (RNG(0) = '1') then
-							y_pos <= y_pos + 1;
-						else
-							y_pos <= y_pos - 1;
-						end if;
-						floaty := 0;
-					else
-						floaty := floaty + 1;
-					end if;
-					
-					
-				when "100"|"101" =>	-- diagonal
-					if(diagonalSpeed > 250) then
-						if(diagonalDir = 0) then	--up left
-							if(x_pos <= x_min) then
-								diagonalDir := 3;
-							else
-								x_pos <= x_pos - 1;
-							end if;
-							
-							if (y_pos <= y_max - ((size+1)*8)) then
-								diagonalDir := 1;
-							else
-								y_pos <= y_pos - 1;
-							end if;
-							
-						elsif(diagonalDir = 1) then	-- down left
-							if(x_pos <= x_min) then
-								diagonalDir := 2;
-							else
-								x_pos <= x_pos - 1;
-							end if;
-							
-							if(y_pos >= y_min) then
-								diagonalDir := 0;
-							else
-								y_pos <= y_pos + 1;
-							end if;
-							
-							
-						elsif(diagonalDir = 2) then	-- down right
-							if(x_pos >= x_max - ((size+1)*8)) then
-								diagonalDir := 1;
-							else
-								x_pos <= x_pos + 1;
-							end if;	
-								
-							if(y_pos >= y_min) then
-								diagonalDir := 3;
-							else
-								y_pos <= y_pos + 1;
-							end if;
-							
-						else									-- up right
-							if(x_pos >= x_max- ((size+1)*8)) then
-								diagonalDir := 0;
-							else
-								x_pos <= x_pos + 1;
-							end if;	
-								
-							if(y_pos <= y_max + (size+1)*8) then
-								diagonalDir := 2;
-							else
-								y_pos <= y_pos - 1;
-							end if;
-						end if;
-						diagonalSpeed := 0;
-					else
-						diagonalSpeed := diagonalSpeed + 1;	
-					end if;
-					
-					
-					
-				when "001"|"010" =>	-- horizontal fast
-					if(fast > 100) then
-						x_pos <= x_pos - 1;
-						fast := 0;
-					else
-						fast := fast + 1;
-					end if;
-					
-				when others =>	--  slowly approach player (should be "110" or "111")
-					if (slow > 10000) then
-						if (ship_x > x_pos) then
-							x_pos <= x_pos + 1;
-						else
-							x_pos <= x_pos - 1;
-						end if;
-						
-						if (ship_y > y_pos) then
-							y_pos <= y_pos + 1;
-						else
-							y_pos <= y_pos - 1;
-						end if;						
-						slow := 0;
-					else
-						slow := slow + 1;
-					end if;
-				end case;
+			
+				if(fast > 150) then
+					x_pos <= x_pos - 1;
+					fast := 0;
+				else
+					fast := fast + 1;
+				end if;
+--				case size_unsigned is
+--				when "011"|"000" =>	-- floaty
+--					if(floaty > 5000) then
+--						if(RNG(8) = '1' AND x_pos < x_max) then
+--							x_pos <= x_pos + 1;
+--						else
+--							x_pos <= x_pos - 1;
+--						end if;
+--						
+--						if (y_pos <= y_max - (size*8)) then
+--							y_pos <= y_pos + 1;
+--						elsif (y_pos >= y_min) then
+--							y_pos <= y_pos - 1;
+--						elsif (RNG(0) = '1') then
+--							y_pos <= y_pos + 1;
+--						else
+--							y_pos <= y_pos - 1;
+--						end if;
+--						floaty := 0;
+--					else
+--						floaty := floaty + 1;
+--					end if;
+--					
+--					
+--				when "100"|"101" =>	-- diagonal
+--					if(diagonalSpeed > 250) then
+--						if(diagonalDir = 0) then	--up left
+--							if(x_pos <= x_min) then
+--								diagonalDir := 3;
+--							else
+--								x_pos <= x_pos - 1;
+--							end if;
+--							
+--							if (y_pos <= y_max - ((size+1)*8)) then
+--								diagonalDir := 1;
+--							else
+--								y_pos <= y_pos - 1;
+--							end if;
+--							
+--						elsif(diagonalDir = 1) then	-- down left
+--							if(x_pos <= x_min) then
+--								diagonalDir := 2;
+--							else
+--								x_pos <= x_pos - 1;
+--							end if;
+--							
+--							if(y_pos >= y_min) then
+--								diagonalDir := 0;
+--							else
+--								y_pos <= y_pos + 1;
+--							end if;
+--							
+--							
+--						elsif(diagonalDir = 2) then	-- down right
+--							if(x_pos >= x_max - ((size+1)*8)) then
+--								diagonalDir := 1;
+--							else
+--								x_pos <= x_pos + 1;
+--							end if;	
+--								
+--							if(y_pos >= y_min) then
+--								diagonalDir := 3;
+--							else
+--								y_pos <= y_pos + 1;
+--							end if;
+--							
+--						else									-- up right
+--							if(x_pos >= x_max- ((size+1)*8)) then
+--								diagonalDir := 0;
+--							else
+--								x_pos <= x_pos + 1;
+--							end if;	
+--								
+--							if(y_pos <= y_max + (size+1)*8) then
+--								diagonalDir := 2;
+--							else
+--								y_pos <= y_pos - 1;
+--							end if;
+--						end if;
+--						diagonalSpeed := 0;
+--					else
+--						diagonalSpeed := diagonalSpeed + 1;	
+--					end if;
+--					
+--					
+--					
+--				when "001"|"010" =>	-- horizontal fast
+--					if(fast > 100) then
+--						x_pos <= x_pos - 1;
+--						fast := 0;
+--					else
+--						fast := fast + 1;
+--					end if;
+--					
+--				when others =>	--  slowly approach player (should be "110" or "111")
+--					if (slow > 10000) then
+--						if (ship_x > x_pos) then
+--							x_pos <= x_pos + 1;
+--						else
+--							x_pos <= x_pos - 1;
+--						end if;
+--						
+--						if (ship_y > y_pos) then
+--							y_pos <= y_pos + 1;
+--						else
+--							y_pos <= y_pos - 1;
+--						end if;						
+--						slow := 0;
+--					else
+--						slow := slow + 1;
+--					end if;
+--				end case;
 			else
 				x_pos <= 641;
 				y_pos <= 153;
@@ -250,7 +259,6 @@ end entity;
 architecture beh of AlienTimer is
 
 	signal RNG_instance 			: std_logic_vector(9 downto 0);
-	signal i 						: std_logic;
 	signal movement_clock 		: std_logic;
 	signal size_unsigned			: unsigned(2 downto 0);
 	
@@ -290,7 +298,7 @@ begin
 	variable y_max : INTEGER := 67;
 	variable y_min : INTEGER := 413;
 	variable x_max : INTEGER := 640;
-	variable x_min : INTEGER := 25;
+	variable x_min : INTEGER := -100;
 	
 	begin
 		if(rising_edge(movement_clock)) then
@@ -299,119 +307,126 @@ begin
 				y_pos <= 153;
 				diagonalDir := 0;
 			elsif(alive = '1') then
-				case size_unsigned is
-				when "011"|"000" =>	-- floaty
-					if(floaty > 5000) then
-						if(RNG(8) = '1') then
-							x_pos <= x_pos - 1;
-						end if;
-						
-						if (y_pos <= y_max - (size*8)) then
-							y_pos <= y_pos + 1;
-						elsif (y_pos >= y_min) then
-							y_pos <= y_pos - 1;
-						elsif (RNG(0) = '1') then
-							y_pos <= y_pos + 1;
-						else
-							y_pos <= y_pos - 1;
-						end if;
-						floaty := 0;
-					else
-						floaty := floaty + 1;
-					end if;
-					
-					
-				when "100"|"101" =>	-- diagonal
-					if(diagonalSpeed > 250) then
-						if(diagonalDir = 0) then	--up left
-							if(x_pos <= x_min) then
-								diagonalDir := 3;
-							else
-								x_pos <= x_pos - 1;
-							end if;
-							
-							if (y_pos <= y_max - ((size+1)*8)) then
-								diagonalDir := 1;
-							else
-								y_pos <= y_pos - 1;
-							end if;
-							
-						elsif(diagonalDir = 1) then	-- down left
-							if(x_pos <= x_min) then
-								diagonalDir := 2;
-							else
-								x_pos <= x_pos - 1;
-							end if;
-							
-							if(y_pos >= y_min) then
-								diagonalDir := 0;
-							else
-								y_pos <= y_pos + 1;
-							end if;
-							
-							
-						elsif(diagonalDir = 2) then	-- down right
-							if(x_pos >= x_max - ((size+1)*8)) then
-								diagonalDir := 1;
-							else
-								x_pos <= x_pos + 1;
-							end if;	
-								
-							if(y_pos >= y_min) then
-								diagonalDir := 3;
-							else
-								y_pos <= y_pos + 1;
-							end if;
-							
-						else									-- up right
-							if(x_pos >= x_max- ((size+1)*8)) then
-								diagonalDir := 0;
-							else
-								x_pos <= x_pos + 1;
-							end if;	
-								
-							if(y_pos <= y_max + (size+1)*8) then
-								diagonalDir := 2;
-							else
-								y_pos <= y_pos - 1;
-							end if;
-						end if;
-						diagonalSpeed := 0;
-					else
-						diagonalSpeed := diagonalSpeed + 1;	
-					end if;
-					
-					
-					
-				when "001"|"010" =>	-- horizontal fast
-					if(fast > 100) then
-						x_pos <= x_pos - 1;
-						fast := 0;
-					else
-						fast := fast + 1;
-					end if;
-					
-				when others =>	--  slowly approach player (should be "110" or "111")
-					if (slow > 10000) then
-						if (ship_x > x_pos) then
-							x_pos <= x_pos + 1;
-						else
-							x_pos <= x_pos - 1;
-						end if;
-						
-						if (ship_y > y_pos) then
-							y_pos <= y_pos + 1;
-						else
-							y_pos <= y_pos - 1;
-						end if;						
-						slow := 0;
-					else
-						slow := slow + 1;
-					end if;
-				end case;
+			
+				if(fast > 150) then
+					x_pos <= x_pos - 1;
+					fast := 0;
+				else
+					fast := fast + 1;
+				end if;
+--				case size_unsigned is
+--				when "011"|"000" =>	-- floaty
+--					if(floaty > 5000) then
+--						if(RNG(8) = '1') then
+--							x_pos <= x_pos - 1;
+--						end if;
+--						
+--						if (y_pos <= y_max - (size*8)) then
+--							y_pos <= y_pos + 1;
+--						elsif (y_pos >= y_min) then
+--							y_pos <= y_pos - 1;
+--						elsif (RNG(0) = '1') then
+--							y_pos <= y_pos + 1;
+--						else
+--							y_pos <= y_pos - 1;
+--						end if;
+--						floaty := 0;
+--					else
+--						floaty := floaty + 1;
+--					end if;
+--					
+--					
+--				when "100"|"101" =>	-- diagonal
+--					if(diagonalSpeed > 250) then
+--						if(diagonalDir = 0) then	--up left
+--							if(x_pos <= x_min) then
+--								diagonalDir := 3;
+--							else
+--								x_pos <= x_pos - 1;
+--							end if;
+--							
+--							if (y_pos <= y_max - ((size+1)*8)) then
+--								diagonalDir := 1;
+--							else
+--								y_pos <= y_pos - 1;
+--							end if;
+--							
+--						elsif(diagonalDir = 1) then	-- down left
+--							if(x_pos <= x_min) then
+--								diagonalDir := 2;
+--							else
+--								x_pos <= x_pos - 1;
+--							end if;
+--							
+--							if(y_pos >= y_min) then
+--								diagonalDir := 0;
+--							else
+--								y_pos <= y_pos + 1;
+--							end if;
+--							
+--							
+--						elsif(diagonalDir = 2) then	-- down right
+--							if(x_pos >= x_max - ((size+1)*8)) then
+--								diagonalDir := 1;
+--							else
+--								x_pos <= x_pos + 1;
+--							end if;	
+--								
+--							if(y_pos >= y_min) then
+--								diagonalDir := 3;
+--							else
+--								y_pos <= y_pos + 1;
+--							end if;
+--							
+--						else									-- up right
+--							if(x_pos >= x_max- ((size+1)*8)) then
+--								diagonalDir := 0;
+--							else
+--								x_pos <= x_pos + 1;
+--							end if;	
+--								
+--							if(y_pos <= y_max + (size+1)*8) then
+--								diagonalDir := 2;
+--							else
+--								y_pos <= y_pos - 1;
+--							end if;
+--						end if;
+--						diagonalSpeed := 0;
+--					else
+--						diagonalSpeed := diagonalSpeed + 1;	
+--					end if;
+--					
+--					
+--					
+--				when "001"|"010" =>	-- horizontal fast
+--					if(fast > 100) then
+--						x_pos <= x_pos - 1;
+--						fast := 0;
+--					else
+--						fast := fast + 1;
+--					end if;
+--					
+--				when others =>	--  slowly approach player (should be "110" or "111")
+--					if (slow > 10000) then
+--						if (ship_x > x_pos) then
+--							x_pos <= x_pos + 1;
+--						else
+--							x_pos <= x_pos - 1;
+--						end if;
+--						
+--						if (ship_y > y_pos) then
+--							y_pos <= y_pos + 1;
+--						else
+--							y_pos <= y_pos - 1;
+--						end if;						
+--						slow := 0;
+--					else
+--						slow := slow + 1;
+--					end if;
+--				end case;
 			else
 				x_pos <= 641;
-				y_pos <= 153;
+				y_pos <= 240;
 				diagonalDir := 0;
 			end if;
 		end if;
@@ -476,7 +491,6 @@ end entity;
 architecture beh of AlienScoreTimer is
 
 	signal RNG_instance 			: std_logic_vector(9 downto 0);
-	signal i 						: std_logic;
 	signal movement_clock 		: std_logic;
 	signal size_unsigned			: unsigned(2 downto 0);
 	
@@ -498,7 +512,7 @@ begin
 			movement_counter := movement_counter + 1;		
 		end if;
 		
-		if (movement_counter >= 5000) then
+		if (movement_counter >= 50000) then
 			movement_clock <= NOT movement_clock;
 			movement_counter := 0;	
 		else
@@ -516,128 +530,135 @@ begin
 	variable y_max : INTEGER := 67;
 	variable y_min : INTEGER := 413;
 	variable x_max : INTEGER := 640;
-	variable x_min : INTEGER := 25;
+	variable x_min : INTEGER := -100;
 	
 	begin
 		if(rising_edge(movement_clock)) then
 			if(spawn = '1') then
 				x_pos <= 641;
-				y_pos <= 153;
+				y_pos <= 326;
 				diagonalDir := 0;
 			elsif(alive = '1') then
-				case size_unsigned is
-				when "011"|"000" =>	-- floaty
-					if(floaty > 50000) then
-						if(RNG(8) = '1') then
-							x_pos <= x_pos - 1;
-						end if;
-						
-						if (y_pos <= y_max - (size*8)) then
-							y_pos <= y_pos + 1;
-						elsif (y_pos >= y_min) then
-							y_pos <= y_pos - 1;
-						elsif (RNG(0) = '1') then
-							y_pos <= y_pos + 1;
-						else
-							y_pos <= y_pos - 1;
-						end if;
-						floaty := 0;
-					else
-						floaty := floaty + 1;
-					end if;
-					
-					
-				when "100"|"101" =>	-- diagonal
-					if(diagonalSpeed > 2500) then
-						if(diagonalDir = 0) then	--up left
-							if(x_pos <= x_min) then
-								diagonalDir := 3;
-							else
-								x_pos <= x_pos - 1;
-							end if;
-							
-							if (y_pos <= y_max - ((size+1)*8)) then
-								diagonalDir := 1;
-							else
-								y_pos <= y_pos - 1;
-							end if;
-							
-						elsif(diagonalDir = 1) then	-- down left
-							if(x_pos <= x_min) then
-								diagonalDir := 2;
-							else
-								x_pos <= x_pos - 1;
-							end if;
-							
-							if(y_pos >= y_min) then
-								diagonalDir := 0;
-							else
-								y_pos <= y_pos + 1;
-							end if;
-							
-							
-						elsif(diagonalDir = 2) then	-- down right
-							if(x_pos >= x_max - ((size+1)*8)) then
-								diagonalDir := 1;
-							else
-								x_pos <= x_pos + 1;
-							end if;	
-								
-							if(y_pos >= y_min) then
-								diagonalDir := 3;
-							else
-								y_pos <= y_pos + 1;
-							end if;
-							
-						else									-- up right
-							if(x_pos >= x_max- ((size+1)*8)) then
-								diagonalDir := 0;
-							else
-								x_pos <= x_pos + 1;
-							end if;	
-								
-							if(y_pos <= y_max + (size+1)*8) then
-								diagonalDir := 2;
-							else
-								y_pos <= y_pos - 1;
-							end if;
-						end if;
-						diagonalSpeed := 0;
-					else
-						diagonalSpeed := diagonalSpeed + 1;	
-					end if;
-					
-					
-					
-				when "001"|"010" =>	-- horizontal fast
-					if(fast > 1000) then
-						x_pos <= x_pos - 1;
-						fast := 0;
-					else
-						fast := fast + 1;
-					end if;
-					
-				when others =>	--  slowly approach player (should be "110" or "111")
-					if (slow > 100000) then
-						if (ship_x > x_pos) then
-							x_pos <= x_pos + 1;
-						else
-							x_pos <= x_pos - 1;
-						end if;
-						
-						if (ship_y > y_pos) then
-							y_pos <= y_pos + 1;
-						else
-							y_pos <= y_pos - 1;
-						end if;						
-						slow := 0;
-					else
-						slow := slow + 1;
-					end if;
-				end case;
+			
+				if(fast > 150) then
+					x_pos <= x_pos - 1;
+					fast := 0;
+				else
+					fast := fast + 1;
+				end if;
+--				case size_unsigned is
+--				when "011"|"000" =>	-- floaty
+--					if(floaty > 5000) then
+--						if(RNG(8) = '1') then
+--							x_pos <= x_pos - 1;
+--						end if;
+--						
+--						if (y_pos <= y_max - (size*8)) then
+--							y_pos <= y_pos + 1;
+--						elsif (y_pos >= y_min) then
+--							y_pos <= y_pos - 1;
+--						elsif (RNG(0) = '1') then
+--							y_pos <= y_pos + 1;
+--						else
+--							y_pos <= y_pos - 1;
+--						end if;
+--						floaty := 0;
+--					else
+--						floaty := floaty + 1;
+--					end if;
+--					
+--					
+--				when "100"|"101" =>	-- diagonal
+--					if(diagonalSpeed > 250) then
+--						if(diagonalDir = 0) then	--up left
+--							if(x_pos <= x_min) then
+--								diagonalDir := 3;
+--							else
+--								x_pos <= x_pos - 1;
+--							end if;
+--							
+--							if (y_pos <= y_max - ((size+1)*8)) then
+--								diagonalDir := 1;
+--							else
+--								y_pos <= y_pos - 1;
+--							end if;
+--							
+--						elsif(diagonalDir = 1) then	-- down left
+--							if(x_pos <= x_min) then
+--								diagonalDir := 2;
+--							else
+--								x_pos <= x_pos - 1;
+--							end if;
+--							
+--							if(y_pos >= y_min) then
+--								diagonalDir := 0;
+--							else
+--								y_pos <= y_pos + 1;
+--							end if;
+--							
+--							
+--						elsif(diagonalDir = 2) then	-- down right
+--							if(x_pos >= x_max - ((size+1)*8)) then
+--								diagonalDir := 1;
+--							else
+--								x_pos <= x_pos + 1;
+--							end if;	
+--								
+--							if(y_pos >= y_min) then
+--								diagonalDir := 3;
+--							else
+--								y_pos <= y_pos + 1;
+--							end if;
+--							
+--						else									-- up right
+--							if(x_pos >= x_max- ((size+1)*8)) then
+--								diagonalDir := 0;
+--							else
+--								x_pos <= x_pos + 1;
+--							end if;	
+--								
+--							if(y_pos <= y_max + (size+1)*8) then
+--								diagonalDir := 2;
+--							else
+--								y_pos <= y_pos - 1;
+--							end if;
+--						end if;
+--						diagonalSpeed := 0;
+--					else
+--						diagonalSpeed := diagonalSpeed + 1;	
+--					end if;
+--					
+--					
+--					
+--				when "001"|"010" =>	-- horizontal fast
+--					if(fast > 100) then
+--						x_pos <= x_pos - 1;
+--						fast := 0;
+--					else
+--						fast := fast + 1;
+--					end if;
+--					
+--				when others =>	--  slowly approach player (should be "110" or "111")
+--					if (slow > 10000) then
+--						if (ship_x > x_pos) then
+--							x_pos <= x_pos + 1;
+--						else
+--							x_pos <= x_pos - 1;
+--						end if;
+--						
+--						if (ship_y > y_pos) then
+--							y_pos <= y_pos + 1;
+--						else
+--							y_pos <= y_pos - 1;
+--						end if;						
+--						slow := 0;
+--					else
+--						slow := slow + 1;
+--					end if;
+--				end case;
 			else
 				x_pos <= 641;
-				y_pos <= 153;
+				y_pos <= 326;
 				diagonalDir := 0;
 			end if;
 		end if;

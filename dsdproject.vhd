@@ -561,7 +561,7 @@ ARCHITECTURE behavior OF dsdproject IS
 	begin
 		if(rising_edge(clockWithPause)) then
 			for i in 0 to 11 loop
-				if ( alien(i).x < x_min OR shoot = '0') then --**COLLISION DETECTION**-- 
+				if ( alien(i).x < (-1*(8 * alien(i).size)) OR shoot = '0') then --**COLLISION DETECTION**-- 
 					alien(i).collision <= '1';
 				elsif (alien(i).spawn = '1') then
 					alien(i).collision <= '0';
