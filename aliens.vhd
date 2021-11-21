@@ -167,7 +167,7 @@ begin
 						fast := fast + 1;
 					end if;
 					
-				when "110"|"111" =>	-- slowly approach player
+				when others =>	--  slowly approach player (should be "110" or "111")
 					if (slow > 10000) then
 						if (ship_x > x_pos) then
 							x_pos <= x_pos + 1;
@@ -185,10 +185,14 @@ begin
 						slow := slow + 1;
 					end if;
 				end case;
+			else
+				x_pos <= 641;
+				y_pos <= 153;
+				diagonalDir := 0;
 			end if;
 		end if;
 	end process;
-	spawning : process (max10_clk, alive)
+	spawning : process (max10_clk)
 	variable timeSinceLastSpawn : unsigned(63 downto 0) := (OTHERS => '0');
 	begin
 		if(rising_edge(max10_clk)) then
@@ -205,7 +209,7 @@ begin
 	end process;
 	
 	-- alive flag
-	alienAliveFlag : process (max10_clk, collision, spawn)
+	alienAliveFlag : process (max10_clk)
 	begin
 		if(rising_edge(max10_clk)) then
 			if(spawn = '1') then
@@ -387,7 +391,7 @@ begin
 						fast := fast + 1;
 					end if;
 					
-				when "110"|"111" =>	-- slowly approach player
+				when others =>	--  slowly approach player (should be "110" or "111")
 					if (slow > 10000) then
 						if (ship_x > x_pos) then
 							x_pos <= x_pos + 1;
@@ -405,10 +409,14 @@ begin
 						slow := slow + 1;
 					end if;
 				end case;
+			else
+				x_pos <= 641;
+				y_pos <= 153;
+				diagonalDir := 0;
 			end if;
 		end if;
 	end process;
-	spawning : process (max10_clk, alive)
+	spawning : process (max10_clk)
 	variable timeSinceLastSpawn : unsigned(63 downto 0)  := (OTHERS => '0');
 	begin
 		if(rising_edge(max10_clk)) then
@@ -426,7 +434,7 @@ begin
 	end process;
 	
 	-- alive flag
-	alienAliveFlag : process (max10_clk, collision, spawn)
+	alienAliveFlag : process (max10_clk)
 	begin
 		if(rising_edge(max10_clk)) then
 			if(spawn = '1') then
@@ -490,7 +498,7 @@ begin
 			movement_counter := movement_counter + 1;		
 		end if;
 		
-		if (movement_counter >= 50000) then
+		if (movement_counter >= 5000) then
 			movement_clock <= NOT movement_clock;
 			movement_counter := 0;	
 		else
@@ -519,7 +527,7 @@ begin
 			elsif(alive = '1') then
 				case size_unsigned is
 				when "011"|"000" =>	-- floaty
-					if(floaty > 5000) then
+					if(floaty > 50000) then
 						if(RNG(8) = '1') then
 							x_pos <= x_pos - 1;
 						end if;
@@ -540,7 +548,7 @@ begin
 					
 					
 				when "100"|"101" =>	-- diagonal
-					if(diagonalSpeed > 250) then
+					if(diagonalSpeed > 2500) then
 						if(diagonalDir = 0) then	--up left
 							if(x_pos <= x_min) then
 								diagonalDir := 3;
@@ -602,15 +610,15 @@ begin
 					
 					
 				when "001"|"010" =>	-- horizontal fast
-					if(fast > 100) then
+					if(fast > 1000) then
 						x_pos <= x_pos - 1;
 						fast := 0;
 					else
 						fast := fast + 1;
 					end if;
 					
-				when "110"|"111" =>	-- slowly approach player
-					if (slow > 10000) then
+				when others =>	--  slowly approach player (should be "110" or "111")
+					if (slow > 100000) then
 						if (ship_x > x_pos) then
 							x_pos <= x_pos + 1;
 						else
@@ -627,11 +635,15 @@ begin
 						slow := slow + 1;
 					end if;
 				end case;
+			else
+				x_pos <= 641;
+				y_pos <= 153;
+				diagonalDir := 0;
 			end if;
 		end if;
 	end process;
 	--spawn flag
-	spawning : process (max10_clk, alive)
+	spawning : process (max10_clk)
 	variable timeSinceLastSpawn : unsigned(31 downto 0)  := (OTHERS => '0');
 	variable numSpawns : integer := 0;
 	variable period : integer := max_period_seconds;
@@ -658,7 +670,7 @@ begin
 	end process;
 	
 	-- alive flag
-	alienAliveFlag : process (max10_clk, collision, spawn)
+	alienAliveFlag : process (max10_clk)
 	begin
 		if (rising_edge(max10_clk)) then
 			if(spawn = '1') then
