@@ -48,11 +48,12 @@ begin
 			movement_counter := movement_counter + 1;		
 		end if;
 		
-		if (movement_counter <= 100000) then
+		if (movement_counter >= 50000) then
 			movement_clock <= NOT movement_clock;
-			movement_counter := 0;
+			movement_counter := 0;	
+		else
+			movement_clock <= movement_clock;
 		end if;
-
 	end process;
 	
 	movement : process (movement_clock)
@@ -68,18 +69,20 @@ begin
 	variable x_min : INTEGER := 25;
 	
 	begin
-		if(spawn = '1') then
-			x_pos <= 641;
-			y_pos <= 240;
-		elsif(rising_edge(movement_clock) AND alive = '1') then
-			case size_unsigned is
+		if(rising_edge(movement_clock)) then
+			if(spawn = '1') then
+				x_pos <= 641;
+				y_pos <= 153;
+				diagonalDir := 0;
+			elsif(alive = '1') then
+				case size_unsigned is
 				when "011"|"000" =>	-- floaty
-					if(floaty > 500) then
+					if(floaty > 5000) then
 						if(RNG(8) = '1') then
 							x_pos <= x_pos - 1;
 						end if;
 						
-						if (y_pos <= y_max) then
+						if (y_pos <= y_max - (size*8)) then
 							y_pos <= y_pos + 1;
 						elsif (y_pos >= y_min) then
 							y_pos <= y_pos - 1;
@@ -95,7 +98,7 @@ begin
 					
 					
 				when "100"|"101" =>	-- diagonal
-					if(diagonalSpeed > 10) then
+					if(diagonalSpeed > 250) then
 						if(diagonalDir = 0) then	--up left
 							if(x_pos <= x_min) then
 								diagonalDir := 3;
@@ -157,7 +160,7 @@ begin
 					
 					
 				when "001"|"010" =>	-- horizontal fast
-					if(fast > 5) then
+					if(fast > 100) then
 						x_pos <= x_pos - 1;
 						fast := 0;
 					else
@@ -165,7 +168,7 @@ begin
 					end if;
 					
 				when "110"|"111" =>	-- slowly approach player
-					if (slow > 20) then
+					if (slow > 10000) then
 						if (ship_x > x_pos) then
 							x_pos <= x_pos + 1;
 						else
@@ -181,33 +184,37 @@ begin
 					else
 						slow := slow + 1;
 					end if;
-			end case;
+				end case;
+			end if;
 		end if;
 	end process;
-	
 	spawning : process (max10_clk, alive)
 	variable timeSinceLastSpawn : unsigned(63 downto 0) := (OTHERS => '0');
 	begin
-		timeSinceLastSpawn := timeSinceLastSpawn + 1;
-		if( (RNG AND RNG_bit_map) = RNG_bit_map AND alive = '0' AND timeSinceLastSpawn > to_unsigned(50000000*min_period,63) ) then
-			spawn <= '1';
-			timeSinceLastSpawn := (OTHERS => '0');
-		elsif ( rising_edge(alive) ) then
-			spawn <= '0';			
-		else
-			spawn <= spawn;
+		if(rising_edge(max10_clk)) then
+			timeSinceLastSpawn := timeSinceLastSpawn + 1;
+			if( (RNG AND RNG_bit_map) = RNG_bit_map AND alive = '0' AND timeSinceLastSpawn > to_unsigned(50000000*min_period,63) ) then
+				spawn <= '1';
+				timeSinceLastSpawn := (OTHERS => '0');
+			elsif ( alive = '1' ) then
+				spawn <= '0';			
+			else
+				spawn <= spawn;
+			end if;
 		end if;
 	end process;
 	
 	-- alive flag
 	alienAliveFlag : process (max10_clk, collision, spawn)
 	begin
-		if(spawn = '1') then
-			alive <= '1';
-		elsif( collision = '1' ) then
-			alive <= '0';
-		else
-			alive <= alive;
+		if(rising_edge(max10_clk)) then
+			if(spawn = '1') then
+				alive <= '1';
+			elsif( collision = '1' ) then
+				alive <= '0';
+			else
+				alive <= alive;
+			end if;
 		end if;
 	end process;
 	
@@ -261,9 +268,11 @@ begin
 			movement_counter := movement_counter + 1;		
 		end if;
 		
-		if (movement_counter <= 100000) then
+		if (movement_counter >= 50000) then
 			movement_clock <= NOT movement_clock;
-			movement_counter := 0;
+			movement_counter := 0;	
+		else
+			movement_clock <= movement_clock;
 		end if;
 	end process;
 	
@@ -280,18 +289,20 @@ begin
 	variable x_min : INTEGER := 25;
 	
 	begin
-		if(spawn = '1') then
-			x_pos <= 641;
-			y_pos <= 153;
-		elsif(rising_edge(movement_clock) AND alive = '1') then
-			case size_unsigned is
+		if(rising_edge(movement_clock)) then
+			if(spawn = '1') then
+				x_pos <= 641;
+				y_pos <= 153;
+				diagonalDir := 0;
+			elsif(alive = '1') then
+				case size_unsigned is
 				when "011"|"000" =>	-- floaty
-					if(floaty > 500) then
+					if(floaty > 5000) then
 						if(RNG(8) = '1') then
 							x_pos <= x_pos - 1;
 						end if;
 						
-						if (y_pos <= y_max) then
+						if (y_pos <= y_max - (size*8)) then
 							y_pos <= y_pos + 1;
 						elsif (y_pos >= y_min) then
 							y_pos <= y_pos - 1;
@@ -307,7 +318,7 @@ begin
 					
 					
 				when "100"|"101" =>	-- diagonal
-					if(diagonalSpeed > 10) then
+					if(diagonalSpeed > 250) then
 						if(diagonalDir = 0) then	--up left
 							if(x_pos <= x_min) then
 								diagonalDir := 3;
@@ -369,7 +380,7 @@ begin
 					
 					
 				when "001"|"010" =>	-- horizontal fast
-					if(fast > 5) then
+					if(fast > 100) then
 						x_pos <= x_pos - 1;
 						fast := 0;
 					else
@@ -377,7 +388,7 @@ begin
 					end if;
 					
 				when "110"|"111" =>	-- slowly approach player
-					if (slow > 20) then
+					if (slow > 10000) then
 						if (ship_x > x_pos) then
 							x_pos <= x_pos + 1;
 						else
@@ -393,32 +404,38 @@ begin
 					else
 						slow := slow + 1;
 					end if;
-			end case;
+				end case;
+			end if;
 		end if;
 	end process;
 	spawning : process (max10_clk, alive)
 	variable timeSinceLastSpawn : unsigned(63 downto 0)  := (OTHERS => '0');
 	begin
-		timeSinceLastSpawn := timeSinceLastSpawn + 1;
-		if(alive = '0' AND timeSinceLastSpawn > to_unsigned(50000000*period_seconds, 63)) then
-			spawn <= '1';
-			timeSinceLastSpawn := (OTHERS => '0');
-		elsif ( rising_edge(alive) ) then
-			spawn <= '0';
-		else
-			spawn <= spawn;
+		if(rising_edge(max10_clk)) then
+			timeSinceLastSpawn := timeSinceLastSpawn + 1;
+		
+			if(alive = '0' AND timeSinceLastSpawn > to_unsigned(50000000*period_seconds, 63)) then
+				spawn <= '1';
+				timeSinceLastSpawn := (OTHERS => '0');
+			elsif ( alive = '1' ) then
+				spawn <= '0';
+			else
+				spawn <= spawn;
+			end if;
 		end if;	
 	end process;
 	
 	-- alive flag
 	alienAliveFlag : process (max10_clk, collision, spawn)
 	begin
-		if(spawn = '1') then
-			alive <= '1';
-		elsif( collision = '1' ) then
-			alive <= '0';
-		else
-			alive <= alive;
+		if(rising_edge(max10_clk)) then
+			if(spawn = '1') then
+				alive <= '1';
+			elsif( collision = '1' ) then
+				alive <= '0';
+			else
+				alive <= alive;
+			end if;
 		end if;
 	end process;
 end architecture;
@@ -473,9 +490,11 @@ begin
 			movement_counter := movement_counter + 1;		
 		end if;
 		
-		if (movement_counter <= 10000000) then
+		if (movement_counter >= 50000) then
 			movement_clock <= NOT movement_clock;
-			movement_counter := 0;			
+			movement_counter := 0;	
+		else
+			movement_clock <= movement_clock;
 		end if;
 	end process;
 	
@@ -492,18 +511,20 @@ begin
 	variable x_min : INTEGER := 25;
 	
 	begin
-		if(spawn = '1') then
-			x_pos <= 641;
-			y_pos <= 326;
-		elsif(rising_edge(movement_clock) AND alive = '1') then
-			case size_unsigned is
+		if(rising_edge(movement_clock)) then
+			if(spawn = '1') then
+				x_pos <= 641;
+				y_pos <= 153;
+				diagonalDir := 0;
+			elsif(alive = '1') then
+				case size_unsigned is
 				when "011"|"000" =>	-- floaty
-					if(floaty > 500) then
+					if(floaty > 5000) then
 						if(RNG(8) = '1') then
 							x_pos <= x_pos - 1;
 						end if;
 						
-						if (y_pos <= y_max) then
+						if (y_pos <= y_max - (size*8)) then
 							y_pos <= y_pos + 1;
 						elsif (y_pos >= y_min) then
 							y_pos <= y_pos - 1;
@@ -519,7 +540,7 @@ begin
 					
 					
 				when "100"|"101" =>	-- diagonal
-					if(diagonalSpeed > 10) then
+					if(diagonalSpeed > 250) then
 						if(diagonalDir = 0) then	--up left
 							if(x_pos <= x_min) then
 								diagonalDir := 3;
@@ -581,7 +602,7 @@ begin
 					
 					
 				when "001"|"010" =>	-- horizontal fast
-					if(fast > 5) then
+					if(fast > 100) then
 						x_pos <= x_pos - 1;
 						fast := 0;
 					else
@@ -589,7 +610,7 @@ begin
 					end if;
 					
 				when "110"|"111" =>	-- slowly approach player
-					if (slow > 20) then
+					if (slow > 10000) then
 						if (ship_x > x_pos) then
 							x_pos <= x_pos + 1;
 						else
@@ -605,7 +626,8 @@ begin
 					else
 						slow := slow + 1;
 					end if;
-			end case;
+				end case;
+			end if;
 		end if;
 	end process;
 	--spawn flag
@@ -614,33 +636,38 @@ begin
 	variable numSpawns : integer := 0;
 	variable period : integer := max_period_seconds;
 	begin
-		timeSinceLastSpawn := timeSinceLastSpawn + 1;
-		if(period > min_period_seconds) then
-			period := max_period_seconds - numSpawns;
-		else
-			period := min_period_seconds;
-		end if;
+		if(rising_edge(max10_clk)) then
+			timeSinceLastSpawn := timeSinceLastSpawn + 1;
+			if(period > min_period_seconds) then
+				period := max_period_seconds - numSpawns;
+			else
+				period := min_period_seconds;
+			end if;
+
 		
-		if(alive = '0' AND timeSinceLastSpawn > (50000000*period) ) then
-			spawn <= '1';
-			timeSinceLastSpawn := (OTHERS => '0');
-			numSpawns := numSpawns + 1;
-		elsif ( rising_edge(alive) ) then
-			spawn <= '0';		
-		else
-			spawn <= spawn;
+			if(alive = '0' AND timeSinceLastSpawn > (50000000*period) ) then
+				spawn <= '1';
+				timeSinceLastSpawn := (OTHERS => '0');
+				numSpawns := numSpawns + 1;
+			elsif ( alive = '1' ) then
+				spawn <= '0';		
+			else
+				spawn <= spawn;
+			end if;
 		end if;
 	end process;
 	
 	-- alive flag
 	alienAliveFlag : process (max10_clk, collision, spawn)
 	begin
-		if(spawn = '1') then
-			alive <= '1';
-		elsif( collision = '1' ) then
-			alive <= '0';
-		else
-			alive <= alive;
+		if (rising_edge(max10_clk)) then
+			if(spawn = '1') then
+				alive <= '1';
+			elsif( collision = '1' ) then
+				alive <= '0';
+			else
+				alive <= alive;
+			end if;
 		end if;
 	end process;
 end architecture;
