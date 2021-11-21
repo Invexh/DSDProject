@@ -492,7 +492,7 @@ ARCHITECTURE behavior OF dsdproject IS
 	hndl_Projectile : PROCESS (shoot)
 	VARIABLE ei : INTEGER; --Entity Index
 	BEGIN
-		IF (pause = '0' AND rising_edge(shoot)) THEN
+		IF (pause = '0' AND falling_edge(shoot)) THEN
 			p_proj(ei).e <= '1';
 			p_proj(ei).hs1 <= '1';
 			ei := ((ei + 1) mod max_pproj);
