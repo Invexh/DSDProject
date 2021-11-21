@@ -496,7 +496,6 @@ ARCHITECTURE behavior OF dsdproject IS
 			p_proj(ei).e <= '1';
 			p_proj(ei).hs1 <= '1';
 			ei := ((ei + 1) mod max_pproj);
-			score <= score + 10;
 		END IF;
 		FOR i in 0 to (max_pproj - 1) LOOP
 			IF (p_proj(i).hs2 = '1') THEN
@@ -530,7 +529,6 @@ ARCHITECTURE behavior OF dsdproject IS
 			valu := (score/(10 ** i)) mod 10;
 			
 			case valu is
-				--when 10 => digit(max_digits-i-1).s <= "1111110";
 				when 9 => digit(max_digits-i-1).s <= "1110011";
 				when 8 => digit(max_digits-i-1).s <= "1111111";
 				when 7 => digit(max_digits-i-1).s <= "1110000";
