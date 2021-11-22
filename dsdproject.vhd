@@ -239,6 +239,10 @@ ARCHITECTURE behavior OF dsdproject IS
 		variable calcC : INTEGER;
 		variable calcD : INTEGER;
 		
+		variable up_downNot					: boolean := true;
+		variable mountain_height 			: integer := 0;
+		variable mountain_start_y_pos	: integer := 0;
+		
 	BEGIN
 
     IF(disp_ena = '1') THEN        --display time
@@ -249,6 +253,41 @@ ARCHITECTURE behavior OF dsdproject IS
 		ELSE
 			colorconcat <= "111111111111";
 		END IF;
+		
+		
+------DRAWS THE COLLISION-LESS BACKGROUND "MOUNTAINS" (TRIANGLES)----------------------------	
+		IF( (ROW < Y_MAX - MOUNTAIN_HEIGHT) AND  (ROW > Y_MAX - (MOUNTAIN_HEIGHT + 5)) ) THEN
+			COLORCONCAT <= "101010101010";
+		ELSE
+			COLORCONCAT <= "111111111111";		
+		END IF;
+		
+		if(row = 0) then
+			if(column = 0 AND up_downNot) then
+				mountain_start_y_pos := mountain_start_y_pos + 1;
+				mountain_height := mountain_start_y_pos;
+			elsif(column = 0 AND NOT up_downNot) then
+				mountain_start_y_pos := mountain_start_y_pos - 1;
+				mountain_height := mountain_start_y_pos;
+			elsif(up_downNOT) then
+				mountain_height := mountain_height + 1;
+			elsif(NOT up_downNOT) then
+				mountain_height := mountain_height - 1;
+			else
+				mountain_height := mountain_height;
+			end if;
+		else
+			mountain_height := mountain_height;
+		end if;
+		
+		if(mountain_height > 150) then
+			up_downNot := false;
+		elsif(mountain_height < 1) then
+			up_downNot := true;
+		else
+			up_downNot := up_downNot;
+		end if;
+		
 		
 ------DRAWS THE PLAYER SHIP ON THE SCREEN----------------------------------------------------
 		calcA := column - ship.x;		--Relative X position
