@@ -558,13 +558,13 @@ ARCHITECTURE behavior OF dsdproject IS
 	buzzer1_clock : process(clockWithPause)
 	variable C3_counter : integer := 0;
 	variable exp_clk_counter : integer := 0;
-	variable RNG_instance : integer := 1000000;		--generates random-ish clock for white noise	
+	variable RNG_instance : integer := 7500;		--generates random-ish clock for white noise	
 	begin
 		if(rising_edge(clockWithPause)) then	
 			if(exp_sound = '1') then
 				if (exp_clk_counter > RNG_instance ) then
 					bz1_clk <= not bz1_clk;
-					RNG_instance := 50000*(to_integer(unsigned(RNG(7 downto 3)))+1);
+					RNG_instance := 300*(to_integer(unsigned(RNG(7 downto 3)))+1);
 					exp_clk_counter := 0;
 				else
 					bz1_clk <= bz1_clk;
@@ -592,7 +592,7 @@ ARCHITECTURE behavior OF dsdproject IS
 	begin
 		if(rising_edge(bz1_clk)) then	
 			if(exp_counter > 0) then		-- explosion
-				if(exp_counter < 50) then
+				if(exp_counter < 1000) then
 					buzzer1 <= not buzzer1;
 					exp_counter := exp_counter + 1;
 				else
@@ -629,15 +629,14 @@ ARCHITECTURE behavior OF dsdproject IS
 				end if;
 			end loop;
 			
-			for j in 0 to 19 loop
-				if (shoot = '0') then
-					pew_sound <='1';
-				elsif( sound_done = '1') then
-					pew_sound <= '0';
-				else
-					pew_sound <= pew_sound;
-				end if;
-			end loop;
+			
+			if (shoot = '0') then
+				pew_sound <='1';
+			elsif( sound_done = '1') then
+				pew_sound <= '0';
+			else
+				pew_sound <= pew_sound;
+			end if;
 		end if;			
 			
 	end process;
