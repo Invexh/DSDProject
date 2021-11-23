@@ -33,7 +33,17 @@ package custom_types is
 		e : STD_LOGIC; --Entity bit
 	end record player_proj;
 	
+	type alien_proj is record
+		x : INTEGER; --Y POS
+		y : INTEGER; --X POS
+		hs1 : STD_LOGIC;	--Entity Handshake 1
+		hs2 : STD_LOGIC;	--Entity Handshake 2
+		e : STD_LOGIC; --Entity bit
+		parent : integer; --alien the projectile spawned from
+	end record alien_proj;
+	
 	type player_proj_array is array (integer range <>) of player_proj;
+	type alien_proj_array is array (integer range <>) of alien_proj;
 	type alien_array is array (integer range <>) of alien_t;
 	type seg_array is array (integer range <>) of seg_digit;
 	
@@ -60,8 +70,9 @@ ENTITY dsdproject IS
 		ship_height : INTEGER := 18;
 		ship_length : INTEGER := 36;
 
-		--Player projectiles data
+		--Projectiles data
 		max_pproj : INTEGER := 20;
+		max_aproj : INTEGER := 30;
 		
 		--Scoreboard data
 		max_digits : INTEGER := 6;
@@ -118,7 +129,8 @@ ARCHITECTURE behavior OF dsdproject IS
 
 	--ENTITIES--
 	signal alien : alien_array(11 downto 0);
-	signal p_proj : player_proj_array(19 downto 0);
+	signal p_proj : player_proj_array(max_pproj downto 0);
+	signal a_proj : alien_proj_array(max_aproj downto 0);
 
 	--CLOCK RELATED DATA--
 	signal clock_x, clock_y : STD_LOGIC := '0';
@@ -128,16 +140,20 @@ ARCHITECTURE behavior OF dsdproject IS
 	signal data_x, data_y, data_z : STD_LOGIC_VECTOR(15 downto 0);	
 	signal clockWithPause 			: std_logic := '0';
 	signal projectile_clock 		: std_logic := '0';
+	signal alien_projectile_clock : std_logic := '0';
 	signal mountain_clk				: std_logic := '0';
 
 	--OTHER--
-	signal RNG 		: std_logic_vector(9 downto 0);
-	signal pause 	: std_logic := '0';
+	signal RNG 				: std_logic_vector(9 downto 0);
+	signal pause 			: std_logic := '1';
 	
 	--AUDIO--
 	signal bz1_clk : 		std_logic := '0';
 	signal pew_sound :	std_logic := '0';
 	signal exp_sound :	std_logic := '0';
+	
+	--FLAGS--
+	signal startOfGameFlag : std_logic := '1';
 	
 	-- Accelerometer component
 	component ADXL345_controller is port(	
@@ -212,8 +228,7 @@ ARCHITECTURE behavior OF dsdproject IS
 			ship_y 					: in integer
 		);
 	end component;	
-	
-	
+
 	BEGIN
 
 	U0 : ADXL345_controller port map('1', max10_clk, open, data_x, data_y, data_z, GSENSOR_SDI, GSENSOR_SDO, GSENSOR_CS_N, GSENSOR_SCLK);
@@ -233,7 +248,6 @@ ARCHITECTURE behavior OF dsdproject IS
 	U12 : AlienScoreTimer port map(clockWithPause, RNG, alien(10).alive, alien(10).size, alien(10).color, alien(10).x, alien(10).y, 50, 3, score, ship.x, ship.y);
 	U13 : AlienScoreTimer port map(clockWithPause, RNG, alien(11).alive, alien(11).size, alien(11).color, alien(11).x, alien(11).y, 60, 7, score, ship.x, ship.y);
 	
-
 	PROCESS(disp_ena, row, column)
 		variable calcA : INTEGER;
 		variable calcB : INTEGER;
@@ -341,6 +355,17 @@ ARCHITECTURE behavior OF dsdproject IS
 				END IF;
 			END IF;
 		END LOOP;
+		
+------DRAWS THE ALIEN PROJECTILES ON THE SCREEN---------------------------------------------
+		FOR i in 0 to (max_pproj - 1) LOOP
+			IF (p_proj(i).e = '1') THEN
+				IF (row = p_proj(i).y AND column >= a_proj(i).x AND column <= (a_proj(i).x + 20)) THEN
+					colorconcat <= "111100001111";
+				END IF;
+			END IF;
+		END LOOP;
+		
+		
 ------DRAWS THE SCOREBOARD TO THE SCREEN-----------------------------------------------------
 		calcA := (digit_thickness - 1)/2;	--Onesided thickness of digit
 		calcB := (digit_height - 3)/2;		--Segment Length 
@@ -391,14 +416,32 @@ ARCHITECTURE behavior OF dsdproject IS
   END PROCESS;
   
 ------Pause----------------------------------------------------------------------------------
-	pauseProcess : process ( max10_clk )
+	pauseProcess : process ( max10_clk, pause_toggle, startOfGameFlag )
+	variable hs3 : boolean := false;
+	variable hs4 : boolean := false;
 	begin	
-		 if(falling_edge(pause_toggle)) then
+
+		if(startOfGameFlag = '1') then
+			if(shoot = '0') then
+				pause <= '0';
+			else
+				pause <= '1';
+			end if;
+		elsif(falling_edge(pause_toggle)) then
 			pause <= not pause;
-		 end if;
-		 
-		 clockWithPause <= max10_clk AND NOT pause;
+		else
+			pause <= pause;
+		end if;
+		
+		clockWithPause <= max10_clk AND NOT pause;
 	
+	end process;
+	
+	start_proc : process(shoot)
+	begin
+		if(falling_edge(shoot) AND pause = '1') then
+			startOfGameFlag <= '0';
+		end if;
 	end process;
  
 ------Clock for X Axis Movement--------------------------------------------------------------
@@ -563,6 +606,65 @@ ARCHITECTURE behavior OF dsdproject IS
 			END LOOP;
 		END IF;
 	END PROCESS;
+	
+------Alien LASER DATA----------------------------------------------------------------------
+	
+	alienProjectileMoveClock : process (max10_clk, pause)
+	variable alien_proj_clock_counter : integer := 0;
+	begin
+		if(rising_edge(max10_clk) AND pause = '0') then
+			alien_proj_clock_counter := alien_proj_clock_counter + 1;		
+		end if;
+		
+		if (alien_proj_clock_counter > 90000) then
+			alien_projectile_clock <= NOT alien_projectile_clock;
+			alien_proj_clock_counter := 0;
+		end if;
+
+	end process;
+
+	alien_hndl_Projectile : PROCESS (shoot)
+	VARIABLE ei 					: INTEGER; --Entity Index
+	variable shoot_counter 		: integer := 0;
+	variable min_period			: integer := 0;
+	variable clock_div			: integer := 0;
+	
+	BEGIN
+		if(rising_edge(max10_clk) AND pause = '0') then
+			for j in 0 to 11 loop
+				if(alien(j).size = 3 OR alien(j).size = 4) then -- floatys
+					IF ( ((alien(j).x mod alien(j).size) = 0) AND ((alien(j).y mod alien(j).size) = 0) ) THEN
+						a_proj(ei).e <= '1';
+						a_proj(ei).hs1 <= '1';
+						ei := ((ei + 1) mod max_aproj);
+						a_proj(ei).parent <= j;
+					END IF;
+				end if;
+			end loop;
+			FOR i in 0 to (max_aproj - 1) LOOP
+				IF (a_proj(i).hs2 = '1') THEN
+					a_proj(i).hs1 <= '0';
+				END IF;
+			END LOOP;
+		end if;
+	END PROCESS;
+  
+	alien_move_Projectile : PROCESS (alien_projectile_clock)
+	BEGIN
+		IF (rising_edge(alien_projectile_clock)) THEN	
+			FOR i in 0 to (max_aproj - 1) LOOP
+				IF (a_proj(i).hs1 = '1') THEN
+					a_proj(i).hs2 <= '1';
+					a_proj(i).x <= alien(a_proj(i).parent).x - 20;
+					a_proj(i).y <= alien(a_proj(i).parent).y - 2;
+				ELSE
+					a_proj(i).x <= a_proj(i).x - 1;
+					a_proj(i).hs2 <= '0';
+				END IF;
+			END LOOP;
+		END IF;
+	END PROCESS;
+
 
 ------UPDATE DIGTIS WITH SCORE VALUE---------------------------------------------------------
 	hndl_Digits : process(score)
@@ -588,9 +690,7 @@ ARCHITECTURE behavior OF dsdproject IS
 		END LOOP;
 	END PROCESS;
 	
---BUZZER1 ------------------------------------
-
---pew sound ----------------------------------
+--BUZZER1 -------------------------------------------------
 	buzzer1_clock : process(clockWithPause)
 	variable C3_counter : integer := 0;
 	variable exp_clk_counter : integer := 0;
