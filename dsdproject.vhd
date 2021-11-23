@@ -178,75 +178,10 @@ ARCHITECTURE behavior OF dsdproject IS
 		);			
 	end component;
 
-	-- Alien that spawns when timer and RNG conditions are met
-	component AlienRNG is 
-		port(
-			max10_clk 			: in std_logic := '0';
-			RNG 					: in std_logic_vector(9 downto 0) := "0000000000";
-			alive					: inout std_logic := '0';
-			size 					: inout integer;
-			color					: out std_logic_vector(11 downto 0);
-			x_pos					: inout integer := 640;
-			y_pos					: inout integer := 240;
-			min_period			: in integer := 5;
-			RNG_bit_map			: in std_logic_vector(9 downto 0) := "1111111111";
-			ship_x				: in integer := 0;
-			ship_y 				: in integer := 0
-		);
-	end component;
-	
-	-- Alien that spawns on a constant timer
-	component AlienTimer is 
-		port(
-			max10_clk 			: in std_logic := '0';
-			RNG 					: in std_logic_vector(9 downto 0) := "0000000000";
-			alive					: inout std_logic := '0';
-			size 					: inout integer;
-			color					: out std_logic_vector(11 downto 0);
-			x_pos					: inout integer;
-			y_pos					: inout integer;
-			period_seconds 	: in integer;
-			ship_x				: in integer := 0;
-			ship_y 				: in integer := 0
-		);
-	end component;
-	
-	-- Alien that spawns on a timer that gets faster as the game progresses
-	component AlienScoreTimer is 
-		port(
-			max10_clk 				: in std_logic := '0';
-			RNG 						: in std_logic_vector(9 downto 0) := "0000000000";
-			alive						: inout std_logic := '0';
-			size 						: inout integer;
-			color						: out std_logic_vector(11 downto 0);
-			x_pos						: inout integer;
-			y_pos						: inout integer;
-			max_period_seconds	: in integer;
-			min_period_seconds	: in integer;
-			current_score			: in integer;
-			ship_x					: in integer;
-			ship_y 					: in integer
-		);
-	end component;	
-
 	BEGIN
 
 	U0 : ADXL345_controller port map('1', max10_clk, open, data_x, data_y, data_z, GSENSOR_SDI, GSENSOR_SDO, GSENSOR_CS_N, GSENSOR_SCLK);
 	U1 : RNG10 port map(reset_RNG, '0', max10_clk, RNG);
-	
-------Alien AIs------------------------------------------------------------------------------	
-	U02 : AlienRNG port map(clockWithPause, RNG, alien(0).alive, alien(0).size, alien(0).color, alien(0).x, alien(0).y, 11, "1101111010", ship.x, ship.y);
-	U03 : AlienRNG port map(clockWithPause, RNG, alien(1).alive, alien(1).size, alien(1).color, alien(1).x, alien(1).y, 20, "0110110111", ship.x, ship.y);
-	U04 : AlienRNG port map(clockWithPause, RNG, alien(2).alive, alien(2).size, alien(2).color, alien(2).x, alien(2).y, 29, "1011101101", ship.x, ship.y);
-	U05 : AlienRNG port map(clockWithPause, RNG, alien(3).alive, alien(3).size, alien(3).color, alien(3).x, alien(3).y, 35, "0011011111", ship.x, ship.y);
-	U06 : AlienTimer port map(clockWithPause, RNG, alien(4).alive, alien(4).size, alien(4).color, alien(4).x, alien(4).y, 10, ship.x, ship.y);
-	U07 : AlienTimer port map(clockWithPause, RNG, alien(5).alive, alien(5).size, alien(5).color, alien(5).x, alien(5).y, 17, ship.x, ship.y);
-	U08 : AlienTimer port map(clockWithPause, RNG, alien(6).alive, alien(6).size, alien(6).color, alien(6).x, alien(6).y, 23, ship.x, ship.y);
-	U09 : AlienTimer port map(clockWithPause, RNG, alien(7).alive, alien(7).size, alien(7).color, alien(7).x, alien(7).y, 13, ship.x, ship.y);
-	U10 : AlienScoreTimer port map(clockWithPause, RNG, alien(8).alive, alien(8).size, alien(8).color, alien(8).x, alien(8).y, 30, 4, score, ship.x, ship.y);
-	U11 : AlienScoreTimer port map(clockWithPause, RNG, alien(9).alive, alien(9).size, alien(9).color, alien(9).x, alien(9).y, 45, 5, score, ship.x, ship.y);
-	U12 : AlienScoreTimer port map(clockWithPause, RNG, alien(10).alive, alien(10).size, alien(10).color, alien(10).x, alien(10).y, 50, 3, score, ship.x, ship.y);
-	U13 : AlienScoreTimer port map(clockWithPause, RNG, alien(11).alive, alien(11).size, alien(11).color, alien(11).x, alien(11).y, 60, 7, score, ship.x, ship.y);
 	
 	PROCESS(disp_ena, row, column)
 		variable calcA : INTEGER;
@@ -776,5 +711,90 @@ ARCHITECTURE behavior OF dsdproject IS
 		end if;			
 			
 	end process;
+
+------ALIEN PROCESSING----------------------------------------------------
+
+	Move_CLK : process (max10_clk)
+	variable movement_counter : integer := 0;
+	begin
+		if(rising_edge(max10_clk)) then
+			movement_counter := movement_counter + 1;
+			if (movement_counter >= 10000) then
+				movement_clock <= NOT movement_clock;
+				movement_counter := 0;
+			end if;
+		end if;
+	end process;
+
+	hndl_Alien : process (max10_clk)
+	begin
+		FOR i in 0 to 11 LOOP
+			IF(rising_edge(max10_clk)) THEN
+				IF (alien(i).alive = '0') THEN
+					alien(i).tsls <= alien(i).tsls + 1;
+				END IF;
+
+				IF (alien(i).hs2 = '1') THEN
+					alien(i).hs1 <= '0';
+				END IF;
+
+				IF (i < 4 AND alien(i).alive = '0' AND alien(i).tsls >= (alien(i).min_p * 50000000)) THEN
+					alien(i).alive <= '1';
+					alien(i).size <= to_integer(unsigned(RNG(2 downto 0))) + 1;
+					alien(i).color <= "110000001100";
+					alien(i).hs1 <= '1';
+					alien(i).tsls <= 0;
+
+				ELSIF ( (i < 8 AND alien(i).alive = '0' AND alien(i).tsls >= (alien(i).min_p * 50000000)) ) THEN
+					alien(i).alive <= '1';
+					alien(i).size <= to_integer(unsigned(RNG(5 downto 3) XOR RNG(2 downto 0)));
+					alien(i).color <= "000011000100";
+					alien(i).hs1 <= '1';
+					alien(i).tsls <= 0;
+
+					IF (score > 1000 AND RNG(1) = '1') THEN
+						alien(i).min_p <= alien(i).min_p - 2;
+					END IF;
+					
+				ELSIF ( (i < 12 AND alien(i).alive = '0' AND alien(i).tsls >= (alien(i).min_p * 50000000))) THEN
+					alien(i).alive <= '1';
+					alien(i).size <= to_integer(unsigned(RNG(5 downto 3) XOR RNG(2 downto 0)));
+					alien(i).color <= "000000001100";
+					alien(i).hs1 <= '1';
+					alien(i).tsls <= 0;
+
+					IF (score > 2000) THEN
+						alien(i).min_p <= alien(i).min_p - 2;
+					END IF;
+
+				ELSIF ((alien(i).x > 60000) OR (alien(i).x <= 0)) THEN
+					alien(i).alive <= '0';
+				END IF;
+			END IF;
+		END LOOP;
+	END PROCESS;
+
+	move_Alien : process (movement_clock)
+	VARIABLE randomValue : INTEGER;
+	begin
+		FOR i in 0 to 11 LOOP
+			IF (rising_edge(movement_clock) AND alien(i).alive = '1') THEN
+				IF (alien(i).hs1 = '1') THEN
+					randomValue := to_integer(unsigned(RNG( 8 downto (i rem 3) ))) * 8;
+					alien(i).x <= 750 + randomValue/4;
+					alien(i).y <= ((randomValue + y_max + 8*alien(i).size) rem (y_min - (y_max + 8*alien(i).size)) + (y_max + 8*alien(i).size) + 8);
+					alien(i).hs2 <= '1';
+				ELSE
+					alien(i).hs2 <= '0';
+					alien(i).x <= alien(i).x - 1;
+				END IF;
+			END IF;
+			
+			IF (alien(i).alive = '0') THEN
+				alien(i).x <= 750;
+				alien(i).y <= 240;
+			END IF;
+		END LOOP;
+	END PROCESS;
 	
 END architecture;
