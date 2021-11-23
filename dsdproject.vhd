@@ -87,19 +87,19 @@ ENTITY dsdproject IS
 	max10_clk : inout std_logic;
 	
 	--ports to run the accelerometer
-	GSENSOR_CS_N : OUT	STD_LOGIC;
-	GSENSOR_SCLK : OUT	STD_LOGIC;
-	GSENSOR_SDI  : INOUT	STD_LOGIC;
-	GSENSOR_SDO  : INOUT	STD_LOGIC;
-	reset_accel : in std_logic := '1';
+	GSENSOR_CS_N 	: OUT	STD_LOGIC;
+	GSENSOR_SCLK 	: OUT	STD_LOGIC;
+	GSENSOR_SDI  	: INOUT	STD_LOGIC;
+	GSENSOR_SDO  	: INOUT	STD_LOGIC;
+	reset_accel 	: in std_logic := '1';
 	
-	reset_RNG : IN STD_LOGIC;
+	reset_RNG 		: IN STD_LOGIC;
 	
 	pause_toggle	: in std_logic;
-	shoot			: in std_logic;
+	shoot				: in std_logic;
 	
-	buzzer1		: inout std_logic;
-	buzzer2 		: inout std_logic
+	buzzer1			: inout std_logic;
+	buzzer2 			: inout std_logic
 	
 	);
 END entity;
@@ -123,14 +123,15 @@ ARCHITECTURE behavior OF dsdproject IS
 	--CLOCK RELATED DATA--
 	signal clock_x, clock_y : STD_LOGIC := '0';
 	signal data_x_magnitude, data_y_magnitude : std_logic_vector(7 downto 0);
-	signal countX : integer := 1;
-	signal countY : integer := 1;
+	signal countX 						: integer := 1;
+	signal countY 						: integer := 1;
 	signal data_x, data_y, data_z : STD_LOGIC_VECTOR(15 downto 0);	
-	signal clockWithPause 		: std_logic := '0';
-	signal projectile_clock : std_logic := '0';
+	signal clockWithPause 			: std_logic := '0';
+	signal projectile_clock 		: std_logic := '0';
+	signal mountain_clk				: std_logic := '0';
 
 	--OTHER--
-	signal RNG : std_logic_vector(9 downto 0);
+	signal RNG 		: std_logic_vector(9 downto 0);
 	signal pause 	: std_logic := '0';
 	
 	--AUDIO--
@@ -239,9 +240,10 @@ ARCHITECTURE behavior OF dsdproject IS
 		variable calcC : INTEGER;
 		variable calcD : INTEGER;
 		
-		variable up_downNot					: boolean := true;
-		variable mountain_height 			: integer := 0;
-		variable mountain_start_y_pos	: integer := 0;
+		variable up_downNot					: boolean 	:= true;
+		variable mountain_height 			: integer 	:= 0;
+		variable mountain_counter  		: integer 	:= 0;
+		variable mountain_clk_counter		: integer 	:= 0;
 		
 	BEGIN
 
@@ -256,38 +258,33 @@ ARCHITECTURE behavior OF dsdproject IS
 		
 		
 ------DRAWS THE COLLISION-LESS BACKGROUND "MOUNTAINS" (TRIANGLES)----------------------------	
-		IF( (ROW < Y_MAX - MOUNTAIN_HEIGHT) AND  (ROW > Y_MAX - (MOUNTAIN_HEIGHT + 5)) ) THEN
-			COLORCONCAT <= "101010101010";
-		ELSE
-			COLORCONCAT <= "111111111111";		
+		IF( (ROW > (Y_MIN + 1 - MOUNTAIN_HEIGHT)) AND  (ROW < Y_MIN + 1) ) THEN -- - (MOUNTAIN_HEIGHT + 5)
+			COLORCONCAT <= "101010101010";		
 		END IF;
 		
-		if(row = 0) then
-			if(column = 0 AND up_downNot) then
-				mountain_start_y_pos := mountain_start_y_pos + 1;
-				mountain_height := mountain_start_y_pos;
-			elsif(column = 0 AND NOT up_downNot) then
-				mountain_start_y_pos := mountain_start_y_pos - 1;
-				mountain_height := mountain_start_y_pos;
-			elsif(up_downNOT) then
-				mountain_height := mountain_height + 1;
-			elsif(NOT up_downNOT) then
-				mountain_height := mountain_height - 1;
+		if ( ((column + mountain_counter) rem 100) < 50 ) then
+			mountain_height := 2*((column + mountain_counter) rem 50);
+		else
+			mountain_height := 2*(50 - ((column + mountain_counter) rem 50));
+		end if;
+		
+		--mountain sliding clock
+		if( rising_edge(max10_clk) AND pause = '0' ) then
+			if (mountain_clk_counter > 750000) then
+				mountain_clk <= not mountain_clk;
+				mountain_clk_counter := 0;
 			else
-				mountain_height := mountain_height;
+				mountain_clk_counter := mountain_clk_counter + 1;
 			end if;
-		else
-			mountain_height := mountain_height;
 		end if;
-		
-		if(mountain_height > 150) then
-			up_downNot := false;
-		elsif(mountain_height < 1) then
-			up_downNot := true;
+			
+		--variable to slide mountains
+		if(rising_edge(mountain_clk)) then	
+			mountain_counter := ((mountain_counter + 1) rem 100);
 		else
-			up_downNot := up_downNot;
+			mountain_counter := mountain_counter;
 		end if;
-		
+			
 		
 ------DRAWS THE PLAYER SHIP ON THE SCREEN----------------------------------------------------
 		calcA := column - ship.x;		--Relative X position
@@ -558,7 +555,7 @@ ARCHITECTURE behavior OF dsdproject IS
 				IF (p_proj(i).hs1 = '1') THEN
 					p_proj(i).hs2 <= '1';
 					p_proj(i).x <= ship.x + ship_length;
-					p_proj(i).y <= ship.y;
+					p_proj(i).y <= ship.y - 2;
 				ELSE
 					p_proj(i).x <= p_proj(i).x + 1;
 					p_proj(i).hs2 <= '0';
