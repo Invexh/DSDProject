@@ -38,7 +38,7 @@ ENTITY hw9p1 IS
 		
 		y_max : INTEGER := 67;
 		y_min : INTEGER := 413;
-		x_max : INTEGER := 365;
+		x_max : INTEGER := 320;
 		x_min : INTEGER := 25;
 		
 		bar_thickness : INTEGER := 5;
@@ -101,22 +101,6 @@ BEGIN
 				colorconcat <= "111100000000";
 			END IF;
 		END IF;
-		
-------DRAWS THE REMAINING LIVES ON THE SCREEN---------------------------------------------------------------------------------------------
-		FOR i in 0 to 2 LOOP
-			IF (spare_ships > i) THEN
-				IF ( ((ss_y - row) <= (ship_height - (((column-ss_x(i))*ship_height)/ship_length))) AND ((column-ss_x(i)) <= ship_length) AND ((ss_y - row) > 0) AND ((column - ss_x(i)) > 0) ) THEN
-					IF ( ((ss_y - row) = (ship_height - (((column-ss_x(i))*ship_height)/ship_length))) OR ((column - ss_x(i)) = 1) OR ((ss_y - row) = 1) OR ((column - ss_x(i)) = ship_length) ) THEN
-						colorconcat <= "000000000000";
-					ELSE
-						colorconcat <= "111100000000";
-					END IF;
-				END IF;
-			END IF;
-		END LOOP;
-
-------DRAWS THE SCOREBOARD ON THE SCREEN----------------------------------------------------------------------------------------------------
-
 		
 		red <= "0000" & colorconcat(11 downto 8);
 		green <= "0000" & colorconcat(7 downto 4);
