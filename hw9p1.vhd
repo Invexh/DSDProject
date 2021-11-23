@@ -65,6 +65,8 @@ ENTITY hw9p1 IS
     red      :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0) := (OTHERS => '0');  --red magnitude output to DAC
     green    :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0) := (OTHERS => '0');  --green magnitude output to DAC
     blue     :  OUT  STD_LOGIC_VECTOR(7 DOWNTO 0) := (OTHERS => '0')); --blue magnitude output to DAC
+
+	max10_clk : in std_logic := '0'
 END entity;
 
 ARCHITECTURE behavior OF hw9p1 IS
