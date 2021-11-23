@@ -1,4 +1,7 @@
-
+db/*
+simulation/*
+output_files/*
+incremental_db/*
 db/.cmp.kpt
 db/abs_divider_jbg.tdf
 db/abs_divider_kbg.tdf
