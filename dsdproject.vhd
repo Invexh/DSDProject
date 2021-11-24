@@ -501,14 +501,15 @@ ARCHITECTURE behavior OF dsdproject IS
 						ship.x <= ship.x-1;
 					end if;
 				end if;
+				ship.right <= data_x(11);
 			end if;
 		end if;
 	end process;	
 	
-	ship_LorR : process (ship.x)
-	begin
-		ship.right <= data_x(11);
-	end process;
+--	ship_LeftorRight : process (clock_x)
+--	begin
+--		ship.right <= data_x(11);		
+--	end process;
 
 ------Y Axis Movement------------------------------------------------------------------------
 	
@@ -572,9 +573,13 @@ ARCHITECTURE behavior OF dsdproject IS
 			FOR i in 0 to (max_pproj - 1) LOOP
 				IF (p_proj(i).hs1 = '1') THEN
 					p_proj(i).hs2 <= '1';
-					p_proj(i).x <= ship.x + ship_length;
 					p_proj(i).y <= ship.y - 2;
 					p_proj(i).right <= ship.right;
+					if(ship.right = '1') then
+						p_proj(i).x <= ship.x + ship_length;
+					else
+						p_proj(i).x <= ship.x;
+					end if;
 				ELSE
 					if(p_proj(i).right = '1') then
 						p_proj(i).x <= p_proj(i).x + 1;
