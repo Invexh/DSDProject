@@ -6,12 +6,19 @@ package custom_types is
 	type int_array is array (integer range <>) of integer;
 
 	type alien_t is record
-		alive : STD_LOGIC;
-		size : INTEGER;
 		color : STD_LOGIC_VECTOR(11 downto 0);
+		collision : STD_LOGIC;
+		numSpawns : INTEGER;
+		alive : STD_LOGIC;
+		min_p : INTEGER;
+		max_p : INTEGER;
+		hs1 : STD_LOGIC;
+		hs2 : STD_LOGIC;
+		size : INTEGER;
+		tsls : INTEGER;
 		x : INTEGER;
 		y : INTEGER;
-		collision : STD_LOGIC;
+		p : INTEGER;
 	end record alien_t;
 	
 	type ship_t is record
@@ -128,7 +135,20 @@ ARCHITECTURE behavior OF dsdproject IS
 	signal digit : seg_array(max_digits-1 downto 0);
 
 	--ENTITIES--
-	signal alien : alien_array(11 downto 0);
+	signal alien : alien_array(11 downto 0) := (
+		0 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 00, min_p => 11, p => 00, hs1 => '0', hs2 => '0'),
+		1 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 00, min_p => 20, p => 00, hs1 => '0', hs2 => '0'),
+		2 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 00, min_p => 29, p => 00, hs1 => '0', hs2 => '0'),
+		3 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 00, min_p => 35, p => 00, hs1 => '0', hs2 => '0'),
+		4 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 30, min_p => 15, p => 10, hs1 => '0', hs2 => '0'),
+		5 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 30, min_p => 21, p => 17, hs1 => '0', hs2 => '0'),
+		6 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 30, min_p => 12, p => 23, hs1 => '0', hs2 => '0'),
+		7 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 30, min_p => 17, p => 13, hs1 => '0', hs2 => '0'),
+		8 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 30, min_p => 04, p => 00, hs1 => '0', hs2 => '0'),
+		9 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 45, min_p => 05, p => 00, hs1 => '0', hs2 => '0'),
+	   10 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 50, min_p => 03, p => 00, hs1 => '0', hs2 => '0'),
+	   11 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 60, min_p => 07, p => 00, hs1 => '0', hs2 => '0')
+	);
 	signal p_proj : player_proj_array(max_pproj downto 0);
 	signal a_proj : alien_proj_array(max_aproj downto 0);
 
@@ -140,6 +160,7 @@ ARCHITECTURE behavior OF dsdproject IS
 	signal data_x, data_y, data_z : STD_LOGIC_VECTOR(15 downto 0);	
 	signal clockWithPause 			: std_logic := '0';
 	signal projectile_clock 		: std_logic := '0';
+	signal movement_clock			: std_logic := '0';
 	signal alien_projectile_clock : std_logic := '0';
 	signal mountain_clk				: std_logic := '0';
 
@@ -268,7 +289,7 @@ ARCHITECTURE behavior OF dsdproject IS
 ------DRAWS THE ENEMIES ON THE SCREEN--------------------------------------------------------
 		FOR i in 0 to 11 LOOP
 			IF (alien(i).alive = '1') THEN
-				calcA := column - alien(i).x;	--Relative X position
+				calcA := alien(i).x - column;	--Relative X position
 				calcB := alien(i).y - row;		--Relative Y position
 				calcC := (alien(i).size+1) * 8;			--Calc adjusted size
 				
@@ -292,13 +313,13 @@ ARCHITECTURE behavior OF dsdproject IS
 		END LOOP;
 		
 ------DRAWS THE ALIEN PROJECTILES ON THE SCREEN---------------------------------------------
-		FOR i in 0 to (max_pproj - 1) LOOP
-			IF (p_proj(i).e = '1') THEN
-				IF (row = p_proj(i).y AND column >= a_proj(i).x AND column <= (a_proj(i).x + 20)) THEN
-					colorconcat <= "111100001111";
-				END IF;
-			END IF;
-		END LOOP;
+		-- FOR i in 0 to (max_pproj - 1) LOOP
+		-- 	IF (p_proj(i).e = '1') THEN
+		-- 		IF (row = p_proj(i).y AND column >= a_proj(i).x AND column <= (a_proj(i).x + 20)) THEN
+		-- 			colorconcat <= "111100001111";
+		-- 		END IF;
+		-- 	END IF;
+		-- END LOOP;
 		
 		
 ------DRAWS THE SCOREBOARD TO THE SCREEN-----------------------------------------------------
@@ -544,61 +565,61 @@ ARCHITECTURE behavior OF dsdproject IS
 	
 ------Alien LASER DATA----------------------------------------------------------------------
 	
-	alienProjectileMoveClock : process (max10_clk, pause)
-	variable alien_proj_clock_counter : integer := 0;
-	begin
-		if(rising_edge(max10_clk) AND pause = '0') then
-			alien_proj_clock_counter := alien_proj_clock_counter + 1;		
-		end if;
+	-- alienProjectileMoveClock : process (max10_clk, pause)
+	-- variable alien_proj_clock_counter : integer := 0;
+	-- begin
+	-- 	if(rising_edge(max10_clk) AND pause = '0') then
+	-- 		alien_proj_clock_counter := alien_proj_clock_counter + 1;		
+	-- 	end if;
 		
-		if (alien_proj_clock_counter > 90000) then
-			alien_projectile_clock <= NOT alien_projectile_clock;
-			alien_proj_clock_counter := 0;
-		end if;
+	-- 	if (alien_proj_clock_counter > 90000) then
+	-- 		alien_projectile_clock <= NOT alien_projectile_clock;
+	-- 		alien_proj_clock_counter := 0;
+	-- 	end if;
 
-	end process;
+	-- end process;
 
-	alien_hndl_Projectile : PROCESS (shoot)
-	VARIABLE ei 					: INTEGER; --Entity Index
-	variable shoot_counter 		: integer := 0;
-	variable min_period			: integer := 0;
-	variable clock_div			: integer := 0;
+	-- alien_hndl_Projectile : PROCESS (shoot)
+	-- VARIABLE ei 					: INTEGER; --Entity Index
+	-- variable shoot_counter 		: integer := 0;
+	-- variable min_period			: integer := 0;
+	-- variable clock_div			: integer := 0;
 	
-	BEGIN
-		if(rising_edge(max10_clk) AND pause = '0') then
-			for j in 0 to 11 loop
-				if(alien(j).size = 3 OR alien(j).size = 4) then -- floatys
-					IF ( ((alien(j).x mod alien(j).size) = 0) AND ((alien(j).y mod alien(j).size) = 0) ) THEN
-						a_proj(ei).e <= '1';
-						a_proj(ei).hs1 <= '1';
-						ei := ((ei + 1) mod max_aproj);
-						a_proj(ei).parent <= j;
-					END IF;
-				end if;
-			end loop;
-			FOR i in 0 to (max_aproj - 1) LOOP
-				IF (a_proj(i).hs2 = '1') THEN
-					a_proj(i).hs1 <= '0';
-				END IF;
-			END LOOP;
-		end if;
-	END PROCESS;
+	-- BEGIN
+	-- 	if(rising_edge(max10_clk) AND pause = '0') then
+	-- 		for j in 0 to 11 loop
+	-- 			if(alien(j).size = 3 OR alien(j).size = 4) then -- floatys
+	-- 				IF ( ((alien(j).x mod alien(j).size) = 0) AND ((alien(j).y mod alien(j).size) = 0) ) THEN
+	-- 					a_proj(ei).e <= '1';
+	-- 					a_proj(ei).hs1 <= '1';
+	-- 					ei := ((ei + 1) mod max_aproj);
+	-- 					a_proj(ei).parent <= j;
+	-- 				END IF;
+	-- 			end if;
+	-- 		end loop;
+	-- 		FOR i in 0 to (max_aproj - 1) LOOP
+	-- 			IF (a_proj(i).hs2 = '1') THEN
+	-- 				a_proj(i).hs1 <= '0';
+	-- 			END IF;
+	-- 		END LOOP;
+	-- 	end if;
+	-- END PROCESS;
   
-	alien_move_Projectile : PROCESS (alien_projectile_clock)
-	BEGIN
-		IF (rising_edge(alien_projectile_clock)) THEN	
-			FOR i in 0 to (max_aproj - 1) LOOP
-				IF (a_proj(i).hs1 = '1') THEN
-					a_proj(i).hs2 <= '1';
-					a_proj(i).x <= alien(a_proj(i).parent).x - 20;
-					a_proj(i).y <= alien(a_proj(i).parent).y - 2;
-				ELSE
-					a_proj(i).x <= a_proj(i).x - 1;
-					a_proj(i).hs2 <= '0';
-				END IF;
-			END LOOP;
-		END IF;
-	END PROCESS;
+	-- alien_move_Projectile : PROCESS (alien_projectile_clock)
+	-- BEGIN
+	-- 	IF (rising_edge(alien_projectile_clock)) THEN	
+	-- 		FOR i in 0 to (max_aproj - 1) LOOP
+	-- 			IF (a_proj(i).hs1 = '1') THEN
+	-- 				a_proj(i).hs2 <= '1';
+	-- 				a_proj(i).x <= alien(a_proj(i).parent).x - 20;
+	-- 				a_proj(i).y <= alien(a_proj(i).parent).y - 2;
+	-- 			ELSE
+	-- 				a_proj(i).x <= a_proj(i).x - 1;
+	-- 				a_proj(i).hs2 <= '0';
+	-- 			END IF;
+	-- 		END LOOP;
+	-- 	END IF;
+	-- END PROCESS;
 
 
 ------UPDATE DIGTIS WITH SCORE VALUE---------------------------------------------------------
@@ -714,22 +735,22 @@ ARCHITECTURE behavior OF dsdproject IS
 
 ------ALIEN PROCESSING----------------------------------------------------
 
-	Move_CLK : process (max10_clk)
+	Move_CLK : process (max10_clk, pause)
 	variable movement_counter : integer := 0;
 	begin
-		if(rising_edge(max10_clk)) then
+		if(rising_edge(max10_clk) AND pause = '0') then
 			movement_counter := movement_counter + 1;
-			if (movement_counter >= 10000) then
+			if (movement_counter >= 200000) then
 				movement_clock <= NOT movement_clock;
 				movement_counter := 0;
 			end if;
 		end if;
 	end process;
 
-	hndl_Alien : process (max10_clk)
+	hndl_Alien : process (clockWithPause)
 	begin
 		FOR i in 0 to 11 LOOP
-			IF(rising_edge(max10_clk)) THEN
+			IF(rising_edge(clockWithPause)) THEN
 				IF (alien(i).alive = '0') THEN
 					alien(i).tsls <= alien(i).tsls + 1;
 				END IF;
