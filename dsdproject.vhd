@@ -26,6 +26,7 @@ package custom_types is
 		x : INTEGER;
 		y : INTEGER;
 		collision : STD_LOGIC;
+		right : STD_LOGIC;
 	end record ship_t;
 
 	type seg_digit is record
@@ -127,7 +128,7 @@ ARCHITECTURE behavior OF dsdproject IS
 	signal colorconcat : STD_LOGIC_VECTOR(11 downto 0);
 
 	--PLAYER DATA--
-	signal ship : ship_t := (alive => '1', x => x_min, y => (240 + ship_height/2), collision => '0');
+	signal ship : ship_t := (alive => '1', x => x_min, y => (240 + ship_height/2), collision => '0', right => '1');
 	signal spare_ships : INTEGER := 3;
 
 	--SCORE AND SCOREBOARD--
@@ -221,9 +222,9 @@ ARCHITECTURE behavior OF dsdproject IS
 	 
 ------DRAWS THE HORIZONTAL BARS THAT DEFINE PLAY REGION--------------------------------------
 		IF( ((row < y_max) AND (row > (y_max - bar_thickness))) OR ((row > y_min) AND (row < (y_min + bar_thickness)))  ) THEN
-			colorconcat <= "000000000000";
+			colorconcat <= "110000001100";
 		ELSE
-			colorconcat <= "111111111111";
+			colorconcat <= "000000000000";
 		END IF;
 		
 		
@@ -260,12 +261,25 @@ ARCHITECTURE behavior OF dsdproject IS
 		calcA := column - ship.x;		--Relative X position
 		calcB := ship.y - row;			--Relative Y position
 		calcC := -(ship_height * calcA)/ship_length + ship_height;	--Check if in area
+		ship.right <= data_x(11);
 
-		IF ((calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0)) THEN
+		IF (ship.right = '1' AND (calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0)) THEN
 			IF ((calcA = 1 OR calcA = ship_length) OR (calcB = 1 OR calcB = calcC)) THEN
-				colorconcat <= "000000000000";
+				colorconcat <= "111111111111";
 			ELSE
 				colorconcat <= "111100000000";
+			END IF;
+		END IF;
+
+		calcA := column - ship.x;		--Relative X position
+		calcB := ship.y - row;			--Relative Y position
+		calcC := (ship_height * calcA)/ship_length;	--Check if in area
+
+		IF (ship.right = '0' AND (calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0)) THEN
+			IF ((calcA > 1 AND calcA < ship_length) AND (calcB < calcC AND calcB > 1)) THEN
+				colorconcat <= "111100000000";
+			ELSE
+				colorconcat <= "111111111111";
 			END IF;
 		END IF;
 		
@@ -278,7 +292,7 @@ ARCHITECTURE behavior OF dsdproject IS
 				
 				IF ((calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0)) THEN
 					IF ((calcA = 1 OR calcA = ship_length) OR (calcB = 1 OR calcB = calcC)) THEN
-						colorconcat <= "000000000000";
+						colorconcat <= "111111111111";
 					ELSE
 						colorconcat <= "111100000000";
 					END IF;
@@ -295,7 +309,7 @@ ARCHITECTURE behavior OF dsdproject IS
 				
 				IF ((calcB <= calcC AND calcB >= 0) AND (calcA <= calcC AND calcA >= 0)) THEN
 					IF ((calcB = calcC OR calcB = 0) OR (calcA = calcC OR calcA = 0)) THEN
-						colorconcat <= "000000000000";
+						colorconcat <= "111111111111";
 					ELSE
 						colorconcat <= alien(i).color;
 					END IF;
