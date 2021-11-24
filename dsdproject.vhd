@@ -425,7 +425,7 @@ ARCHITECTURE behavior OF dsdproject IS
 				end if;
 				
 				countX <= countX+1;
-				if (countX > ( 10000 * clockDivX ) ) then
+				if (countX > ( 1000 * clockDivX ) ) then
 					clock_x <= NOT clock_x;
 					countX <= 1;
 				end if;
@@ -458,7 +458,7 @@ ARCHITECTURE behavior OF dsdproject IS
 				end if;
 				
 				countY <= countY+1;
-				if (countY > ( 20000 * clockDivY ) ) then
+				if (countY > ( 2000 * clockDivY ) ) then
 					clock_y <= NOT clock_y;
 					countY <= 1;
 				end if;
