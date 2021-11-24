@@ -223,7 +223,7 @@ ARCHITECTURE behavior OF dsdproject IS
 	 
 ------DRAWS THE HORIZONTAL BARS THAT DEFINE PLAY REGION--------------------------------------
 		IF( ((row < y_max) AND (row > (y_max - bar_thickness))) OR ((row > y_min) AND (row < (y_min + bar_thickness)))  ) THEN
-			colorconcat <= "110000001100";
+			colorconcat <= "111111110000";
 		ELSE
 			colorconcat <= "000000000000";
 		END IF;
@@ -298,9 +298,6 @@ ARCHITECTURE behavior OF dsdproject IS
 		calcC := -(ship_height * calcA)/ship_length + ship_height;	--Check if in area
 
 		IF (ship.right = '1' AND (calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0)) THEN
-			IF (colorconcat = "110000001100" OR colorconcat = "000011000100" OR colorconcat = "000000001100") THEN
-				score <= to_integer(unsigned(colorconcat));
-			END IF;
 			IF ((calcA = 1 OR calcA = ship_length) OR (calcB = 1 OR calcB = calcC)) THEN
 				colorconcat <= "111111111111";
 			ELSE
