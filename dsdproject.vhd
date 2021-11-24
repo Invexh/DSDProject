@@ -296,7 +296,6 @@ ARCHITECTURE behavior OF dsdproject IS
 		calcA := column - ship.x;		--Relative X position
 		calcB := ship.y - row;			--Relative Y position
 		calcC := -(ship_height * calcA)/ship_length + ship_height;	--Check if in area
-		ship.right <= data_x(11);
 
 		IF (ship.right = '1' AND (calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0)) THEN
 			IF ((calcA = 1 OR calcA = ship_length) OR (calcB = 1 OR calcB = calcC)) THEN
