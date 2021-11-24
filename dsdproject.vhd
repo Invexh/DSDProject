@@ -152,7 +152,7 @@ ARCHITECTURE behavior OF dsdproject IS
 	   11 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 60, min_p => 07, p => 00, hs1 => '0', hs2 => '0')
 	);
 	signal p_proj : player_proj_array(max_pproj downto 0);
-	signal a_proj : alien_proj_array(max_aproj downto 0);
+	--signal a_proj : alien_proj_array(max_aproj downto 0);
 
 	--CLOCK RELATED DATA--
 	signal clock_x, clock_y : STD_LOGIC := '0';
@@ -326,13 +326,13 @@ ARCHITECTURE behavior OF dsdproject IS
 		END LOOP;
 		
 ------DRAWS THE ALIEN PROJECTILES ON THE SCREEN---------------------------------------------
-		FOR i in 0 to (max_aproj - 1) LOOP
-			IF (a_proj(i).e = '1') THEN
-				IF (row = a_proj(i).y AND column <= a_proj(i).x AND column >= (a_proj(i).x - 20)) THEN
-					colorconcat <= "110000001100";
-				END IF;
-			END IF;
-		END LOOP;
+--		FOR i in 0 to (max_aproj - 1) LOOP
+--			IF (a_proj(i).e = '1') THEN
+--				IF (row = a_proj(i).y AND column <= a_proj(i).x AND column >= (a_proj(i).x - 20)) THEN
+--					colorconcat <= "110000001100";
+--				END IF;
+--			END IF;
+--		END LOOP;
 		
 		
 ------DRAWS THE SCOREBOARD TO THE SCREEN-----------------------------------------------------
@@ -593,68 +593,68 @@ ARCHITECTURE behavior OF dsdproject IS
 	
 ------Alien LASER DATA----------------------------------------------------------------------
 	
-	alienProjectileMoveClock : process (max10_clk, pause)
-	variable alien_proj_clock_counter : integer := 0;
-	begin
-		if(rising_edge(max10_clk) AND pause = '0') then
-			alien_proj_clock_counter := alien_proj_clock_counter + 1;		
-		end if;
-	
-		if (alien_proj_clock_counter > 90000) then
-			alien_projectile_clock <= NOT alien_projectile_clock;
-			alien_proj_clock_counter := 0;
-		end if;
-
-	end process;
-
-	alien_hndl_Projectile : PROCESS (shoot)
-	VARIABLE ei 					: INTEGER; --Entity Index
-	variable shoot_counter 		: integer := 0;
-	variable num_shots			: integer := 0;
-	
-	BEGIN
-		if(rising_edge(max10_clk) AND pause = '0') then
-			for j in 0 to 11 loop
-				if(alien(j).size = 5 OR alien(j).size = 7) then -- floatys
-					IF ( shoot_counter > 25000000 - num_shots ) THEN
-						a_proj(ei).e <= '1';
-						a_proj(ei).hs1 <= '1';
-						ei := ((ei + 1) mod max_aproj);
-						a_proj(ei).parent <= j;
-						shoot_counter := 0;
-						if(num_shots < 20000000) then
-							num_shots := num_shots + 1;
-						else
-							num_shots := 20000000;
-						end if;
-					else
-						shoot_counter := shoot_counter + 1;
-					END IF;
-				end if;
-	 		end loop;
-	 		FOR i in 0 to (max_aproj - 1) LOOP
-	 			IF (a_proj(i).hs2 = '1') THEN
-	 				a_proj(i).hs1 <= '0';
-	 			END IF;
-	 		END LOOP;
-	 	end if;
-	END PROCESS;
-  
-	alien_move_Projectile : PROCESS (alien_projectile_clock)
-	BEGIN
-	 	IF (rising_edge(alien_projectile_clock)) THEN	
-	 		FOR i in 0 to (max_aproj - 1) LOOP
-	 			IF (a_proj(i).hs1 = '1') THEN
-	 				a_proj(i).hs2 <= '1';
-	 				a_proj(i).x <= alien(a_proj(i).parent).x - 20;
-	 				a_proj(i).y <= alien(a_proj(i).parent).y - 2;
-	 			ELSE
-	 				a_proj(i).x <= a_proj(i).x - 1;
-	 				a_proj(i).hs2 <= '0';
-	 			END IF;
-	 		END LOOP;
-	 	END IF;
-	END PROCESS;
+--	alienProjectileMoveClock : process (max10_clk, pause)
+--	variable alien_proj_clock_counter : integer := 0;
+--	begin
+--		if(rising_edge(max10_clk) AND pause = '0') then
+--			alien_proj_clock_counter := alien_proj_clock_counter + 1;		
+--		end if;
+--	
+--		if (alien_proj_clock_counter > 90000) then
+--			alien_projectile_clock <= NOT alien_projectile_clock;
+--			alien_proj_clock_counter := 0;
+--		end if;
+--
+--	end process;
+--
+--	alien_hndl_Projectile : PROCESS (max10_clk)
+--	VARIABLE ei 					: INTEGER; --Entity Index
+--	variable shoot_counter 		: integer := 0;
+--	variable num_shots			: integer := 0;
+--	
+--	BEGIN
+--		if(rising_edge(max10_clk) AND pause = '0') then
+--			for j in 0 to 11 loop
+--				if(alien(j).size = 5 OR alien(j).size = 7) then -- floatys
+--					IF ( shoot_counter > 25000000 - num_shots ) THEN
+--						a_proj(ei).e <= '1';
+--						a_proj(ei).hs1 <= '1';
+--						ei := ((ei + 1) mod max_aproj);
+--						a_proj(ei).parent <= j;
+--						shoot_counter := 0;
+--						if(num_shots < 20000000) then
+--							num_shots := num_shots + 1;
+--						else
+--							num_shots := 20000000;
+--						end if;
+--					else
+--						shoot_counter := shoot_counter + 1;
+--					END IF;
+--				end if;
+--	 		end loop;
+--	 		FOR i in 0 to (max_aproj - 1) LOOP
+--	 			IF (a_proj(i).hs2 = '1') THEN
+--	 				a_proj(i).hs1 <= '0';
+--	 			END IF;
+--	 		END LOOP;
+--	 	end if;
+--	END PROCESS;
+--  
+--	alien_move_Projectile : PROCESS (alien_projectile_clock)
+--	BEGIN
+--	 	IF (rising_edge(alien_projectile_clock)) THEN	
+--	 		FOR i in 0 to (max_aproj - 1) LOOP
+--	 			IF (a_proj(i).hs1 = '1') THEN
+--	 				a_proj(i).hs2 <= '1';
+--	 				a_proj(i).x <= alien(a_proj(i).parent).x - 20;
+--	 				a_proj(i).y <= alien(a_proj(i).parent).y - 2;
+--	 			ELSE
+--	 				a_proj(i).x <= a_proj(i).x - 1;
+--	 				a_proj(i).hs2 <= '0';
+--	 			END IF;
+--	 		END LOOP;
+--	 	END IF;
+--	END PROCESS;
 
 
 ------UPDATE DIGTIS WITH SCORE VALUE---------------------------------------------------------
