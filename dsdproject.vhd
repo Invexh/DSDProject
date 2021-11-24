@@ -39,6 +39,7 @@ package custom_types is
 		hs1 : STD_LOGIC;	--Entity Handshake 1
 		hs2 : STD_LOGIC;	--Entity Handshake 2
 		e : STD_LOGIC; --Entity bit
+		right : std_logic;
 	end record player_proj;
 	
 	type alien_proj is record
@@ -257,6 +258,22 @@ ARCHITECTURE behavior OF dsdproject IS
 		end if;
 			
 		
+<<<<<<< Updated upstream
+=======
+------DRAWS THE PLAYER SHIP ON THE SCREEN----------------------------------------------------
+		calcA := column - ship.x;		--Relative X position
+		calcB := ship.y - row;			--Relative Y position
+		calcC := -(ship_height * calcA)/ship_length + ship_height;	--Check if in area
+
+
+		IF (ship.right = '1' AND (calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0)) THEN
+			IF ((calcA = 1 OR calcA = ship_length) OR (calcB = 1 OR calcB = calcC)) THEN
+				colorconcat <= "111111111111";
+			ELSE
+				colorconcat <= "111100000000";
+			END IF;
+		END IF;
+>>>>>>> Stashed changes
 
 		
 ------DRAWS THE REMAINING LIVES ON THE SCREEN------------------------------------------------
@@ -504,6 +521,11 @@ ARCHITECTURE behavior OF dsdproject IS
 				end if;
 			end if;
 		end if;
+	end process;	
+	
+	ship_LorR : process (ship.x)
+	begin
+		ship.right <= data_x(11);
 	end process;
 
 ------Y Axis Movement------------------------------------------------------------------------
@@ -570,8 +592,13 @@ ARCHITECTURE behavior OF dsdproject IS
 					p_proj(i).hs2 <= '1';
 					p_proj(i).x <= ship.x + ship_length;
 					p_proj(i).y <= ship.y - 2;
+					p_proj(i).right <= ship.right;
 				ELSE
-					p_proj(i).x <= p_proj(i).x + 1;
+					if(p_proj(i).right = '1') then
+						p_proj(i).x <= p_proj(i).x + 1;
+					else
+						p_proj(i).x <= p_proj(i).x - 1;
+					end if;
 					p_proj(i).hs2 <= '0';
 				END IF;
 			END LOOP;
@@ -695,7 +722,10 @@ ARCHITECTURE behavior OF dsdproject IS
 	variable pew_counter : integer := 0;
 	variable exp_counter : integer := 0;
 	variable sound_done  : std_logic := '0';
-	variable falling_edge_shoot : std_logic := '0';
+	variable hs5 : boolean := false;
+	variable hs6 : boolean := false;
+	
+	
 	begin
 		if(rising_edge(bz1_clk)) then	
 			if(exp_counter > 0) then		-- explosion
@@ -737,14 +767,26 @@ ARCHITECTURE behavior OF dsdproject IS
 			end loop;
 			
 			
-			if (shoot = '0') then
+--			if (hs5) then
+			if(shoot = '0') then
 				pew_sound <='1';
+				hs6 := true;
 			elsif( sound_done = '1') then
 				pew_sound <= '0';
+				hs6 := false;
 			else
 				pew_sound <= pew_sound;
 			end if;
 		end if;			
+		
+--		if(falling_edge(shoot)) then
+--			hs5 := true;
+--		end if;
+--		
+--		
+--		if(hs6) then
+--			hs5 := false;
+--		end if;
 			
 	end process;
 
