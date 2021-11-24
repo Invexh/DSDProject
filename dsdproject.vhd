@@ -257,6 +257,42 @@ ARCHITECTURE behavior OF dsdproject IS
 		end if;
 			
 		
+
+		
+------DRAWS THE REMAINING LIVES ON THE SCREEN------------------------------------------------
+		FOR i in 0 to 2 LOOP
+			IF (spare_ships > i) THEN
+				calcA := column - ss_x(i);		--Relative X position
+				calcB := ss_y - row;			--Relative Y position
+				calcC := -(ship_height * calcA)/ship_length + ship_height;	--Check if in area
+				
+				IF ((calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0)) THEN
+					IF ((calcA = 1 OR calcA = ship_length) OR (calcB = 1 OR calcB = calcC)) THEN
+						colorconcat <= "111111111111";
+					ELSE
+						colorconcat <= "111100000000";
+					END IF;
+				END IF;
+			END IF;
+		END LOOP;
+
+------DRAWS THE ENEMIES ON THE SCREEN--------------------------------------------------------
+		FOR i in 0 to 11 LOOP
+			IF (alien(i).alive = '1') THEN
+				calcA := alien(i).x - column;	--Relative X position
+				calcB := alien(i).y - row;		--Relative Y position
+				calcC := (alien(i).size) * 6;			--Calc adjusted size
+				
+				IF ((calcB <= calcC AND calcB >= 0) AND (calcA <= calcC AND calcA >= 0)) THEN
+					IF ((calcB = calcC OR calcB = 0) OR (calcA = calcC OR calcA = 0)) THEN
+						colorconcat <= "111111111111";
+					ELSE
+						colorconcat <= alien(i).color;
+					END IF;
+				END IF;
+			END IF;
+		END LOOP;
+	
 ------DRAWS THE PLAYER SHIP ON THE SCREEN----------------------------------------------------
 		calcA := column - ship.x;		--Relative X position
 		calcB := ship.y - row;			--Relative Y position
@@ -282,41 +318,6 @@ ARCHITECTURE behavior OF dsdproject IS
 				colorconcat <= "111111111111";
 			END IF;
 		END IF;
-		
-------DRAWS THE REMAINING LIVES ON THE SCREEN------------------------------------------------
-		FOR i in 0 to 2 LOOP
-			IF (spare_ships > i) THEN
-				calcA := column - ss_x(i);		--Relative X position
-				calcB := ss_y - row;			--Relative Y position
-				calcC := -(ship_height * calcA)/ship_length + ship_height;	--Check if in area
-				
-				IF ((calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0)) THEN
-					IF ((calcA = 1 OR calcA = ship_length) OR (calcB = 1 OR calcB = calcC)) THEN
-						colorconcat <= "111111111111";
-					ELSE
-						colorconcat <= "111100000000";
-					END IF;
-				END IF;
-			END IF;
-		END LOOP;
-
-------DRAWS THE ENEMIES ON THE SCREEN--------------------------------------------------------
-		FOR i in 0 to 11 LOOP
-			IF (alien(i).alive = '1') THEN
-				calcA := alien(i).x - column;	--Relative X position
-				calcB := alien(i).y - row;		--Relative Y position
-				calcC := (alien(i).size+1) * 8;			--Calc adjusted size
-				
-				IF ((calcB <= calcC AND calcB >= 0) AND (calcA <= calcC AND calcA >= 0)) THEN
-					IF ((calcB = calcC OR calcB = 0) OR (calcA = calcC OR calcA = 0)) THEN
-						colorconcat <= "111111111111";
-					ELSE
-						colorconcat <= alien(i).color;
-					END IF;
-				END IF;
-			END IF;
-		END LOOP;
-		
 ------DRAWS THE PLAYER PROJECTILES ON THE SCREEN---------------------------------------------
 		FOR i in 0 to (max_pproj - 1) LOOP
 			IF (p_proj(i).e = '1') THEN
@@ -775,14 +776,14 @@ ARCHITECTURE behavior OF dsdproject IS
 
 				IF (i < 4 AND alien(i).alive = '0' AND alien(i).tsls >= (alien(i).min_p * 50000000)) THEN
 					alien(i).alive <= '1';
-					alien(i).size <= to_integer(unsigned(RNG(2 downto 0))) + 1;
+					alien(i).size <= to_integer(unsigned(RNG(2 downto 0))) + 3;
 					alien(i).color <= "110000001100";
 					alien(i).hs1 <= '1';
 					alien(i).tsls <= 0;
 
 				ELSIF ( (i < 8 AND alien(i).alive = '0' AND alien(i).tsls >= (alien(i).min_p * 50000000)) ) THEN
 					alien(i).alive <= '1';
-					alien(i).size <= to_integer(unsigned(RNG(5 downto 3) XOR RNG(2 downto 0)));
+					alien(i).size <= to_integer(unsigned(RNG(5 downto 3) XOR RNG(2 downto 0)) + 3);
 					alien(i).color <= "000011000100";
 					alien(i).hs1 <= '1';
 					alien(i).tsls <= 0;
@@ -793,7 +794,7 @@ ARCHITECTURE behavior OF dsdproject IS
 					
 				ELSIF ( (i < 12 AND alien(i).alive = '0' AND alien(i).tsls >= (alien(i).min_p * 50000000))) THEN
 					alien(i).alive <= '1';
-					alien(i).size <= to_integer(unsigned(RNG(5 downto 3) XOR RNG(2 downto 0)));
+					alien(i).size <= to_integer(unsigned(RNG(5 downto 3) XOR RNG(9 downto 7)) + 3);
 					alien(i).color <= "000000001100";
 					alien(i).hs1 <= '1';
 					alien(i).tsls <= 0;
@@ -817,7 +818,7 @@ ARCHITECTURE behavior OF dsdproject IS
 				IF (alien(i).hs1 = '1') THEN
 					randomValue := to_integer(unsigned(RNG( 8 downto (i rem 3) ))) * 8;
 					alien(i).x <= 750 + randomValue/4;
-					alien(i).y <= ((randomValue + y_max + 8*alien(i).size) rem (y_min - (y_max + 8*alien(i).size)) + (y_max + 8*alien(i).size) + 8);
+					alien(i).y <= ((randomValue + y_max + 6*alien(i).size) rem (y_min - (y_max + 6*alien(i).size)) + (y_max + 6*alien(i).size) + 8);
 					alien(i).hs2 <= '1';
 				ELSE
 					alien(i).hs2 <= '0';
