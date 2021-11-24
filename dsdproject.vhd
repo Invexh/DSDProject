@@ -449,7 +449,7 @@ ARCHITECTURE behavior OF dsdproject IS
 			end if;
 		end if;	
 
-		score <= 255 - to_integer(unsigned(data_x));
+		score <= 512 - to_integer(unsigned(data_x));
 	end process;
 
 ------Clock for Y Axis Movement--------------------------------------------------------------
