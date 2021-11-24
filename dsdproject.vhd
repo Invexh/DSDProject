@@ -298,6 +298,9 @@ ARCHITECTURE behavior OF dsdproject IS
 		calcC := -(ship_height * calcA)/ship_length + ship_height;	--Check if in area
 
 		IF (ship.right = '1' AND (calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0)) THEN
+			IF (colorconcat = "110000001100" OR colorconcat = "000011000100" OR colorconcat = "000000001100") THEN
+				score <= to_integer(unsigned(colorconcat));
+			END IF;
 			IF ((calcA = 1 OR calcA = ship_length) OR (calcB = 1 OR calcB = calcC)) THEN
 				colorconcat <= "111111111111";
 			ELSE
@@ -669,7 +672,7 @@ ARCHITECTURE behavior OF dsdproject IS
 		END LOOP;
 	END PROCESS;
 	
---BUZZER1 -------------------------------------------------
+------BUZZER1 -------------------------------------------------
 	buzzer1_clock : process(clockWithPause)
 	variable C3_counter : integer := 0;
 	variable exp_clk_counter : integer := 0;
@@ -747,8 +750,6 @@ ARCHITECTURE behavior OF dsdproject IS
 				end if;
 			end loop;
 			
-			
---			if (hs5) then
 			if(shoot = '0') then
 				pew_sound <='1';
 				hs6 := true;
@@ -759,15 +760,6 @@ ARCHITECTURE behavior OF dsdproject IS
 				pew_sound <= pew_sound;
 			end if;
 		end if;			
-		
---		if(falling_edge(shoot)) then
---			hs5 := true;
---		end if;
---		
---		
---		if(hs6) then
---			hs5 := false;
---		end if;
 			
 	end process;
 
