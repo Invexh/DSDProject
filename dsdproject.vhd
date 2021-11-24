@@ -27,6 +27,7 @@ package custom_types is
 		y : INTEGER;
 		collision : STD_LOGIC;
 		right : STD_LOGIC;
+		exhaust : INTEGER;
 	end record ship_t;
 
 	type seg_digit is record
@@ -129,7 +130,7 @@ ARCHITECTURE behavior OF dsdproject IS
 	signal colorconcat : STD_LOGIC_VECTOR(11 downto 0);
 
 	--PLAYER DATA--
-	signal ship : ship_t := (alive => '1', x => x_min, y => (240 + ship_height/2), collision => '0', right => '1');
+	signal ship : ship_t := (alive => '1', x => x_min, y => (240 + ship_height/2), collision => '0', right => '1', exhaust => 0);
 	signal spare_ships : INTEGER := 3;
 
 	--SCORE AND SCOREBOARD--
@@ -318,8 +319,19 @@ ARCHITECTURE behavior OF dsdproject IS
 		END IF;
 
 ------DRAWS THE PLAYER SHIPS EXHAUST ON THE SCREEN-------------------------------------------
-		
+		calcA := column - ship.x;		--Relative X position
+		calcB := ship.y - row;			--Relative Y position
+		calcC := -(ship_height * calcA)/ship_length + ship_height;	--Check if in area
 
+		IF (ship.right = '1' AND ship.exhaust > 0) THEN
+			IF ((calcB rem 2) = 1 AND calcA < 0 AND calcB < ship_height AND calcA > -(2 * ship.exhaust)) THEN
+				colorconcat <= "100000001000";
+			END IF;
+		ELSIF (ship.right = '0' AND ship.exhaust > 0) THEN
+			IF ((calcB rem 2) = 1 AND calcA > ship_length AND calcB < ship_height AND calcA < ship_length + (2 * ship.exhaust)) THEN
+				colorconcat <= "100000001000";
+			END IF;
+		END IF;
 ------DRAWS THE PLAYER PROJECTILES ON THE SCREEN---------------------------------------------
 		FOR i in 0 to (max_pproj - 1) LOOP
 			IF (p_proj(i).e = '1') THEN
@@ -448,8 +460,6 @@ ARCHITECTURE behavior OF dsdproject IS
 				end if;
 			end if;
 		end if;	
-
-		score <= 512 - to_integer(unsigned(data_x));
 	end process;
 
 ------Clock for Y Axis Movement--------------------------------------------------------------
@@ -496,14 +506,18 @@ ARCHITECTURE behavior OF dsdproject IS
 				if(data_x(11) = '1') then		--RIGHT
 					if (ship.x = x_max-ship_length) then
 						ship.x <= x_max-ship_length;
+						ship.exhaust <= 0;
 					else
 						ship.x <= ship.x+1;
+						ship.exhaust <= to_integer(255 - unsigned(data_x(7 downto 0))) / 48;
 					end if;
 				else 									--LEFT
 					if (ship.x = x_min) then
 						ship.x <= x_min;
+						ship.exhaust <= 0;
 					else	
 						ship.x <= ship.x-1;
+						ship.exhaust <= to_integer(unsigned(data_x(7 downto 0))) / 48;
 					end if;
 				end if;
 				ship.right <= data_x(11);
