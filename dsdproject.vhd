@@ -256,24 +256,6 @@ ARCHITECTURE behavior OF dsdproject IS
 		else
 			mountain_counter := mountain_counter;
 		end if;
-			
-		
-<<<<<<< Updated upstream
-=======
-------DRAWS THE PLAYER SHIP ON THE SCREEN----------------------------------------------------
-		calcA := column - ship.x;		--Relative X position
-		calcB := ship.y - row;			--Relative Y position
-		calcC := -(ship_height * calcA)/ship_length + ship_height;	--Check if in area
-
-
-		IF (ship.right = '1' AND (calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0)) THEN
-			IF ((calcA = 1 OR calcA = ship_length) OR (calcB = 1 OR calcB = calcC)) THEN
-				colorconcat <= "111111111111";
-			ELSE
-				colorconcat <= "111100000000";
-			END IF;
-		END IF;
->>>>>>> Stashed changes
 
 		
 ------DRAWS THE REMAINING LIVES ON THE SCREEN------------------------------------------------
