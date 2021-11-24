@@ -80,8 +80,8 @@ ENTITY dsdproject IS
 		ship_length : INTEGER := 36;
 
 		--Projectiles data
-		max_pproj : INTEGER := 20;
-		max_aproj : INTEGER := 30;
+		max_pproj : INTEGER := 15;
+		max_aproj : INTEGER := 5;
 		
 		--Scoreboard data
 		max_digits : INTEGER := 6;
