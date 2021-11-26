@@ -217,6 +217,11 @@ ARCHITECTURE behavior OF dsdproject IS
 		variable mountain_counter  		: integer 	:= 0;
 		variable mountain_clk_counter		: integer 	:= 0;
 		
+		variable ship_drawn					: std_logic := '0';
+		variable ship_proj_drawn			: std_logic := '0';
+--		variable ship_proj_drawn			: std_logic_vector(max_pproj-1 downto 0) := (others => '0');
+		variable alien_drawn					: std_logic_vector(11 downto 0) := (others => '0');
+		
 	BEGIN
 
     IF(disp_ena = '1') THEN        --display time
@@ -287,7 +292,10 @@ ARCHITECTURE behavior OF dsdproject IS
 						colorconcat <= "111111111111";
 					ELSE
 						colorconcat <= alien(i).color;
+						alien_drawn(i) := '1';
 					END IF;
+				else
+					alien_drawn(i) := '0';
 				END IF;
 			END IF;
 		END LOOP;
@@ -303,6 +311,10 @@ ARCHITECTURE behavior OF dsdproject IS
 			ELSE
 				colorconcat <= "111100000000";
 			END IF;
+			ship_drawn := '1';
+			score <= 5000;
+		else
+			ship_drawn := '0';
 		END IF;
 
 		calcA := column - ship.x;		--Relative X position
@@ -315,13 +327,20 @@ ARCHITECTURE behavior OF dsdproject IS
 			ELSE
 				colorconcat <= "111111111111";
 			END IF;
+			ship_drawn := '1';
+		else
+			ship_drawn := '0';
 		END IF;
+	
 ------DRAWS THE PLAYER PROJECTILES ON THE SCREEN---------------------------------------------
 		FOR i in 0 to (max_pproj - 1) LOOP
 			IF (p_proj(i).e = '1') THEN
 				IF (row = p_proj(i).y AND column >= p_proj(i).x AND column <= (p_proj(i).x + 20)) THEN
 					colorconcat <= "111100000000";
+					ship_proj_drawn := '1';
 				END IF;
+			else
+				ship_proj_drawn := '0';
 			END IF;
 		END LOOP;
 		
@@ -381,7 +400,26 @@ ARCHITECTURE behavior OF dsdproject IS
       green <= (OTHERS => '0');
       blue <= (OTHERS => '0');
     END IF;
-  
+	 
+	 for i in 0 to 11 loop
+		if(alien_drawn(i) = '1' AND ship_drawn = '1') then
+			ship.collision <= '1';
+			score <= 10000;
+			if(spare_ships > 0) then
+				spare_ships <= spare_ships - 1;
+			end if;
+		elsif	(alien_drawn(i) = '1' AND ship_proj_drawn = '1') then
+			alien(i).collision <= '1';
+			score <= score + (50*(8-alien(i).size));
+		end if;
+		
+		alien_drawn(i) := '0';
+		if(i = 11) then
+			ship_proj_drawn := '0';
+			ship_drawn := '0';
+		end if;
+	end loop;
+
   END PROCESS;
   
 ------Pause----------------------------------------------------------------------------------
@@ -403,7 +441,6 @@ ARCHITECTURE behavior OF dsdproject IS
 		end if;
 		
 		clockWithPause <= max10_clk AND NOT pause;
-	
 	end process;
 	
 	start_proc : process(shoot)
@@ -412,6 +449,8 @@ ARCHITECTURE behavior OF dsdproject IS
 			startOfGameFlag <= '0';
 		end if;
 	end process;
+	
+
  
 ------Clock for X Axis Movement--------------------------------------------------------------
 

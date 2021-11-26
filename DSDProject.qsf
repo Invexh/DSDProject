@@ -75,7 +75,6 @@ set_location_assignment PIN_A7 -to pause_toggle
 set_global_assignment -name EDA_SIMULATION_TOOL "<None>"
 set_location_assignment PIN_B8 -to shoot
 set_global_assignment -name SOURCE_FILE DSDProject.qsf
-set_global_assignment -name VHDL_FILE aliens.vhd
 set_global_assignment -name VHDL_FILE dsdproject.vhd
 set_global_assignment -name SYSTEMVERILOG_FILE Accelerometer/spi.sv
 set_global_assignment -name SYSTEMVERILOG_FILE Accelerometer/gsensor.sv
