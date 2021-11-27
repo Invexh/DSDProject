@@ -223,6 +223,13 @@ ARCHITECTURE behavior OF dsdproject IS
 		variable alien_drawn					: std_logic_vector(11 downto 0) := (others => '0');
 		
 	BEGIN
+	
+	
+	 alien_drawn(0) := '0'; alien_drawn(1) := '0'; alien_drawn(2) := '0'; alien_drawn(3) := '0';
+	 alien_drawn(4) := '0'; alien_drawn(5) := '0'; alien_drawn(6) := '0'; alien_drawn(7) := '0';
+	 alien_drawn(8) := '0'; alien_drawn(9) := '0'; alien_drawn(10) := '0'; alien_drawn(11) := '0';
+	 ship_drawn := '0';
+	 ship_proj_drawn := '0';	 
 
     IF(disp_ena = '1') THEN        --display time
 	 
@@ -342,7 +349,7 @@ ARCHITECTURE behavior OF dsdproject IS
 					colorconcat <= "111100000000";
 					ship_proj_drawn := '1';
 				else
-					ship_proj_drawn := '0';
+					ship_proj_drawn := ship_proj_drawn OR '0';
 				END IF;
 			END IF;
 		END LOOP;
