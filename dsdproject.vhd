@@ -303,44 +303,47 @@ ARCHITECTURE behavior OF dsdproject IS
 ------DRAWS THE PLAYER SHIP ON THE SCREEN----------------------------------------------------
 		calcA := column - ship.x;		--Relative X position
 		calcB := ship.y - row;			--Relative Y position
-		calcC := -(ship_height * calcA)/ship_length + ship_height;	--Check if in area
+			
+		if(ship.right = '1') then
+--			calcA := column - ship.x;		--Relative X position
+--			calcB := ship.y - row;			--Relative Y position
+			calcC := -(ship_height * calcA)/ship_length + ship_height;	--Check if in area
 
-		IF (ship.right = '1' AND (calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0)) THEN
-			IF ((calcA = 1 OR calcA = ship_length) OR (calcB = 1 OR calcB = calcC)) THEN
-				colorconcat <= "111111111111";
-			ELSE
-				colorconcat <= "111100000000";
+			IF ((calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0)) THEN
+				IF ((calcA = 1 OR calcA = ship_length) OR (calcB = 1 OR calcB = calcC)) THEN
+					colorconcat <= "111111111111";
+				ELSE
+					colorconcat <= "111100000000";
+				END IF;
+				ship_drawn := '1';
+			else
+				ship_drawn := '0';
 			END IF;
-			ship_drawn := '1';
-			score <= 5000;
 		else
-			ship_drawn := '0';
-		END IF;
+--			calcA := column - ship.x;		--Relative X position
+--			calcB := ship.y - row;			--Relative Y position
+			calcC := (ship_height * calcA)/ship_length;	--Check if in area
 
-		calcA := column - ship.x;		--Relative X position
-		calcB := ship.y - row;			--Relative Y position
-		calcC := (ship_height * calcA)/ship_length;	--Check if in area
-
-		IF (ship.right = '0' AND (calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0)) THEN
-			IF ((calcA > 1 AND calcA < ship_length) AND (calcB < calcC AND calcB > 1)) THEN
-				colorconcat <= "111100000000";
-			ELSE
-				colorconcat <= "111111111111";
+			IF ((calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0)) THEN
+				IF ((calcA > 1 AND calcA < ship_length) AND (calcB < calcC AND calcB > 1)) THEN
+					colorconcat <= "111100000000";
+				ELSE
+					colorconcat <= "111111111111";
+				END IF;
+				ship_drawn := '1';
+			else
+				ship_drawn := '0';
 			END IF;
-			ship_drawn := '1';
-		else
-			ship_drawn := '0';
-		END IF;
-	
+		end if;
 ------DRAWS THE PLAYER PROJECTILES ON THE SCREEN---------------------------------------------
 		FOR i in 0 to (max_pproj - 1) LOOP
 			IF (p_proj(i).e = '1') THEN
 				IF (row = p_proj(i).y AND column >= p_proj(i).x AND column <= (p_proj(i).x + 20)) THEN
 					colorconcat <= "111100000000";
 					ship_proj_drawn := '1';
+				else
+					ship_proj_drawn := '0';
 				END IF;
-			else
-				ship_proj_drawn := '0';
 			END IF;
 		END LOOP;
 		
@@ -401,20 +404,23 @@ ARCHITECTURE behavior OF dsdproject IS
       blue <= (OTHERS => '0');
     END IF;
 	 
-	 for i in 0 to 11 loop
-		if(alien_drawn(i) = '1' AND ship_drawn = '1') then
-			ship.collision <= '1';
-			score <= 10000;
-			if(spare_ships > 0) then
-				spare_ships <= spare_ships - 1;
+	 for i in 0 to 12 loop
+		if(i < 12) then
+			if(alien_drawn(i) = '1' AND ship_drawn = '1') then
+				ship.collision <= '1';
+				if(spare_ships > 0) then
+					spare_ships <= spare_ships - 1;
+				end if;
+				alien_drawn(i) := '0';
+				ship_drawn := '0';
+			elsif	(alien_drawn(i) = '1' AND ship_proj_drawn = '1') then
+				alien(i).collision <= '1';
+				score <= score + (50*(11-alien(i).size));
+				alien_drawn(i) := '0';
+				ship_proj_drawn := '0';
 			end if;
-		elsif	(alien_drawn(i) = '1' AND ship_proj_drawn = '1') then
-			alien(i).collision <= '1';
-			score <= score + (50*(8-alien(i).size));
-		end if;
-		
-		alien_drawn(i) := '0';
-		if(i = 11) then
+			alien_drawn(i) := '0';
+		else
 			ship_proj_drawn := '0';
 			ship_drawn := '0';
 		end if;
@@ -866,7 +872,7 @@ ARCHITECTURE behavior OF dsdproject IS
 						alien(i).min_p <= alien(i).min_p - 2;
 					END IF;
 
-				ELSIF ((alien(i).x > 60000) OR (alien(i).x <= 0)) THEN
+				ELSIF ((alien(i).x > 60000) OR (alien(i).x <= 0) OR (alien(i).collision = '1')) THEN
 					alien(i).alive <= '0';
 				END IF;
 			END IF;
