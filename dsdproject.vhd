@@ -37,6 +37,7 @@ package custom_types is
 	type player_proj is record
 		x : INTEGER; --Y POS
 		y : INTEGER; --X POS
+		collision : STD_LOGIC;
 		hs1 : STD_LOGIC;	--Entity Handshake 1
 		hs2 : STD_LOGIC;	--Entity Handshake 2
 		e : STD_LOGIC; --Entity bit
@@ -318,7 +319,7 @@ ARCHITECTURE behavior OF dsdproject IS
 			END IF;
 		END IF;
 
-------DRAWS THE PLAYER SHIPS EXHAUST ON THE SCREEN-------------------------------------------
+------DRAWS THE PLAYERS SHIP EXHAUST ON THE SCREEN-------------------------------------------
 		calcA := column - ship.x;		--Relative X position
 		calcB := ship.y - row;			--Relative Y position
 		calcC := -(ship_height * calcA)/ship_length + ship_height;	--Check if in area
@@ -332,6 +333,7 @@ ARCHITECTURE behavior OF dsdproject IS
 				colorconcat <= "100000001000";
 			END IF;
 		END IF;
+		
 ------DRAWS THE PLAYER PROJECTILES ON THE SCREEN---------------------------------------------
 		FOR i in 0 to (max_pproj - 1) LOOP
 			IF (p_proj(i).e = '1') THEN
@@ -399,7 +401,40 @@ ARCHITECTURE behavior OF dsdproject IS
     END IF;
   
   END PROCESS;
-  
+
+------COLLISION DETECTION--------------------------------------------------------------------
+	hndl_Collision : process (max10_clk)
+	begin
+		FOR i in 0 to 11 LOOP
+			--ALIEN AND PLAYER SHIP COLLISION--
+			IF (pause = '0' AND spare_ships >= 1 AND 
+			alien(i).x >= ship.x AND 
+			(alien(i).x - (6 * alien(i).size)) <= (ship.x + ship_length) AND 
+			(alien(i).y - (6 * alien(i).size)) <= ship.y AND 
+			alien(i).y >= (ship.y - ship_height + ((alien(i).x - (6 * alien(i).size) - ship.x)*ship_height)/ship_length) AND
+			alien(i).y >= (ship.y - ship_height)) THEN
+				spare_ships <= spare_ships - 1;
+			ELSIF (pause = '1' AND startOfGameFlag = '1') THEN
+				spare_ships <= 3;
+			END IF;
+
+			--ALIEN AND PLAYER LASER COLLISION--
+			FOR j in 0 to (max_pproj - 1) LOOP
+				IF ((p_proj(j).x + 20) >= (alien(i).x - (6 * alien(i).size)) AND
+				p_proj(j).x <= alien(i).x AND
+				p_proj(j).y >= (alien(i).y - (6 * alien(i).size)) AND
+				p_proj(j).y <= alien(i).y) THEN
+					alien(i).collision <= '1';
+					p_proj(i).collision <= '1';
+				END IF;
+				IF (p_proj(j).e = '0') THEN
+					p_proj(j).collision <= '0';
+				END IF;
+			END LOOP;
+
+		END LOOP;
+	END PROCESS;
+
 ------Pause----------------------------------------------------------------------------------
 	pauseProcess : process ( max10_clk, pause_toggle, startOfGameFlag )
 	variable hs3 : boolean := false;
@@ -582,6 +617,9 @@ ARCHITECTURE behavior OF dsdproject IS
 		FOR i in 0 to (max_pproj - 1) LOOP
 			IF (p_proj(i).hs2 = '1') THEN
 				p_proj(i).hs1 <= '0';
+			END IF;
+			IF (p_proj(i).collision = '1') THEN
+				p_proj(i).e <= '0';
 			END IF;
 		END LOOP;
 	END PROCESS;
