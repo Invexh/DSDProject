@@ -134,25 +134,25 @@ ARCHITECTURE behavior OF dsdproject IS
 	signal ship : ship_t := (alive => '1', x => x_min, y => (240 + ship_height/2), collision => '0', right => '1', exhaust => 0);
 	signal spare_ships : INTEGER := 3;
 
-	--SCORE AND SCOREBOARD--
-	signal score : INTEGER := 0;
-	signal digit : seg_array(max_digits-1 downto 0);
+	-- --SCORE AND SCOREBOARD--
+	-- signal score : INTEGER := 0;
+	-- signal digit : seg_array(max_digits-1 downto 0);
 
-	--ENTITIES--
-	signal alien : alien_array(11 downto 0) := (
-		0 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 00, min_p => 11, p => 00, hs1 => '0', hs2 => '0'),
-		1 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 00, min_p => 20, p => 00, hs1 => '0', hs2 => '0'),
-		2 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 00, min_p => 29, p => 00, hs1 => '0', hs2 => '0'),
-		3 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 00, min_p => 35, p => 00, hs1 => '0', hs2 => '0'),
-		4 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 30, min_p => 15, p => 10, hs1 => '0', hs2 => '0'),
-		5 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 30, min_p => 21, p => 17, hs1 => '0', hs2 => '0'),
-		6 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 30, min_p => 12, p => 23, hs1 => '0', hs2 => '0'),
-		7 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 30, min_p => 17, p => 13, hs1 => '0', hs2 => '0'),
-		8 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 30, min_p => 04, p => 00, hs1 => '0', hs2 => '0'),
-		9 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 45, min_p => 05, p => 00, hs1 => '0', hs2 => '0'),
-	   10 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 50, min_p => 03, p => 00, hs1 => '0', hs2 => '0'),
-	   11 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 60, min_p => 07, p => 00, hs1 => '0', hs2 => '0')
-	);
+	-- --ENTITIES--
+	-- signal alien : alien_array(11 downto 0) := (
+	-- 	0 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 00, min_p => 11, p => 00, hs1 => '0', hs2 => '0'),
+	-- 	1 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 00, min_p => 20, p => 00, hs1 => '0', hs2 => '0'),
+	-- 	2 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 00, min_p => 29, p => 00, hs1 => '0', hs2 => '0'),
+	-- 	3 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 00, min_p => 35, p => 00, hs1 => '0', hs2 => '0'),
+	-- 	4 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 30, min_p => 15, p => 10, hs1 => '0', hs2 => '0'),
+	-- 	5 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 30, min_p => 21, p => 17, hs1 => '0', hs2 => '0'),
+	-- 	6 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 30, min_p => 12, p => 23, hs1 => '0', hs2 => '0'),
+	-- 	7 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 30, min_p => 17, p => 13, hs1 => '0', hs2 => '0'),
+	-- 	8 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 30, min_p => 04, p => 00, hs1 => '0', hs2 => '0'),
+	-- 	9 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 45, min_p => 05, p => 00, hs1 => '0', hs2 => '0'),
+	--    10 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 50, min_p => 03, p => 00, hs1 => '0', hs2 => '0'),
+	--    11 => (color => "000000000000", numSpawns => 0, alive => '0', collision => '0', size => 1, tsls => 0, x => 640, y => 240, max_p => 60, min_p => 07, p => 00, hs1 => '0', hs2 => '0')
+	-- );
 	signal p_proj : player_proj_array(max_pproj downto 0);
 	--signal a_proj : alien_proj_array(max_aproj downto 0);
 
@@ -173,9 +173,9 @@ ARCHITECTURE behavior OF dsdproject IS
 	signal pause 			: std_logic := '1';
 	
 	--AUDIO--
-	signal bz1_clk : 		std_logic := '0';
-	signal pew_sound :	std_logic := '0';
-	signal exp_sound :	std_logic := '0';
+	-- signal bz1_clk : 		std_logic := '0';
+	-- signal pew_sound :	std_logic := '0';
+	-- signal exp_sound :	std_logic := '0';
 	
 	--FLAGS--
 	signal startOfGameFlag : std_logic := '1';
@@ -277,22 +277,22 @@ ARCHITECTURE behavior OF dsdproject IS
 			END IF;
 		END LOOP;
 
-------DRAWS THE ENEMIES ON THE SCREEN--------------------------------------------------------
-		FOR i in 0 to 11 LOOP
-			IF (alien(i).alive = '1') THEN
-				calcA := alien(i).x - column;	--Relative X position
-				calcB := alien(i).y - row;		--Relative Y position
-				calcC := (alien(i).size) * 6;			--Calc adjusted size
+-- ------DRAWS THE ENEMIES ON THE SCREEN--------------------------------------------------------
+-- 		FOR i in 0 to 11 LOOP
+-- 			IF (alien(i).alive = '1') THEN
+-- 				calcA := alien(i).x - column;	--Relative X position
+-- 				calcB := alien(i).y - row;		--Relative Y position
+-- 				calcC := (alien(i).size) * 6;			--Calc adjusted size
 				
-				IF ((calcB <= calcC AND calcB >= 0) AND (calcA <= calcC AND calcA >= 0)) THEN
-					IF ((calcB = calcC OR calcB = 0) OR (calcA = calcC OR calcA = 0)) THEN
-						colorconcat <= "111111111111";
-					ELSE
-						colorconcat <= alien(i).color;
-					END IF;
-				END IF;
-			END IF;
-		END LOOP;
+-- 				IF ((calcB <= calcC AND calcB >= 0) AND (calcA <= calcC AND calcA >= 0)) THEN
+-- 					IF ((calcB = calcC OR calcB = 0) OR (calcA = calcC OR calcA = 0)) THEN
+-- 						colorconcat <= "111111111111";
+-- 					ELSE
+-- 						colorconcat <= alien(i).color;
+-- 					END IF;
+-- 				END IF;
+-- 			END IF;
+-- 		END LOOP;
 	
 ------DRAWS THE PLAYER SHIP ON THE SCREEN----------------------------------------------------
 		calcA := column - ship.x;		--Relative X position
@@ -353,41 +353,41 @@ ARCHITECTURE behavior OF dsdproject IS
 	--		END LOOP;
 			
 		
-------DRAWS THE SCOREBOARD TO THE SCREEN-----------------------------------------------------
-		calcA := (digit_thickness - 1)/2;	--Onesided thickness of digit
-		calcB := (digit_height - 3)/2;		--Segment Length 
-		FOR i in 0 to (max_digits - 1) LOOP
-			calcC := column - (score_x + i*(digit_spacing + 2*calcA + calcB));	--Relative x position
-			calcD := score_y - row; --Relative y position
+-- ------DRAWS THE SCOREBOARD TO THE SCREEN-----------------------------------------------------
+-- 		calcA := (digit_thickness - 1)/2;	--Onesided thickness of digit
+-- 		calcB := (digit_height - 3)/2;		--Segment Length 
+-- 		FOR i in 0 to (max_digits - 1) LOOP
+-- 			calcC := column - (score_x + i*(digit_spacing + 2*calcA + calcB));	--Relative x position
+-- 			calcD := score_y - row; --Relative y position
 
-			IF (digit(i).s(0) = '1' AND (calcC > 0 AND calcC <= (calcB + 2*calcA)) AND (calcD >= 2*(calcB + calcA) AND calcD <= (2*calcB + 1 + 3*calcA))) THEN
-				colorconcat <= "111100000000";
-			END IF;
+-- 			IF (digit(i).s(0) = '1' AND (calcC > 0 AND calcC <= (calcB + 2*calcA)) AND (calcD >= 2*(calcB + calcA) AND calcD <= (2*calcB + 1 + 3*calcA))) THEN
+-- 				colorconcat <= "111100000000";
+-- 			END IF;
 
-			IF (digit(i).s(1) = '1' AND (calcC >= (calcB + calcA) AND calcC <= (calcB + 2*calcA + 1)) AND (calcD > (calcB + 2*calcA) AND calcD <= (2*calcB + 1 + 2*calcA))) THEN
-				colorconcat <= "111100000000";
-			END IF;
+-- 			IF (digit(i).s(1) = '1' AND (calcC >= (calcB + calcA) AND calcC <= (calcB + 2*calcA + 1)) AND (calcD > (calcB + 2*calcA) AND calcD <= (2*calcB + 1 + 2*calcA))) THEN
+-- 				colorconcat <= "111100000000";
+-- 			END IF;
 
-			IF (digit(i).s(2) = '1' AND (calcC >= (calcB + calcA) AND calcC <= (calcB + 2*calcA + 1)) AND (calcD > 0 AND calcD <= (calcB + 1))) THEN
-				colorconcat <= "111100000000";
-			END IF;
+-- 			IF (digit(i).s(2) = '1' AND (calcC >= (calcB + calcA) AND calcC <= (calcB + 2*calcA + 1)) AND (calcD > 0 AND calcD <= (calcB + 1))) THEN
+-- 				colorconcat <= "111100000000";
+-- 			END IF;
 
-			IF (digit(i).s(3) = '1' AND (calcC > 0 AND calcC <= (calcB + 2*calcA)) AND (calcD >= 0 AND calcD <= (1 + calcA))) THEN
-				colorconcat <= "111100000000";
-			END IF;
+-- 			IF (digit(i).s(3) = '1' AND (calcC > 0 AND calcC <= (calcB + 2*calcA)) AND (calcD >= 0 AND calcD <= (1 + calcA))) THEN
+-- 				colorconcat <= "111100000000";
+-- 			END IF;
 
-			IF (digit(i).s(4) = '1' AND (calcC >= 0 AND calcC <= (1 + calcA)) AND (calcD > 0 AND calcD <= (calcB + 1))) THEN
-				colorconcat <= "111100000000";
-			END IF;
+-- 			IF (digit(i).s(4) = '1' AND (calcC >= 0 AND calcC <= (1 + calcA)) AND (calcD > 0 AND calcD <= (calcB + 1))) THEN
+-- 				colorconcat <= "111100000000";
+-- 			END IF;
 
-			IF (digit(i).s(5) = '1' AND (calcC >= 0 AND calcC <= (1 + calcA)) AND (calcD > (calcB + calcA + 1) AND calcD <= (2*calcB + 1 + 2*calcA))) THEN
-				colorconcat <= "111100000000";
-			END IF;
+-- 			IF (digit(i).s(5) = '1' AND (calcC >= 0 AND calcC <= (1 + calcA)) AND (calcD > (calcB + calcA + 1) AND calcD <= (2*calcB + 1 + 2*calcA))) THEN
+-- 				colorconcat <= "111100000000";
+-- 			END IF;
 
-			IF (digit(i).s(6) = '1' AND (calcC > 0 AND calcC <= (calcB + 2*calcA)) AND (calcD >= (calcB + calcA) AND calcD <= (calcB + 1 + 3*calcA))) THEN
-				colorconcat <= "111100000000";
-			END IF;
-		END LOOP;
+-- 			IF (digit(i).s(6) = '1' AND (calcC > 0 AND calcC <= (calcB + 2*calcA)) AND (calcD >= (calcB + calcA) AND calcD <= (calcB + 1 + 3*calcA))) THEN
+-- 				colorconcat <= "111100000000";
+-- 			END IF;
+-- 		END LOOP;
 
 ------OUTPUTS THE RESULTING COLORS TO THE SCREEN---------------------------------------------
 		red <= "0000" & colorconcat(11 downto 8);
@@ -402,38 +402,38 @@ ARCHITECTURE behavior OF dsdproject IS
   
   END PROCESS;
 
-------COLLISION DETECTION--------------------------------------------------------------------
-	hndl_Collision : process (max10_clk)
-	begin
-		FOR i in 0 to 11 LOOP
-			--ALIEN AND PLAYER SHIP COLLISION--
-			IF (pause = '0' AND spare_ships >= 1 AND 
-			alien(i).x >= ship.x AND 
-			(alien(i).x - (6 * alien(i).size)) <= (ship.x + ship_length) AND 
-			(alien(i).y - (6 * alien(i).size)) <= ship.y AND 
-			alien(i).y >= (ship.y - ship_height + ((alien(i).x - (6 * alien(i).size) - ship.x)*ship_height)/ship_length) AND
-			alien(i).y >= (ship.y - ship_height)) THEN
-				spare_ships <= spare_ships - 1;
-			ELSIF (pause = '1' AND startOfGameFlag = '1') THEN
-				spare_ships <= 3;
-			END IF;
+-- ------COLLISION DETECTION--------------------------------------------------------------------
+-- 	hndl_Collision : process (max10_clk)
+-- 	begin
+-- 		FOR i in 0 to 11 LOOP
+-- 			--ALIEN AND PLAYER SHIP COLLISION--
+-- 			IF (pause = '0' AND spare_ships >= 1 AND 
+-- 			alien(i).x >= ship.x AND 
+-- 			(alien(i).x - (6 * alien(i).size)) <= (ship.x + ship_length) AND 
+-- 			(alien(i).y - (6 * alien(i).size)) <= ship.y AND 
+-- 			alien(i).y >= (ship.y - ship_height + ((alien(i).x - (6 * alien(i).size) - ship.x)*ship_height)/ship_length) AND
+-- 			alien(i).y >= (ship.y - ship_height)) THEN
+-- 				spare_ships <= spare_ships - 1;
+-- 			ELSIF (pause = '1' AND startOfGameFlag = '1') THEN
+-- 				spare_ships <= 3;
+-- 			END IF;
 
-			--ALIEN AND PLAYER LASER COLLISION--
-			FOR j in 0 to (max_pproj - 1) LOOP
-				IF ((p_proj(j).x + 20) >= (alien(i).x - (6 * alien(i).size)) AND
-				p_proj(j).x <= alien(i).x AND
-				p_proj(j).y >= (alien(i).y - (6 * alien(i).size)) AND
-				p_proj(j).y <= alien(i).y) THEN
-					alien(i).collision <= '1';
-					p_proj(i).collision <= '1';
-				END IF;
-				IF (p_proj(j).e = '0') THEN
-					p_proj(j).collision <= '0';
-				END IF;
-			END LOOP;
+-- 			--ALIEN AND PLAYER LASER COLLISION--
+-- 			FOR j in 0 to (max_pproj - 1) LOOP
+-- 				IF ((p_proj(j).x + 20) >= (alien(i).x - (6 * alien(i).size)) AND
+-- 				p_proj(j).x <= alien(i).x AND
+-- 				p_proj(j).y >= (alien(i).y - (6 * alien(i).size)) AND
+-- 				p_proj(j).y <= alien(i).y) THEN
+-- 					alien(i).collision <= '1';
+-- 					p_proj(i).collision <= '1';
+-- 				END IF;
+-- 				IF (p_proj(j).e = '0') THEN
+-- 					p_proj(j).collision <= '0';
+-- 				END IF;
+-- 			END LOOP;
 
-		END LOOP;
-	END PROCESS;
+-- 		END LOOP;
+-- 	END PROCESS;
 
 ------Pause----------------------------------------------------------------------------------
 	pauseProcess : process ( max10_clk, pause_toggle, startOfGameFlag )
@@ -715,204 +715,204 @@ ARCHITECTURE behavior OF dsdproject IS
 	--	END PROCESS;
 
 
-------UPDATE DIGTIS WITH SCORE VALUE---------------------------------------------------------
-	hndl_Digits : process(score)
-	VARIABLE valu : INTEGER;
-	VARIABLE modC : INTEGER;
-	begin
-		FOR i in 0 to (max_digits - 1) LOOP
-			valu := (score/(10 ** i)) mod 10;
+-- ------UPDATE DIGTIS WITH SCORE VALUE---------------------------------------------------------
+-- 	hndl_Digits : process(score)
+-- 	VARIABLE valu : INTEGER;
+-- 	VARIABLE modC : INTEGER;
+-- 	begin
+-- 		FOR i in 0 to (max_digits - 1) LOOP
+-- 			valu := (score/(10 ** i)) mod 10;
 			
-			case valu is
-				when 9 => digit(max_digits-i-1).s <= "1110011";
-				when 8 => digit(max_digits-i-1).s <= "1111111";
-				when 7 => digit(max_digits-i-1).s <= "1110000";
-				when 6 => digit(max_digits-i-1).s <= "1011111";
-				when 5 => digit(max_digits-i-1).s <= "1011011";
-				when 4 => digit(max_digits-i-1).s <= "0110011";
-				when 3 => digit(max_digits-i-1).s <= "1111001";
-				when 2 => digit(max_digits-i-1).s <= "1101101";
-				when 1 => digit(max_digits-i-1).s <= "0110000";
-				when 0 => digit(max_digits-i-1).s <= "1111110";
-				when others => digit(max_digits-i-1).s <= "1000111";
-			end case;
-		END LOOP;
-	END PROCESS;
+-- 			case valu is
+-- 				when 9 => digit(max_digits-i-1).s <= "1110011";
+-- 				when 8 => digit(max_digits-i-1).s <= "1111111";
+-- 				when 7 => digit(max_digits-i-1).s <= "1110000";
+-- 				when 6 => digit(max_digits-i-1).s <= "1011111";
+-- 				when 5 => digit(max_digits-i-1).s <= "1011011";
+-- 				when 4 => digit(max_digits-i-1).s <= "0110011";
+-- 				when 3 => digit(max_digits-i-1).s <= "1111001";
+-- 				when 2 => digit(max_digits-i-1).s <= "1101101";
+-- 				when 1 => digit(max_digits-i-1).s <= "0110000";
+-- 				when 0 => digit(max_digits-i-1).s <= "1111110";
+-- 				when others => digit(max_digits-i-1).s <= "1000111";
+-- 			end case;
+-- 		END LOOP;
+-- 	END PROCESS;
 	
-------BUZZER1 -------------------------------------------------
-	buzzer1_clock : process(clockWithPause)
-	variable C3_counter : integer := 0;
-	variable exp_clk_counter : integer := 0;
-	variable RNG_instance : integer := 7500;		--generates random-ish clock for white noise	
-	begin
-		if(rising_edge(clockWithPause)) then	
-			if(exp_sound = '1') then
-				if (exp_clk_counter > RNG_instance ) then
-					bz1_clk <= not bz1_clk;
-					RNG_instance := 300*(to_integer(unsigned(RNG(7 downto 3)))+1);
-					exp_clk_counter := 0;
-				else
-					bz1_clk <= bz1_clk;
-					exp_clk_counter := exp_clk_counter + 1;
-				end if;	
-			elsif(pew_sound = '1') then		
-				if (C3_counter > 38225 ) 	then	-- cycles to get frequency of 130.813 (C3) 
-					bz1_clk <= not bz1_clk;
-					C3_counter := 0;
-				else
-					bz1_clk <= bz1_clk;
-					C3_counter := C3_counter + 1;					
-				end if;
-			else
-				bz1_clk <= bz1_clk;
-			end if;
-		end if;	
-	end process;
+-- ------BUZZER1 -------------------------------------------------
+-- 	buzzer1_clock : process(clockWithPause)
+-- 	variable C3_counter : integer := 0;
+-- 	variable exp_clk_counter : integer := 0;
+-- 	variable RNG_instance : integer := 7500;		--generates random-ish clock for white noise	
+-- 	begin
+-- 		if(rising_edge(clockWithPause)) then	
+-- 			if(exp_sound = '1') then
+-- 				if (exp_clk_counter > RNG_instance ) then
+-- 					bz1_clk <= not bz1_clk;
+-- 					RNG_instance := 300*(to_integer(unsigned(RNG(7 downto 3)))+1);
+-- 					exp_clk_counter := 0;
+-- 				else
+-- 					bz1_clk <= bz1_clk;
+-- 					exp_clk_counter := exp_clk_counter + 1;
+-- 				end if;	
+-- 			elsif(pew_sound = '1') then		
+-- 				if (C3_counter > 38225 ) 	then	-- cycles to get frequency of 130.813 (C3) 
+-- 					bz1_clk <= not bz1_clk;
+-- 					C3_counter := 0;
+-- 				else
+-- 					bz1_clk <= bz1_clk;
+-- 					C3_counter := C3_counter + 1;					
+-- 				end if;
+-- 			else
+-- 				bz1_clk <= bz1_clk;
+-- 			end if;
+-- 		end if;	
+-- 	end process;
 	
-	buzzer1_process : process(bz1_clk, clockWithPause, shoot )
-	variable pew_counter : integer := 0;
-	variable exp_counter : integer := 0;
-	variable sound_done  : std_logic := '0';
-	variable hs5 : boolean := false;
-	variable hs6 : boolean := false;
+-- 	buzzer1_process : process(bz1_clk, clockWithPause, shoot )
+-- 	variable pew_counter : integer := 0;
+-- 	variable exp_counter : integer := 0;
+-- 	variable sound_done  : std_logic := '0';
+-- 	variable hs5 : boolean := false;
+-- 	variable hs6 : boolean := false;
 	
 	
-	begin
-		if(rising_edge(bz1_clk)) then	
-			if(exp_counter > 0) then		-- explosion
-				if(exp_counter < 1000) then
-					buzzer1 <= not buzzer1;
-					exp_counter := exp_counter + 1;
-				else
-					exp_counter := 0;
-					sound_done := '1';
-				end if;			
-			elsif (pew_counter > 0) then					-- pew
-				if (pew_counter < 50) then
-					buzzer1 <= not buzzer1;
-					pew_counter := pew_counter + 1;
-				else
-					sound_done := '1';
-					pew_counter := 0;
-				end if;
-			elsif(exp_sound = '1') then
-				exp_counter := 1;
-			elsif(pew_sound = '1') then
-				pew_counter := 1;
-			else
-				buzzer1 <= buzzer1;
-				sound_done := '0';
-			end if;
-		end if;
+-- 	begin
+-- 		if(rising_edge(bz1_clk)) then	
+-- 			if(exp_counter > 0) then		-- explosion
+-- 				if(exp_counter < 1000) then
+-- 					buzzer1 <= not buzzer1;
+-- 					exp_counter := exp_counter + 1;
+-- 				else
+-- 					exp_counter := 0;
+-- 					sound_done := '1';
+-- 				end if;			
+-- 			elsif (pew_counter > 0) then					-- pew
+-- 				if (pew_counter < 50) then
+-- 					buzzer1 <= not buzzer1;
+-- 					pew_counter := pew_counter + 1;
+-- 				else
+-- 					sound_done := '1';
+-- 					pew_counter := 0;
+-- 				end if;
+-- 			elsif(exp_sound = '1') then
+-- 				exp_counter := 1;
+-- 			elsif(pew_sound = '1') then
+-- 				pew_counter := 1;
+-- 			else
+-- 				buzzer1 <= buzzer1;
+-- 				sound_done := '0';
+-- 			end if;
+-- 		end if;
 		
-		-- flags for sound creation
-		if(rising_edge(clockWithPause)) then
-			for i in 0 to 11 loop
-				if(alien(i).collision = '1') then
-					exp_sound <= '1';
-				elsif (sound_done = '1') then
-					exp_sound <= '0';	
-				else
-					exp_sound <= exp_sound;
-				end if;
-			end loop;
+-- 		-- flags for sound creation
+-- 		if(rising_edge(clockWithPause)) then
+-- 			for i in 0 to 11 loop
+-- 				if(alien(i).collision = '1') then
+-- 					exp_sound <= '1';
+-- 				elsif (sound_done = '1') then
+-- 					exp_sound <= '0';	
+-- 				else
+-- 					exp_sound <= exp_sound;
+-- 				end if;
+-- 			end loop;
 			
-			if(shoot = '0') then
-				pew_sound <='1';
-				hs6 := true;
-			elsif( sound_done = '1') then
-				pew_sound <= '0';
-				hs6 := false;
-			else
-				pew_sound <= pew_sound;
-			end if;
-		end if;			
+-- 			if(shoot = '0') then
+-- 				pew_sound <='1';
+-- 				hs6 := true;
+-- 			elsif( sound_done = '1') then
+-- 				pew_sound <= '0';
+-- 				hs6 := false;
+-- 			else
+-- 				pew_sound <= pew_sound;
+-- 			end if;
+-- 		end if;			
 			
-	end process;
+-- 	end process;
 
-------ALIEN PROCESSING----------------------------------------------------
+-- ------ALIEN PROCESSING----------------------------------------------------
 
-	Move_CLK : process (max10_clk, pause)
-	variable movement_counter : integer := 0;
-	begin
-		if(rising_edge(max10_clk) AND pause = '0') then
-			movement_counter := movement_counter + 1;
-			if (movement_counter >= 200000) then
-				movement_clock <= NOT movement_clock;
-				movement_counter := 0;
-			end if;
-		end if;
-	end process;
+-- 	Move_CLK : process (max10_clk, pause)
+-- 	variable movement_counter : integer := 0;
+-- 	begin
+-- 		if(rising_edge(max10_clk) AND pause = '0') then
+-- 			movement_counter := movement_counter + 1;
+-- 			if (movement_counter >= 200000) then
+-- 				movement_clock <= NOT movement_clock;
+-- 				movement_counter := 0;
+-- 			end if;
+-- 		end if;
+-- 	end process;
 
-	hndl_Alien : process (clockWithPause)
-	begin
-		FOR i in 0 to 11 LOOP
-			IF(rising_edge(clockWithPause)) THEN
-				IF (alien(i).alive = '0') THEN
-					alien(i).tsls <= alien(i).tsls + 1;
-				END IF;
+-- 	hndl_Alien : process (clockWithPause)
+-- 	begin
+-- 		FOR i in 0 to 11 LOOP
+-- 			IF(rising_edge(clockWithPause)) THEN
+-- 				IF (alien(i).alive = '0') THEN
+-- 					alien(i).tsls <= alien(i).tsls + 1;
+-- 				END IF;
 
-				IF (alien(i).hs2 = '1') THEN
-					alien(i).hs1 <= '0';
-				END IF;
+-- 				IF (alien(i).hs2 = '1') THEN
+-- 					alien(i).hs1 <= '0';
+-- 				END IF;
 
-				IF (i < 4 AND alien(i).alive = '0' AND alien(i).tsls >= (alien(i).min_p * 50000000)) THEN
-					alien(i).alive <= '1';
-					alien(i).size <= to_integer(unsigned(RNG(2 downto 0))) + 3;
-					alien(i).color <= "110000001100";
-					alien(i).hs1 <= '1';
-					alien(i).tsls <= 0;
+-- 				IF (i < 4 AND alien(i).alive = '0' AND alien(i).tsls >= (alien(i).min_p * 50000000)) THEN
+-- 					alien(i).alive <= '1';
+-- 					alien(i).size <= to_integer(unsigned(RNG(2 downto 0))) + 3;
+-- 					alien(i).color <= "110000001100";
+-- 					alien(i).hs1 <= '1';
+-- 					alien(i).tsls <= 0;
 
-				ELSIF ( (i < 8 AND alien(i).alive = '0' AND alien(i).tsls >= (alien(i).min_p * 50000000)) ) THEN
-					alien(i).alive <= '1';
-					alien(i).size <= to_integer(unsigned(RNG(5 downto 3) XOR RNG(2 downto 0)) + 3);
-					alien(i).color <= "000011000100";
-					alien(i).hs1 <= '1';
-					alien(i).tsls <= 0;
+-- 				ELSIF ( (i < 8 AND alien(i).alive = '0' AND alien(i).tsls >= (alien(i).min_p * 50000000)) ) THEN
+-- 					alien(i).alive <= '1';
+-- 					alien(i).size <= to_integer(unsigned(RNG(5 downto 3) XOR RNG(2 downto 0)) + 3);
+-- 					alien(i).color <= "000011000100";
+-- 					alien(i).hs1 <= '1';
+-- 					alien(i).tsls <= 0;
 
-					IF (score > 1000 AND RNG(1) = '1') THEN
-						alien(i).min_p <= alien(i).min_p - 2;
-					END IF;
+-- 					IF (score > 1000 AND RNG(1) = '1') THEN
+-- 						alien(i).min_p <= alien(i).min_p - 2;
+-- 					END IF;
 					
-				ELSIF ( (i < 12 AND alien(i).alive = '0' AND alien(i).tsls >= (alien(i).min_p * 50000000))) THEN
-					alien(i).alive <= '1';
-					alien(i).size <= to_integer(unsigned(RNG(5 downto 3) XOR RNG(9 downto 7)) + 3);
-					alien(i).color <= "000000001100";
-					alien(i).hs1 <= '1';
-					alien(i).tsls <= 0;
+-- 				ELSIF ( (i < 12 AND alien(i).alive = '0' AND alien(i).tsls >= (alien(i).min_p * 50000000))) THEN
+-- 					alien(i).alive <= '1';
+-- 					alien(i).size <= to_integer(unsigned(RNG(5 downto 3) XOR RNG(9 downto 7)) + 3);
+-- 					alien(i).color <= "000000001100";
+-- 					alien(i).hs1 <= '1';
+-- 					alien(i).tsls <= 0;
 
-					IF (score > 2000) THEN
-						alien(i).min_p <= alien(i).min_p - 2;
-					END IF;
+-- 					IF (score > 2000) THEN
+-- 						alien(i).min_p <= alien(i).min_p - 2;
+-- 					END IF;
 
-				ELSIF ((alien(i).x > 60000) OR (alien(i).x <= 0)) THEN
-					alien(i).alive <= '0';
-				END IF;
-			END IF;
-		END LOOP;
-	END PROCESS;
+-- 				ELSIF ((alien(i).x > 60000) OR (alien(i).x <= 0)) THEN
+-- 					alien(i).alive <= '0';
+-- 				END IF;
+-- 			END IF;
+-- 		END LOOP;
+-- 	END PROCESS;
 
-	move_Alien : process (movement_clock)
-	VARIABLE randomValue : INTEGER;
-	begin
-		FOR i in 0 to 11 LOOP
-			IF (rising_edge(movement_clock) AND alien(i).alive = '1') THEN
-				IF (alien(i).hs1 = '1') THEN
-					randomValue := to_integer(unsigned(RNG( 8 downto (i rem 3) ))) * 8;
-					alien(i).x <= 750 + randomValue/4;
-					alien(i).y <= ((randomValue + y_max + 6*alien(i).size) rem (y_min - (y_max + 6*alien(i).size)) + (y_max + 6*alien(i).size) + 8);
-					alien(i).hs2 <= '1';
-				ELSE
-					alien(i).hs2 <= '0';
-					alien(i).x <= alien(i).x - 1;
-				END IF;
-			END IF;
+-- 	move_Alien : process (movement_clock)
+-- 	VARIABLE randomValue : INTEGER;
+-- 	begin
+-- 		FOR i in 0 to 11 LOOP
+-- 			IF (rising_edge(movement_clock) AND alien(i).alive = '1') THEN
+-- 				IF (alien(i).hs1 = '1') THEN
+-- 					randomValue := to_integer(unsigned(RNG( 8 downto (i rem 3) ))) * 8;
+-- 					alien(i).x <= 750 + randomValue/4;
+-- 					alien(i).y <= ((randomValue + y_max + 6*alien(i).size) rem (y_min - (y_max + 6*alien(i).size)) + (y_max + 6*alien(i).size) + 8);
+-- 					alien(i).hs2 <= '1';
+-- 				ELSE
+-- 					alien(i).hs2 <= '0';
+-- 					alien(i).x <= alien(i).x - 1;
+-- 				END IF;
+-- 			END IF;
 			
-			IF (alien(i).alive = '0') THEN
-				alien(i).x <= 750;
-				alien(i).y <= 240;
-			END IF;
-		END LOOP;
-	END PROCESS;
+-- 			IF (alien(i).alive = '0') THEN
+-- 				alien(i).x <= 750;
+-- 				alien(i).y <= 240;
+-- 			END IF;
+-- 		END LOOP;
+-- 	END PROCESS;
 	
 END architecture;
