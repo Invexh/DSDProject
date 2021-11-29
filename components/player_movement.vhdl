@@ -21,9 +21,9 @@ ENTITY controller IS
     PORT(
         dataX : IN STD_LOGIC_VECTOR(15 downto 0);
         dataY : IN STD_LOGIC_VECTOR(15 downto 0);
-        Xpos  : OUT INTEGER;
-        Ypos  : OUT INTEGER;
-        Exha  : OUT INTEGER;
+        Xpos  : OUT INTEGER range 0 to 640;
+        Ypos  : OUT INTEGER range 0 to 480;
+        Exha  : OUT INTEGER range 0 to 7;
         R     : OUT STD_LOGIC;
         CLK   : IN STD_LOGIC
     );
@@ -47,7 +47,7 @@ BEGIN
 ------Clock for X Axis Movement--------------------------------------------------------------
     xAxisClock : process ( CLK )	
     variable clockDivX : natural := 255;
-    VARIABLE countX : INTEGER := 0;
+    VARIABLE countX : INTEGER range 0 to 256000 := 0;
     begin
         if(rising_edge(CLK)) then
             for i in 0 to 7 loop
@@ -80,7 +80,7 @@ BEGIN
 ------Clock for Y Axis Movement--------------------------------------------------------------
     yAxisClock : process ( CLK )	
     variable clockDivY : natural := 255;
-    VARIABLE countY : INTEGER := 0;
+    VARIABLE countY : INTEGER range 0 to 512000 := 0;
     begin
         if(rising_edge( CLK )) then
             for i in 0 to 7 loop

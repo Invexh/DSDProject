@@ -72,6 +72,10 @@ ARCHITECTURE behavior OF dsdproject IS
 	signal ship : ship_t := (alive => '1', x => x_min, y => (240 + ship_height/2), collision => '0', right => '1', exhaust => 0);
 	signal p_proj : player_proj_array((max_pproj - 1) downto 0);
 
+	--Score--
+	signal score : INTEGER range 0 to 999999 := 1;
+	signal digit : seg_array((max_digits - 1) downto 0);
+
 	--Lives--
 	signal spare_ships : INTEGER range 0 to 7 := 3;
 
@@ -123,9 +127,9 @@ ARCHITECTURE behavior OF dsdproject IS
 		PORT(
 			dataX : IN STD_LOGIC_VECTOR(15 downto 0);
 			dataY : IN STD_LOGIC_VECTOR(15 downto 0);
-			Xpos  : OUT INTEGER;
-			Ypos  : OUT INTEGER;
-			Exha  : OUT INTEGER;
+			Xpos  : OUT INTEGER range 0 to 640;
+			Ypos  : OUT INTEGER range 0 to 480;
+			Exha  : OUT INTEGER range 0 to 7;
 			R     : OUT STD_LOGIC;
 			CLK   : IN STD_LOGIC
 		);
@@ -142,18 +146,30 @@ ARCHITECTURE behavior OF dsdproject IS
 		);
 	END COMPONENT;
 
+	COMPONENT scoreboard IS
+		PORT(
+			score : IN INTEGER range 0 to 999999;
+			index : IN INTEGER range 0 to 5;
+			digit : OUT seg_digit
+		);
+	END COMPONENT;
+
 BEGIN
 ------PORT MAPS------------------------------------------------------------------------------
 	U0 : ADXL345_controller port map('1', max10_clk, OPEN, data_x, data_y, data_z, GSENSOR_SDI, GSENSOR_SDO, GSENSOR_CS_N, GSENSOR_SCLK);
 	MC : controller generic map(x_start => x_min, y_start => (240 + ship_height/2)) port map(data_x, data_y, ship.x, ship.y, ship.exhaust, ship.right, pauseClock);
 	PC : pause port map(startOfGame, max10_clk, shoot, pause_toggle, pauseClock, paused);
 
+	SC : FOR i in 0 to (max_digits - 1) GENERATE
+		SC : scoreboard port map (score, i, digit(i));
+	END GENERATE;
+
 ------VARIABLE DECLARATIONS------------------------------------------------------------------
 	PROCESS(disp_ena, row, column)
-		variable calcA : INTEGER;
-		variable calcB : INTEGER;
-		variable calcC : INTEGER;
-		variable calcD : INTEGER;
+		variable calcA : INTEGER range -64 to 640;
+		variable calcB : INTEGER range -64 to 640;
+		variable calcC : INTEGER range -64 to 640;
+		variable calcD : INTEGER range -64 to 640;
 		
 		variable up_downNot					: boolean 	:= true;
 		variable mountain_height 			: integer 	:= 0;
@@ -265,7 +281,43 @@ BEGIN
 				END IF;
 			END IF;
 		END LOOP;	
-		
+
+------DRAWS THE SCOREBOARD TO THE SCREEN-----------------------------------------------------
+		calcA := (digit_thickness - 1)/2;	--Onesided thickness of digit
+		calcB := (digit_height - 3)/2;		--Segment Length 
+		FOR i in 0 to (max_digits - 1) LOOP
+			calcC := column - (score_x + i*(digit_spacing + 2*calcA + calcB));	--Relative x position
+			calcD := score_y - row; --Relative y position
+
+			IF (digit(i).s(0) = '1' AND (calcC > 0 AND calcC <= (calcB + 2*calcA)) AND (calcD >= 2*(calcB + calcA) AND calcD <= (2*calcB + 1 + 3*calcA))) THEN
+				colorconcat <= "111100000000";
+			END IF;
+
+			IF (digit(i).s(1) = '1' AND (calcC >= (calcB + calcA) AND calcC <= (calcB + 2*calcA + 1)) AND (calcD > (calcB + 2*calcA) AND calcD <= (2*calcB + 1 + 2*calcA))) THEN
+				colorconcat <= "111100000000";
+			END IF;
+
+			IF (digit(i).s(2) = '1' AND (calcC >= (calcB + calcA) AND calcC <= (calcB + 2*calcA + 1)) AND (calcD > 0 AND calcD <= (calcB + 1))) THEN
+				colorconcat <= "111100000000";
+			END IF;
+
+			IF (digit(i).s(3) = '1' AND (calcC > 0 AND calcC <= (calcB + 2*calcA)) AND (calcD >= 0 AND calcD <= (1 + calcA))) THEN
+				colorconcat <= "111100000000";
+			END IF;
+
+			IF (digit(i).s(4) = '1' AND (calcC >= 0 AND calcC <= (1 + calcA)) AND (calcD > 0 AND calcD <= (calcB + 1))) THEN
+				colorconcat <= "111100000000";
+			END IF;
+
+			IF (digit(i).s(5) = '1' AND (calcC >= 0 AND calcC <= (1 + calcA)) AND (calcD > (calcB + calcA + 1) AND calcD <= (2*calcB + 1 + 2*calcA))) THEN
+				colorconcat <= "111100000000";
+			END IF;
+
+			IF (digit(i).s(6) = '1' AND (calcC > 0 AND calcC <= (calcB + 2*calcA)) AND (calcD >= (calcB + calcA) AND calcD <= (calcB + 1 + 3*calcA))) THEN
+				colorconcat <= "111100000000";
+			END IF;
+		END LOOP;
+
 -- ------DRAWS THE ENEMIES ON THE SCREEN--------------------------------------------------------
 -- 		FOR i in 0 to 11 LOOP
 -- 			IF (alien(i).alive = '1') THEN
@@ -283,41 +335,6 @@ BEGIN
 -- 			END IF;
 -- 		END LOOP;
 		
--- ------DRAWS THE SCOREBOARD TO THE SCREEN-----------------------------------------------------
--- 		calcA := (digit_thickness - 1)/2;	--Onesided thickness of digit
--- 		calcB := (digit_height - 3)/2;		--Segment Length 
--- 		FOR i in 0 to (max_digits - 1) LOOP
--- 			calcC := column - (score_x + i*(digit_spacing + 2*calcA + calcB));	--Relative x position
--- 			calcD := score_y - row; --Relative y position
-
--- 			IF (digit(i).s(0) = '1' AND (calcC > 0 AND calcC <= (calcB + 2*calcA)) AND (calcD >= 2*(calcB + calcA) AND calcD <= (2*calcB + 1 + 3*calcA))) THEN
--- 				colorconcat <= "111100000000";
--- 			END IF;
-
--- 			IF (digit(i).s(1) = '1' AND (calcC >= (calcB + calcA) AND calcC <= (calcB + 2*calcA + 1)) AND (calcD > (calcB + 2*calcA) AND calcD <= (2*calcB + 1 + 2*calcA))) THEN
--- 				colorconcat <= "111100000000";
--- 			END IF;
-
--- 			IF (digit(i).s(2) = '1' AND (calcC >= (calcB + calcA) AND calcC <= (calcB + 2*calcA + 1)) AND (calcD > 0 AND calcD <= (calcB + 1))) THEN
--- 				colorconcat <= "111100000000";
--- 			END IF;
-
--- 			IF (digit(i).s(3) = '1' AND (calcC > 0 AND calcC <= (calcB + 2*calcA)) AND (calcD >= 0 AND calcD <= (1 + calcA))) THEN
--- 				colorconcat <= "111100000000";
--- 			END IF;
-
--- 			IF (digit(i).s(4) = '1' AND (calcC >= 0 AND calcC <= (1 + calcA)) AND (calcD > 0 AND calcD <= (calcB + 1))) THEN
--- 				colorconcat <= "111100000000";
--- 			END IF;
-
--- 			IF (digit(i).s(5) = '1' AND (calcC >= 0 AND calcC <= (1 + calcA)) AND (calcD > (calcB + calcA + 1) AND calcD <= (2*calcB + 1 + 2*calcA))) THEN
--- 				colorconcat <= "111100000000";
--- 			END IF;
-
--- 			IF (digit(i).s(6) = '1' AND (calcC > 0 AND calcC <= (calcB + 2*calcA)) AND (calcD >= (calcB + calcA) AND calcD <= (calcB + 1 + 3*calcA))) THEN
--- 				colorconcat <= "111100000000";
--- 			END IF;
--- 		END LOOP;
 
 -- ------OUTPUTS THE RESULTING COLORS TO THE SCREEN---------------------------------------------
 		red <= "0000" & colorconcat(11 downto 8);
@@ -348,9 +365,10 @@ BEGIN
 	end process;
 
 	hndl_Projectile : PROCESS (shoot)
-	VARIABLE ei : INTEGER; --Entity Index
+	VARIABLE ei : INTEGER range 0 to 31; --Entity Index
 	BEGIN
 		IF (paused = '0' AND falling_edge(shoot)) THEN
+			score <= score + 1;
 			p_proj(ei).e <= '1';
 			p_proj(ei).hs1 <= '1';
 			ei := ((ei + 1) mod max_pproj);
