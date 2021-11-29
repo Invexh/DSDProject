@@ -1,12 +1,23 @@
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.NUMERIC_STD.ALL;
+USE work.custom_types.ALL;
+
 ENTITY buzzer IS 
 	PORT(
-		clockWithPause 		: IN std_logic;
-		RNG					: IN std_logic_vector(9 downto 0);
-		buzzer1 			: OUT std_logic
+        alien               : IN alien_array(11 downto 0);
+		clockWithPause 		: IN STD_LOGIC;
+		RNG					: IN STD_LOGIC_VECTOR(9 downto 0);
+        btn_0               : IN STD_LOGIC;
+		buzzer1 			: BUFFER STD_LOGIC
 	);
 END ENTITY;
 
 ARCHITECTURE ExplosionsAndPews OF buzzer IS
+    SIGNAL exp_sound : STD_LOGIC := '0';
+    SIGNAL bz1_clk : STD_LOGIC := '0';
+    SIGNAL pew_sound : STD_LOGIC := '0';
+
 BEGIN
     ------BUZZER1 -------------------------------------------------
     buzzer1_clock : process(clockWithPause)
@@ -39,7 +50,7 @@ BEGIN
         END IF;	
     END PROCESS;
 
-    buzzer1_process : process(bz1_clk, clockWithPause, shoot )
+    buzzer1_process : process(bz1_clk, clockWithPause, btn_0 )
         VARIABLE pew_counter : integer range 0 to 51 := 0;
         VARIABLE exp_counter : integer range 0 to 1001 := 0;
         VARIABLE sound_done  : std_logic := '0';
@@ -86,7 +97,7 @@ BEGIN
                 END IF;
             END LOOP;
             
-            IF(shoot = '0') THEN
+            IF(btn_0 = '0') THEN
                 pew_sound <='1';
                 hs6 := true;
             ELSIF( sound_done = '1') THEN
@@ -129,7 +140,7 @@ END ARCHITECTURE;
 --     END IF;	
 -- end process;
 
--- buzzer1_process : process(bz1_clk, clockWithPause, shoot )
+-- buzzer1_process : process(bz1_clk, clockWithPause, btn_0 )
 -- variable pew_counter : integer := 0;
 -- variable exp_counter : integer := 0;
 -- variable sound_done  : std_logic := '0';
@@ -177,7 +188,7 @@ END ARCHITECTURE;
 --             END IF;
 --         end loop;
         
---         IF(shoot = '0') THEN
+--         IF(btn_0 = '0') THEN
 --             pew_sound <='1';
 --             hs6 := true;
 --         ELSIF( sound_done = '1') THEN

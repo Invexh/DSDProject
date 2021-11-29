@@ -172,15 +172,15 @@ ARCHITECTURE behavior OF dsdproject IS
 		);
 	END COMPONENT;
 
-	-- COMPONENT alien IS
-	-- 	PORT(
-	-- 		MOVE_CLK : IN STD_LOGIC;    --MOVEMENT CLOCK
-	-- 		CLK      : IN STD_LOGIC;    --CLOCK WITH PAUSE
-	-- 		alien    : INOUT alien_t := ("000000000000", '0', '0', 11, '0', '0', 1, 0, 0, 0);   --ALIEN OBJECT
-	-- 		RNG		 : IN STD_LOGIC_VECTOR(9 downto 0);
-	-- 		score    : IN INTEGER range 0 to 999999
-	-- 	);
-	-- END COMPONENT;
+	COMPONENT buzzer IS 
+		PORT(
+			alien               : IN alien_array(11 downto 0);
+			clockWithPause 		: IN STD_LOGIC;
+			RNG					: IN STD_LOGIC_VECTOR(9 downto 0);
+			btn_0               : IN STD_LOGIC;
+			buzzer1 			: BUFFER STD_LOGIC
+		);
+	END COMPONENT;
 
 	COMPONENT RNG10 is
 		PORT (
@@ -195,6 +195,7 @@ BEGIN
 	MC : controller generic map(x_start => x_min, y_start => (240 + ship_height/2)) port map(data_x, data_y, ship.x, ship.y, ship.exhaust, ship.right, pauseClock);
 	PC : pause port map(startOfGame, max10_clk, shoot, pause_toggle, pauseClock, paused);
 	U1 : RNG10 port map(reset_RNG, '0', max10_clk, RNG);
+	B0 : buzzer port map(aliens, pauseClock, RNG, shoot, buzzer1);
 
 	SC : FOR i in 0 to (max_digits - 1) GENERATE
 		SC : scoreboard port map (score, i, digit(i));
