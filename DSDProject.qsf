@@ -74,8 +74,17 @@ set_location_assignment PIN_AB16 -to GSENSOR_CS_N
 set_location_assignment PIN_A7 -to pause_toggle
 set_global_assignment -name EDA_SIMULATION_TOOL "<None>"
 set_location_assignment PIN_B8 -to shoot
+set_global_assignment -name NUM_PARALLEL_PROCESSORS 8
+set_location_assignment PIN_Y19 -to buzzer1
+set_location_assignment PIN_AA12 -to buzzer2
+set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_timing
+set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_symbol
+set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_signal_integrity
+set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_boundary_scan
+set_global_assignment -name VHDL_FILE components/pause.vhdl
+set_global_assignment -name VHDL_FILE components/player_movement.vhdl
+set_global_assignment -name VHDL_FILE components/structures.vhdl
 set_global_assignment -name SOURCE_FILE DSDProject.qsf
-set_global_assignment -name VHDL_FILE aliens.vhd
 set_global_assignment -name VHDL_FILE dsdproject.vhd
 set_global_assignment -name SYSTEMVERILOG_FILE Accelerometer/spi.sv
 set_global_assignment -name SYSTEMVERILOG_FILE Accelerometer/gsensor.sv
@@ -85,11 +94,4 @@ set_global_assignment -name VHDL_FILE RNG10/LFSRs.vhd
 set_global_assignment -name VHDL_FILE vga_top_level.vhd
 set_global_assignment -name VHDL_FILE vga_pll_25_175.vhd
 set_global_assignment -name VHDL_FILE vga_controller.vhd
-set_global_assignment -name NUM_PARALLEL_PROCESSORS 8
-set_location_assignment PIN_Y19 -to buzzer1
-set_location_assignment PIN_AA12 -to buzzer2
-set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_timing
-set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_symbol
-set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_signal_integrity
-set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_boundary_scan
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
