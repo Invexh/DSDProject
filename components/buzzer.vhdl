@@ -1,90 +1,191 @@
-------BUZZER1 -------------------------------------------------
-buzzer1_clock : process(clockWithPause)
-variable C3_counter : integer := 0;
-variable exp_clk_counter : integer := 0;
-variable RNG_instance : integer := 7500;		--generates random-ish clock for white noise	
-begin
-    if(rising_edge(clockWithPause)) then	
-        if(exp_sound = '1') then
-            if (exp_clk_counter > RNG_instance ) then
-                bz1_clk <= not bz1_clk;
-                RNG_instance := 300*(to_integer(unsigned(RNG(7 downto 3)))+1);
-                exp_clk_counter := 0;
-            else
+ENTITY buzzer IS 
+	PORT(
+		clockWithPause 		: IN std_logic;
+		RNG					: IN std_logic_vector(9 downto 0);
+		buzzer1 			: OUT std_logic
+	);
+END ENTITY;
+
+ARCHITECTURE ExplosionsAndPews OF buzzer IS
+BEGIN
+    ------BUZZER1 -------------------------------------------------
+    buzzer1_clock : process(clockWithPause)
+        VARIABLE C3_counter : integer range 0 to 38230 := 0;
+        VARIABLE exp_clk_counter : integer range 0 to 9610 := 0;
+        VARIABLE RNG_instance : integer range 0 to 9610 := 7500;		--generates random-ish clock for white noise
+
+    BEGIN
+        IF(rising_edge(clockWithPause)) THEN	
+            IF(exp_sound = '1') THEN
+                IF (exp_clk_counter > RNG_instance ) THEN
+                    bz1_clk <= NOT bz1_clk;
+                    RNG_instance := 300*(to_integer(unsigned(RNG(7 downto 3)))+1);
+                    exp_clk_counter := 0;
+                ELSE
+                    bz1_clk <= bz1_clk;
+                    exp_clk_counter := exp_clk_counter + 1;
+                END IF;	
+            ELSIF(pew_sound = '1') THEN		
+                IF (C3_counter > 38225 ) 	THEN	-- cycles to get frequency of 130.813 (C3) 
+                    bz1_clk <= NOT bz1_clk;
+                    C3_counter := 0;
+                ELSE
+                    bz1_clk <= bz1_clk;
+                    C3_counter := C3_counter + 1;					
+                END IF;
+            ELSE
                 bz1_clk <= bz1_clk;
-                exp_clk_counter := exp_clk_counter + 1;
-            end if;	
-        elsif(pew_sound = '1') then		
-            if (C3_counter > 38225 ) 	then	-- cycles to get frequency of 130.813 (C3) 
-                bz1_clk <= not bz1_clk;
-                C3_counter := 0;
-            else
-                bz1_clk <= bz1_clk;
-                C3_counter := C3_counter + 1;					
-            end if;
-        else
-            bz1_clk <= bz1_clk;
-        end if;
-    end if;	
-end process;
+            END IF;
+        END IF;	
+    END PROCESS;
 
-buzzer1_process : process(bz1_clk, clockWithPause, shoot )
-variable pew_counter : integer := 0;
-variable exp_counter : integer := 0;
-variable sound_done  : std_logic := '0';
-variable hs5 : boolean := false;
-variable hs6 : boolean := false;
+    buzzer1_process : process(bz1_clk, clockWithPause, shoot )
+        VARIABLE pew_counter : integer range 0 to 51 := 0;
+        VARIABLE exp_counter : integer range 0 to 1001 := 0;
+        VARIABLE sound_done  : std_logic := '0';
+        VARIABLE hs5 : boolean := false;
+        VARIABLE hs6 : boolean := false;
+
+    BEGIN
+        IF(rising_edge(bz1_clk)) THEN	
+            IF(exp_counter > 0) THEN		-- explosion
+                IF(exp_counter < 1000) THEN
+                    buzzer1 <= NOT buzzer1;
+                    exp_counter := exp_counter + 1;
+                ELSE
+                    exp_counter := 0;
+                    sound_done := '1';
+                END IF;			
+            ELSIF (pew_counter > 0) THEN					-- pew
+                IF (pew_counter < 50) THEN
+                    buzzer1 <= NOT buzzer1;
+                    pew_counter := pew_counter + 1;
+                ELSE
+                    sound_done := '1';
+                    pew_counter := 0;
+                END IF;
+            ELSIF(exp_sound = '1') THEN
+                exp_counter := 1;
+            ELSIF(pew_sound = '1') THEN
+                pew_counter := 1;
+            ELSE
+                buzzer1 <= buzzer1;
+                sound_done := '0';
+            END IF;
+        END IF;
+        
+        -- flags for sound creation
+        IF(rising_edge(clockWithPause)) THEN
+            FOR i in 0 to 11 LOOP
+                IF(alien(i).collision = '1') THEN
+                    exp_sound <= '1';
+                ELSIF (sound_done = '1') THEN
+                    exp_sound <= '0';	
+                ELSE
+                    exp_sound <= exp_sound;
+                END IF;
+            END LOOP;
+            
+            IF(shoot = '0') THEN
+                pew_sound <='1';
+                hs6 := true;
+            ELSIF( sound_done = '1') THEN
+                pew_sound <= '0';
+                hs6 := false;
+            ELSE
+                pew_sound <= pew_sound;
+            END IF;
+        END IF;			    
+    END PROCESS;
+END ARCHITECTURE;
+
+-- ------BUZZER1 -------------------------------------------------
+-- buzzer1_clock : process(clockWithPause)
+-- variable C3_counter : integer := 0;
+-- variable exp_clk_counter : integer := 0;
+-- variable RNG_instance : integer := 7500;		--generates random-ish clock for white noise	
+-- begin
+--     IF(rising_edge(clockWithPause)) THEN	
+--         IF(exp_sound = '1') THEN
+--             IF (exp_clk_counter > RNG_instance ) THEN
+--                 bz1_clk <= NOT bz1_clk;
+--                 RNG_instance := 300*(to_integer(unsigned(RNG(7 downto 3)))+1);
+--                 exp_clk_counter := 0;
+--             ELSE
+--                 bz1_clk <= bz1_clk;
+--                 exp_clk_counter := exp_clk_counter + 1;
+--             END IF;	
+--         ELSIF(pew_sound = '1') THEN		
+--             IF (C3_counter > 38225 ) 	THEN	-- cycles to get frequency of 130.813 (C3) 
+--                 bz1_clk <= NOT bz1_clk;
+--                 C3_counter := 0;
+--             ELSE
+--                 bz1_clk <= bz1_clk;
+--                 C3_counter := C3_counter + 1;					
+--             END IF;
+--         ELSE
+--             bz1_clk <= bz1_clk;
+--         END IF;
+--     END IF;	
+-- end process;
+
+-- buzzer1_process : process(bz1_clk, clockWithPause, shoot )
+-- variable pew_counter : integer := 0;
+-- variable exp_counter : integer := 0;
+-- variable sound_done  : std_logic := '0';
+-- variable hs5 : boolean := false;
+-- variable hs6 : boolean := false;
 
 
-begin
-    if(rising_edge(bz1_clk)) then	
-        if(exp_counter > 0) then		-- explosion
-            if(exp_counter < 1000) then
-                buzzer1 <= not buzzer1;
-                exp_counter := exp_counter + 1;
-            else
-                exp_counter := 0;
-                sound_done := '1';
-            end if;			
-        elsif (pew_counter > 0) then					-- pew
-            if (pew_counter < 50) then
-                buzzer1 <= not buzzer1;
-                pew_counter := pew_counter + 1;
-            else
-                sound_done := '1';
-                pew_counter := 0;
-            end if;
-        elsif(exp_sound = '1') then
-            exp_counter := 1;
-        elsif(pew_sound = '1') then
-            pew_counter := 1;
-        else
-            buzzer1 <= buzzer1;
-            sound_done := '0';
-        end if;
-    end if;
+-- begin
+--     IF(rising_edge(bz1_clk)) THEN	
+--         IF(exp_counter > 0) THEN		-- explosion
+--             IF(exp_counter < 1000) THEN
+--                 buzzer1 <= NOT buzzer1;
+--                 exp_counter := exp_counter + 1;
+--             ELSE
+--                 exp_counter := 0;
+--                 sound_done := '1';
+--             END IF;			
+--         ELSIF (pew_counter > 0) THEN					-- pew
+--             IF (pew_counter < 50) THEN
+--                 buzzer1 <= NOT buzzer1;
+--                 pew_counter := pew_counter + 1;
+--             ELSE
+--                 sound_done := '1';
+--                 pew_counter := 0;
+--             END IF;
+--         ELSIF(exp_sound = '1') THEN
+--             exp_counter := 1;
+--         ELSIF(pew_sound = '1') THEN
+--             pew_counter := 1;
+--         ELSE
+--             buzzer1 <= buzzer1;
+--             sound_done := '0';
+--         END IF;
+--     END IF;
     
-    -- flags for sound creation
-    if(rising_edge(clockWithPause)) then
-        for i in 0 to 11 loop
-            if(alien(i).collision = '1') then
-                exp_sound <= '1';
-            elsif (sound_done = '1') then
-                exp_sound <= '0';	
-            else
-                exp_sound <= exp_sound;
-            end if;
-        end loop;
+--     -- flags for sound creation
+--     IF(rising_edge(clockWithPause)) THEN
+--         for i in 0 to 11 loop
+--             IF(alien(i).collision = '1') THEN
+--                 exp_sound <= '1';
+--             ELSIF (sound_done = '1') THEN
+--                 exp_sound <= '0';	
+--             ELSE
+--                 exp_sound <= exp_sound;
+--             END IF;
+--         end loop;
         
-        if(shoot = '0') then
-            pew_sound <='1';
-            hs6 := true;
-        elsif( sound_done = '1') then
-            pew_sound <= '0';
-            hs6 := false;
-        else
-            pew_sound <= pew_sound;
-        end if;
-    end if;			
+--         IF(shoot = '0') THEN
+--             pew_sound <='1';
+--             hs6 := true;
+--         ELSIF( sound_done = '1') THEN
+--             pew_sound <= '0';
+--             hs6 := false;
+--         ELSE
+--             pew_sound <= pew_sound;
+--         END IF;
+--     END IF;			
         
-end process;
+-- end process;

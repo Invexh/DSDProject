@@ -78,11 +78,28 @@ ARCHITECTURE behavior OF dsdproject IS
 
 	--Lives--
 	signal spare_ships : INTEGER range 0 to 7 := 3;
+	
+	--Aliens--
+	signal aliens : alien_array(11 downto 0) := (
+		0 => (color => "000000000000", collision => '0', alive => '0', min_p => 11, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
+		1 => (color => "000000000000", collision => '0', alive => '0', min_p => 20, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
+		2 => (color => "000000000000", collision => '0', alive => '0', min_p => 29, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
+		3 => (color => "000000000000", collision => '0', alive => '0', min_p => 35, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
+		4 => (color => "000000000000", collision => '0', alive => '0', min_p => 15, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
+		5 => (color => "000000000000", collision => '0', alive => '0', min_p => 21, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
+		6 => (color => "000000000000", collision => '0', alive => '0', min_p => 12, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
+		7 => (color => "000000000000", collision => '0', alive => '0', min_p => 17, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
+		8 => (color => "000000000000", collision => '0', alive => '0', min_p => 04, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
+		9 => (color => "000000000000", collision => '0', alive => '0', min_p => 05, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
+	   10 => (color => "000000000000", collision => '0', alive => '0', min_p => 03, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
+	   11 => (color => "000000000000", collision => '0', alive => '0', min_p => 07, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240)
+	);
 
 	--Timing Related Signals--
 	signal paused		  	: STD_LOGIC;
 	signal pauseClock     	: STD_LOGIC;
 	signal mountain_clk   	: STD_LOGIC;
+	signal movement_clock   : STD_LOGIC;
 	signal projectile_clock : STD_LOGIC;
 
 	--Accelerometer Signals--
@@ -90,6 +107,7 @@ ARCHITECTURE behavior OF dsdproject IS
 
 	--Other Signals--
 	signal startOfGame : STD_LOGIC := '1';
+	signal RNG : STD_LOGIC_VECTOR(9 downto 0);
 
 ------COMPONENTS-----------------------------------------------------------------------------
     -- Accelerometer component
@@ -154,15 +172,37 @@ ARCHITECTURE behavior OF dsdproject IS
 		);
 	END COMPONENT;
 
+	-- COMPONENT alien IS
+	-- 	PORT(
+	-- 		MOVE_CLK : IN STD_LOGIC;    --MOVEMENT CLOCK
+	-- 		CLK      : IN STD_LOGIC;    --CLOCK WITH PAUSE
+	-- 		alien    : INOUT alien_t := ("000000000000", '0', '0', 11, '0', '0', 1, 0, 0, 0);   --ALIEN OBJECT
+	-- 		RNG		 : IN STD_LOGIC_VECTOR(9 downto 0);
+	-- 		score    : IN INTEGER range 0 to 999999
+	-- 	);
+	-- END COMPONENT;
+
+	COMPONENT RNG10 is
+		PORT (
+			set, clkToggle, clk10Mhz : IN STD_LOGIC;
+			PRNG10 : BUFFER STD_LOGIC_VECTOR(9 downto 0)
+		);			
+	end COMPONENT;
+
 BEGIN
 ------PORT MAPS------------------------------------------------------------------------------
 	U0 : ADXL345_controller port map('1', max10_clk, OPEN, data_x, data_y, data_z, GSENSOR_SDI, GSENSOR_SDO, GSENSOR_CS_N, GSENSOR_SCLK);
 	MC : controller generic map(x_start => x_min, y_start => (240 + ship_height/2)) port map(data_x, data_y, ship.x, ship.y, ship.exhaust, ship.right, pauseClock);
 	PC : pause port map(startOfGame, max10_clk, shoot, pause_toggle, pauseClock, paused);
+	U1 : RNG10 port map(reset_RNG, '0', max10_clk, RNG);
 
 	SC : FOR i in 0 to (max_digits - 1) GENERATE
 		SC : scoreboard port map (score, i, digit(i));
 	END GENERATE;
+
+	-- AI : FOR i in 0 to 11 GENERATE
+	-- 	AI : alien port map (movement_clock, pauseClock, aliens(i), RNG, score);
+	-- END GENERATE;
 
 ------VARIABLE DECLARATIONS------------------------------------------------------------------
 	PROCESS(disp_ena, row, column)
@@ -181,7 +221,7 @@ BEGIN
     IF(disp_ena = '1') THEN        --display time
 	 
 ------DRAWS THE HORIZONTAL BARS THAT DEFINE PLAY REGION--------------------------------------
-		IF( ((row < y_max) AND (row > (y_max - bar_thickness))) OR ((row > y_min) AND (row < (y_min + bar_thickness)))  ) THEN
+		IF( (((row < y_max) AND (row > (y_max - bar_thickness))) OR ((row > y_min) AND (row < (y_min + bar_thickness)))) AND (column >= 0 AND column <= 640)  ) THEN
 			colorconcat <= "111111110000";
 		ELSE
 			colorconcat <= "000000000000";
@@ -318,25 +358,24 @@ BEGIN
 			END IF;
 		END LOOP;
 
--- ------DRAWS THE ENEMIES ON THE SCREEN--------------------------------------------------------
--- 		FOR i in 0 to 11 LOOP
--- 			IF (alien(i).alive = '1') THEN
--- 				calcA := alien(i).x - column;	--Relative X position
--- 				calcB := alien(i).y - row;		--Relative Y position
--- 				calcC := (alien(i).size) * 6;			--Calc adjusted size
+------DRAWS THE ENEMIES ON THE SCREEN--------------------------------------------------------
+		FOR i in 0 to 11 LOOP
+			IF (aliens(i).alive = '1') THEN
+				calcA := aliens(i).x - column;	--Relative X position
+				calcB := aliens(i).y - row;		--Relative Y position
+				calcC := (aliens(i).size) * 6;			--Calc adjusted size
 				
--- 				IF ((calcB <= calcC AND calcB >= 0) AND (calcA <= calcC AND calcA >= 0)) THEN
--- 					IF ((calcB = calcC OR calcB = 0) OR (calcA = calcC OR calcA = 0)) THEN
--- 						colorconcat <= "111111111111";
--- 					ELSE
--- 						colorconcat <= alien(i).color;
--- 					END IF;
--- 				END IF;
--- 			END IF;
--- 		END LOOP;
+				IF ((calcB <= calcC AND calcB >= 0) AND (calcA <= calcC AND calcA >= 0)) THEN
+					IF ((calcB = calcC OR calcB = 0) OR (calcA = calcC OR calcA = 0)) THEN
+						colorconcat <= "111111111111";
+					ELSE
+						colorconcat <= aliens(i).color;
+					END IF;
+				END IF;
+			END IF;
+		END LOOP;
 		
-
--- ------OUTPUTS THE RESULTING COLORS TO THE SCREEN---------------------------------------------
+------OUTPUTS THE RESULTING COLORS TO THE SCREEN---------------------------------------------
 		red <= "0000" & colorconcat(11 downto 8);
 		green <= "0000" & colorconcat(7 downto 4);
 		blue <= "0000" & colorconcat(3 downto 0);
@@ -349,7 +388,6 @@ BEGIN
   
   	END PROCESS;
 ------PLAYER LASER DATA----------------------------------------------------------------------
-	
 	projectileMoveClock : process (max10_clk, paused)
 	variable proj_clock_counter : integer := 0;
 	begin
@@ -368,7 +406,7 @@ BEGIN
 	VARIABLE ei : INTEGER range 0 to 31; --Entity Index
 	BEGIN
 		IF (paused = '0' AND falling_edge(shoot)) THEN
-			score <= score + 1;
+			score <= aliens(ei rem 11).min_p;
 			p_proj(ei).e <= '1';
 			p_proj(ei).hs1 <= '1';
 			ei := ((ei + 1) mod max_pproj);
@@ -406,5 +444,90 @@ BEGIN
 				END IF;
 			END LOOP;
 		END IF;
+	END PROCESS;
+
+------ALIEN PROCESSING----------------------------------------------------
+
+	Move_CLK : process (max10_clk, paused)
+	variable movement_counter : integer range 0 to 200000 := 0;
+	begin
+		if(rising_edge(max10_clk) AND paused = '0') then
+			movement_counter := movement_counter + 1;
+			if (movement_counter >= 200000) then
+				movement_clock <= NOT movement_clock;
+				movement_counter := 0;
+			end if;
+		end if;
+	end process;
+
+	hndl_Alien : process (pauseClock)
+	begin
+		FOR i in 0 to 11 LOOP
+			IF(rising_edge(pauseClock)) THEN
+				IF (aliens(i).alive = '0') THEN
+					aliens(i).tsls <= aliens(i).tsls + 1;
+				END IF;
+
+				IF (aliens(i).hs2 = '1') THEN
+					aliens(i).hs1 <= '0';
+				END IF;
+
+				IF (i < 4 AND aliens(i).alive = '0' AND aliens(i).tsls >= (aliens(i).min_p * 50000000)) THEN
+					aliens(i).alive <= '1';
+					aliens(i).size <= to_integer(unsigned(RNG(2 downto 0))) + 3;
+					aliens(i).color <= "110000001100";
+					aliens(i).hs1 <= '1';
+					aliens(i).tsls <= 0;
+
+				ELSIF ( (i < 8 AND aliens(i).alive = '0' AND aliens(i).tsls >= (aliens(i).min_p * 50000000)) ) THEN
+					aliens(i).alive <= '1';
+					aliens(i).size <= to_integer(unsigned(RNG(5 downto 3) XOR RNG(2 downto 0)) + 3);
+					aliens(i).color <= "000011000100";
+					aliens(i).hs1 <= '1';
+					aliens(i).tsls <= 0;
+
+					IF (score > 1000 AND RNG(1) = '1') THEN
+						aliens(i).min_p <= aliens(i).min_p - 2;
+					END IF;
+					
+				ELSIF ( (i < 12 AND aliens(i).alive = '0' AND aliens(i).tsls >= (aliens(i).min_p * 50000000))) THEN
+					aliens(i).alive <= '1';
+					aliens(i).size <= to_integer(unsigned(RNG(5 downto 3) XOR RNG(9 downto 7)) + 3);
+					aliens(i).color <= "000000001100";
+					aliens(i).hs1 <= '1';
+					aliens(i).tsls <= 0;
+
+					IF (score > 2000) THEN
+						aliens(i).min_p <= aliens(i).min_p - 2;
+					END IF;
+
+				ELSIF ((aliens(i).x > 60000) OR (aliens(i).x <= 0)) THEN
+					aliens(i).alive <= '0';
+				END IF;
+			END IF;
+		END LOOP;
+	END PROCESS;
+
+	move_Alien : process (movement_clock)
+	VARIABLE randomValue : INTEGER range 0 to 2048;
+	begin
+		FOR i in 0 to 11 LOOP
+			IF (rising_edge(movement_clock) AND aliens(i).alive = '1') THEN
+				IF (aliens(i).hs1 = '1') THEN
+					randomValue := to_integer(unsigned(RNG( 8 downto (i rem 3) ))) * 8;
+					aliens(i).x <= 750 + randomValue/4;
+					aliens(i).y <= ((randomValue + y_max + 6*aliens(i).size) rem (y_min - (y_max + 6*aliens(i).size)) + (y_max + 6*aliens(i).size) + 8);
+					aliens(i).hs2 <= '1';
+				ELSE
+					aliens(i).hs2 <= '0';
+					aliens(i).x <= aliens(i).x - 1;
+				END IF;
+			END IF;
+			
+			IF (aliens(i).alive = '0') THEN
+				aliens(i).x <= 750;
+				aliens(i).y <= 240;
+			END IF;
+		END LOOP;
 	END PROCESS;
 END ARCHITECTURE;

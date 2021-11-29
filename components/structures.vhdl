@@ -8,17 +8,14 @@ package custom_types is
 	type alien_t is record
 		color : STD_LOGIC_VECTOR(11 downto 0);
 		collision : STD_LOGIC;
-		numSpawns : INTEGER;
 		alive : STD_LOGIC;
-		min_p : INTEGER;
-		max_p : INTEGER;
+		min_p : INTEGER range 0 to 31;
 		hs1 : STD_LOGIC;
 		hs2 : STD_LOGIC;
-		size : INTEGER;
+		size : INTEGER range 0 to 7;
 		tsls : INTEGER;
-		x : INTEGER;
-		y : INTEGER;
-		p : INTEGER;
+		x : INTEGER range 0 to 2000;
+		y : INTEGER range 0 to 480;
 	end record alien_t;
 	
 	type ship_t is record
