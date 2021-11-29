@@ -201,10 +201,6 @@ BEGIN
 		SC : scoreboard port map (score, i, digit(i));
 	END GENERATE;
 
-	-- AI : FOR i in 0 to 11 GENERATE
-	-- 	AI : alien port map (movement_clock, pauseClock, aliens(i), RNG, score);
-	-- END GENERATE;
-
 ------VARIABLE DECLARATIONS------------------------------------------------------------------
 	PROCESS(disp_ena, row, column)
 		variable calcA : INTEGER range -64 to 640;
