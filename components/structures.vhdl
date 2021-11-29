@@ -38,9 +38,9 @@ package custom_types is
 		x : INTEGER; --Y POS
 		y : INTEGER; --X POS
 		collision : STD_LOGIC;
-		xorg : INTEGER;
-		yorg : INTEGER;
-		exist : STD_LOGIC; --Entity bit
+		hs1 : STD_LOGIC;	--Entity Handshake 1
+		hs2 : STD_LOGIC;	--Entity Handshake 2
+		e : STD_LOGIC; --Entity bit
 		right : std_logic;
 	end record player_proj;
 	

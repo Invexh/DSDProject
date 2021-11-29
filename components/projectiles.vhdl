@@ -9,18 +9,17 @@ ENTITY projectile IS
     PORT(
         yOrigin : IN INTEGER range 0 to 480;
         xOrigin : IN INTEGER range 0 to 640;
-        Xpos    : BUFFER INTEGER range 0 to 640;
-        Ypos    : OUT INTEGER range 0 to 480;
+        Xpos    : BUFFER INTEGER;
+        Ypos    : OUT INTEGER;
         Right   : IN STD_LOGIC;
-        Exist   : OUT STD_LOGIC;
-        Spawn   : INOUT STD_LOGIC;
+        Exist   : BUFFER STD_LOGIC;
+        Spawn   : IN STD_LOGIC;
         clock   : IN STD_LOGIC
     );
 END ENTITY;
 
 ARCHITECTURE projectile_arch OF projectile IS
     SIGNAL projectile_clock : STD_LOGIC;
-    SIGNAL 
 BEGIN
 
     projectileMoveClock : PROCESS (clock)
@@ -38,8 +37,7 @@ BEGIN
     move_Projectile : PROCESS (projectile_clock)
     BEGIN
         IF (rising_edge(projectile_clock)) THEN	
-            IF (Exist = '0' AND Spawn = '1') THEN
-                Spawn <= '0';
+            IF (Spawn = '1') THEN
                 Ypos <= yOrigin - 2;
                 IF (Right = '1') THEN
                     Xpos <= xOrigin + ship_length;
@@ -47,13 +45,15 @@ BEGIN
                     Xpos <= xOrigin;
                 END IF;
                 Exist <= '1';
-            ELSIF (Xpos < 650) THEN
+            ELSE
                 IF (Right = '1') THEN
                     Xpos <= Xpos + 1;
                 ELSE
                     Xpos <= Xpos - 1;
                 END IF;
-            ELSE
+            END IF;
+
+            IF (Xpos > 640 OR Xpos < -20) THEN
                 Exist <= '0';
             END IF;
         END IF;

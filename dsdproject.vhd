@@ -68,16 +68,18 @@ ARCHITECTURE behavior OF dsdproject IS
 	--FOR DRAWING COLOR W/ ONE VECTOR--
 	signal colorconcat : STD_LOGIC_VECTOR(11 downto 0);
 
-	--Player Ship--
+	--Player--
 	signal ship : ship_t := (alive => '1', x => x_min, y => (240 + ship_height/2), collision => '0', right => '1', exhaust => 0);
+	signal p_proj : player_proj_array((max_pproj - 1) downto 0);
 
 	--Lives--
 	signal spare_ships : INTEGER range 0 to 7 := 3;
 
 	--Timing Related Signals--
-	signal paused		: STD_LOGIC;
-	signal pauseClock   : STD_LOGIC;
-	signal mountain_clk : STD_LOGIC;
+	signal paused		  	: STD_LOGIC;
+	signal pauseClock     	: STD_LOGIC;
+	signal mountain_clk   	: STD_LOGIC;
+	signal projectile_clock : STD_LOGIC;
 
 	--Accelerometer Signals--
 	signal data_x, data_y, data_z : STD_LOGIC_VECTOR(15 downto 0);
@@ -254,6 +256,16 @@ BEGIN
 				colorconcat <= "100000001000";
 			END IF;
 		END IF;
+
+------DRAWS THE PLAYER PROJECTILES ON THE SCREEN---------------------------------------------
+		FOR i in 0 to (max_pproj - 1) LOOP
+			IF (p_proj(i).e = '1') THEN
+				IF (row = p_proj(i).y AND column >= p_proj(i).x AND column <= (p_proj(i).x + 20)) THEN
+					colorconcat <= "111100000000";
+				END IF;
+			END IF;
+		END LOOP;	
+		
 -- ------DRAWS THE ENEMIES ON THE SCREEN--------------------------------------------------------
 -- 		FOR i in 0 to 11 LOOP
 -- 			IF (alien(i).alive = '1') THEN
@@ -270,15 +282,6 @@ BEGIN
 -- 				END IF;
 -- 			END IF;
 -- 		END LOOP;
-		
--- ------DRAWS THE PLAYER PROJECTILES ON THE SCREEN---------------------------------------------
--- 		FOR i in 0 to (max_pproj - 1) LOOP
--- 			IF (p_proj(i).e = '1') THEN
--- 				IF (row = p_proj(i).y AND column >= p_proj(i).x AND column <= (p_proj(i).x + 20)) THEN
--- 					colorconcat <= "111100000000";
--- 				END IF;
--- 			END IF;
--- 		END LOOP;	
 		
 -- ------DRAWS THE SCOREBOARD TO THE SCREEN-----------------------------------------------------
 -- 		calcA := (digit_thickness - 1)/2;	--Onesided thickness of digit
@@ -321,11 +324,69 @@ BEGIN
 		green <= "0000" & colorconcat(7 downto 4);
 		blue <= "0000" & colorconcat(3 downto 0);
 		
-    ELSE                           --blanking time
-      red <= (OTHERS => '0');
-      green <= (OTHERS => '0');
-      blue <= (OTHERS => '0');
-    END IF;
+		ELSE                           --blanking time
+		red <= (OTHERS => '0');
+		green <= (OTHERS => '0');
+		blue <= (OTHERS => '0');
+		END IF;
   
-  END PROCESS;
-END architecture;
+  	END PROCESS;
+------PLAYER LASER DATA----------------------------------------------------------------------
+	
+	projectileMoveClock : process (max10_clk, paused)
+	variable proj_clock_counter : integer := 0;
+	begin
+		if(rising_edge(max10_clk) AND paused = '0') then
+			proj_clock_counter := proj_clock_counter + 1;		
+		end if;
+		
+		if (proj_clock_counter > 90000) then
+			projectile_clock <= NOT projectile_clock;
+			proj_clock_counter := 0;
+		end if;
+
+	end process;
+
+	hndl_Projectile : PROCESS (shoot)
+	VARIABLE ei : INTEGER; --Entity Index
+	BEGIN
+		IF (paused = '0' AND falling_edge(shoot)) THEN
+			p_proj(ei).e <= '1';
+			p_proj(ei).hs1 <= '1';
+			ei := ((ei + 1) mod max_pproj);
+		END IF;
+		FOR i in 0 to (max_pproj - 1) LOOP
+			IF (p_proj(i).hs2 = '1') THEN
+				p_proj(i).hs1 <= '0';
+			END IF;
+			IF (p_proj(i).collision = '1') THEN
+				p_proj(i).e <= '0';
+			END IF;
+		END LOOP;
+	END PROCESS;
+
+	move_Projectile : PROCESS (projectile_clock)
+	BEGIN
+		IF (rising_edge(projectile_clock)) THEN	
+			FOR i in 0 to (max_pproj - 1) LOOP
+				IF (p_proj(i).hs1 = '1') THEN
+					p_proj(i).hs2 <= '1';
+					p_proj(i).y <= ship.y - 2;
+					p_proj(i).right <= ship.right;
+					if(ship.right = '1') then
+						p_proj(i).x <= ship.x + ship_length;
+					else
+						p_proj(i).x <= ship.x;
+					end if;
+				ELSE
+					if(p_proj(i).right = '1') then
+						p_proj(i).x <= p_proj(i).x + 1;
+					else
+						p_proj(i).x <= p_proj(i).x - 1;
+					end if;
+					p_proj(i).hs2 <= '0';
+				END IF;
+			END LOOP;
+		END IF;
+	END PROCESS;
+END ARCHITECTURE;
