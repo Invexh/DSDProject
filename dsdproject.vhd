@@ -108,6 +108,7 @@ ARCHITECTURE behavior OF dsdproject IS
 	--Other Signals--
 	signal startOfGame : STD_LOGIC := '1';
 	signal RNG : STD_LOGIC_VECTOR(9 downto 0);
+	signal selProj : INTEGER range 0 to 31;
 
 ------COMPONENTS-----------------------------------------------------------------------------
     -- Accelerometer component
@@ -400,18 +401,15 @@ BEGIN
 	end process;
 
 	hndl_Projectile : PROCESS (shoot, max10_clk)
-	VARIABLE ei : INTEGER range 0 to 31; --Entity Index
+		VARIABLE ei : INTEGER range 0 to 31; --Entity Index
 	BEGIN
 		IF (paused = '0' AND falling_edge(shoot)) THEN
 			score <= aliens(ei rem 11).min_p;
-			p_proj(ei).e <= '1';
 			p_proj(ei).hs1 <= '1';
+			selProj <= ei;
 			ei := ((ei + 1) mod max_pproj);
 		END IF;
 		FOR i in 0 to (max_pproj - 1) LOOP
-			IF (p_proj(i).collision = '1') THEN
-				p_proj(i).e <= '0';
-			END IF;
 			IF (p_proj(i).hs2 = '1') THEN
 				p_proj(i).hs1 <= '0';
 			END IF;
@@ -422,7 +420,11 @@ BEGIN
 	BEGIN
 		IF (rising_edge(projectile_clock)) THEN	
 			FOR i in 0 to (max_pproj - 1) LOOP
+				IF (p_proj(i).collision = '1') THEN
+					p_proj(i).e <= '0';
+				END IF;
 				IF (p_proj(i).hs1 = '1') THEN
+					p_proj(selProj).e <= '1';
 					p_proj(i).hs2 <= '1';
 					p_proj(i).y <= ship.y - 2;
 					p_proj(i).right <= ship.right;
