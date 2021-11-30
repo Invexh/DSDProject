@@ -69,7 +69,7 @@ ARCHITECTURE behavior OF dsdproject IS
 	signal colorconcat : STD_LOGIC_VECTOR(11 downto 0);
 
 	--Player--
-	signal ship : ship_t := (alive => '1', x => x_min, y => (240 + ship_height/2), collision => '0', right => '1', exhaust => 0);
+	signal ship : ship_t := (alive => '1', x => x_min, y => (240 + ship_height/2), collision => '0', right => '1', exhaust => 0, dead => '0');
 	signal p_proj : player_proj_array((max_pproj - 1) downto 0);
 
 	--Score--
@@ -399,7 +399,7 @@ BEGIN
 
 	end process;
 
-	hndl_Projectile : PROCESS (shoot)
+	hndl_Projectile : PROCESS (shoot, max10_clk)
 	VARIABLE ei : INTEGER range 0 to 31; --Entity Index
 	BEGIN
 		IF (paused = '0' AND falling_edge(shoot)) THEN
@@ -443,8 +443,7 @@ BEGIN
 		END IF;
 	END PROCESS;
 
-------ALIEN PROCESSING----------------------------------------------------
-
+------ALIEN PROCESSING-----------------------------------------------------------------------
 	Move_CLK : process (max10_clk, paused)
 	variable movement_counter : integer range 0 to 200000 := 0;
 	begin
@@ -461,6 +460,10 @@ BEGIN
 	begin
 		FOR i in 0 to 11 LOOP
 			IF(rising_edge(pauseClock)) THEN
+				IF (aliens(i).collision = '1') THEN
+					aliens(i).alive <= '0';
+				END IF;
+
 				IF (aliens(i).alive = '0') THEN
 					aliens(i).tsls <= aliens(i).tsls + 1;
 				END IF;
@@ -527,4 +530,59 @@ BEGIN
 			END IF;
 		END LOOP;
 	END PROCESS;
+
+------COLLISION DETECTION--------------------------------------------------------------------
+    SA : PROCESS (pauseClock)
+	VARIABLE rst_Screen : STD_LOGIC := '0';
+    BEGIN
+        IF (rst_Screen = '1') THEN
+            FOR i in 0 to 11 LOOP
+                aliens(i).collision <= '1';
+            END LOOP;
+			FOR i in 0 to (max_pproj - 1) LOOP
+				p_proj(i).collision <= '1';
+			END LOOP;
+        ELSE
+            FOR i in 0 to 11 LOOP
+                aliens(i).collision <= '0';
+            END LOOP;
+			FOR i in 0 to (max_pproj - 1) LOOP
+				p_proj(i).collision <= '0';
+			END LOOP;
+        END IF;
+
+        rst_Screen := '0';
+
+        FOR i in 0 to 11 LOOP
+			--Alien and Player Ship Collision--
+            IF (Paused = '0' AND 
+            aliens(i).x >= ship.x AND 
+            (aliens(i).x - (6 * aliens(i).size)) <= (ship.x + ship_length) AND 
+            (aliens(i).y - (6 * aliens(i).size)) <= ship.y AND 
+            aliens(i).y >= (ship.y - ship_height + ((aliens(i).x - (6 * aliens(i).size) - ship.x)*ship_height)/ship_length) AND
+            aliens(i).y >= (ship.y - ship_height)) THEN
+                spare_ships <= spare_ships - 1;
+                rst_Screen := '1';
+            ELSIF (Paused = '1' AND startOfGame = '1') THEN
+                spare_ships <= 3;
+            END IF;
+
+			--Alien and Projectile Collision--
+			FOR j in 0 to (max_pproj - 1) LOOP
+				IF ((p_proj(j).x + 20) >= (aliens(i).x - (6 * aliens(i).size)) AND
+				p_proj(j).x <= aliens(i).x AND
+				p_proj(j).y >= (aliens(i).y - (6 * aliens(i).size)) AND
+				p_proj(j).y <= aliens(i).y) THEN
+					aliens(i).collision <= '1';
+					p_proj(i).collision <= '1';
+				END IF;
+			END LOOP;
+        END LOOP;
+
+        IF ( spare_ships < 0 ) THEN
+            ship.dead <= '1';
+        END IF;
+    END PROCESS;
+
+
 END ARCHITECTURE;

@@ -25,6 +25,7 @@ package custom_types is
 		collision : STD_LOGIC;
 		right : STD_LOGIC;
 		exhaust : INTEGER range 0 to 7;
+		dead : STD_LOGIC;
 	end record ship_t;
 
 	type seg_digit is record

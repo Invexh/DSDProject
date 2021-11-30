@@ -26,6 +26,7 @@ ENTITY controller IS
         Exha  : OUT INTEGER range 0 to 7;
         R     : OUT STD_LOGIC;
         CLK   : IN STD_LOGIC
+        --RST   : IN STD_LOGIC
     );
 END ENTITY;
 
