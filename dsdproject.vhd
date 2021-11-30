@@ -32,7 +32,9 @@ ENTITY dsdproject IS
 		
 		--Spare ship data
 		ss_x : int_array(0 to 2) := (25, 70, 115);
-		ss_y : INTEGER := 57 --(y_max - bar_thickness - 5)
+		ss_y : INTEGER := 57; --(y_max - bar_thickness - 5)
+
+		awardScore : INT_ARRAY(0 to 7) := (10000, 500, 250, 200, 200, 150, 150, 100)
 	);
 
   PORT(
@@ -109,6 +111,7 @@ ARCHITECTURE behavior OF dsdproject IS
 	signal startOfGame : STD_LOGIC := '1';
 	signal RNG : STD_LOGIC_VECTOR(9 downto 0);
 	signal selProj : INTEGER range 0 to 31;
+	signal updateLife : STD_LOGIC := '0';
 
 ------COMPONENTS-----------------------------------------------------------------------------
     -- Accelerometer component
@@ -404,7 +407,6 @@ BEGIN
 		VARIABLE ei : INTEGER range 0 to 31; --Entity Index
 	BEGIN
 		IF (paused = '0' AND falling_edge(shoot)) THEN
-			score <= aliens(ei rem 11).min_p;
 			p_proj(ei).hs1 <= '1';
 			selProj <= ei;
 			ei := ((ei + 1) mod max_pproj);
@@ -537,20 +539,15 @@ BEGIN
     SA : PROCESS (pauseClock)
 	VARIABLE rst_Screen : STD_LOGIC := '0';
     BEGIN
+		updateLife <= rst_Screen;
         IF (rst_Screen = '1') THEN
             FOR i in 0 to 11 LOOP
                 aliens(i).collision <= '1';
             END LOOP;
-			FOR i in 0 to (max_pproj - 1) LOOP
-				p_proj(i).collision <= '1';
-			END LOOP;
         ELSE
             FOR i in 0 to 11 LOOP
                 aliens(i).collision <= '0';
             END LOOP;
-			FOR i in 0 to (max_pproj - 1) LOOP
-				p_proj(i).collision <= '0';
-			END LOOP;
         END IF;
 
         rst_Screen := '0';
@@ -563,10 +560,7 @@ BEGIN
             (aliens(i).y - (6 * aliens(i).size)) <= ship.y AND 
             aliens(i).y >= (ship.y - ship_height + ((aliens(i).x - (6 * aliens(i).size) - ship.x)*ship_height)/ship_length) AND
             aliens(i).y >= (ship.y - ship_height)) THEN
-                spare_ships <= spare_ships - 1;
                 rst_Screen := '1';
-            ELSIF (Paused = '1' AND startOfGame = '1') THEN
-                spare_ships <= 3;
             END IF;
 
 			--Alien and Projectile Collision--
@@ -576,15 +570,27 @@ BEGIN
 				p_proj(j).y >= (aliens(i).y - (6 * aliens(i).size)) AND
 				p_proj(j).y <= aliens(i).y AND p_proj(j).e = '1') THEN
 					aliens(i).collision <= '1';
-					p_proj(j).collision <= '1';
+					IF (aliens(i).collision = '1' AND aliens(i).alive = '1') THEN
+						score <= score + awardScore(aliens(i).size);
+					END IF;
 				END IF;
 			END LOOP;
         END LOOP;
-
-        IF ( spare_ships < 0 ) THEN
-            ship.dead <= '1';
-        END IF;
     END PROCESS;
 
+	LifeDeductor : PROCESS(updateLife, startOfGame)
+	BEGIN
+		IF (rising_edge(updateLife)) THEN
+			spare_ships <= spare_ships - 1;
+		END IF;
+
+		IF (startOfGame = '1') THEN
+			spare_ships <= 3;
+		END IF;
+
+		IF ( spare_ships < 0 ) THEN
+            ship.dead <= '1';
+        END IF;
+	END PROCESS;
 
 END ARCHITECTURE;
