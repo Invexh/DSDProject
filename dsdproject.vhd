@@ -409,11 +409,11 @@ BEGIN
 			ei := ((ei + 1) mod max_pproj);
 		END IF;
 		FOR i in 0 to (max_pproj - 1) LOOP
-			IF (p_proj(i).hs2 = '1') THEN
-				p_proj(i).hs1 <= '0';
-			END IF;
 			IF (p_proj(i).collision = '1') THEN
 				p_proj(i).e <= '0';
+			END IF;
+			IF (p_proj(i).hs2 = '1') THEN
+				p_proj(i).hs1 <= '0';
 			END IF;
 		END LOOP;
 	END PROCESS;
@@ -572,9 +572,9 @@ BEGIN
 				IF ((p_proj(j).x + 20) >= (aliens(i).x - (6 * aliens(i).size)) AND
 				p_proj(j).x <= aliens(i).x AND
 				p_proj(j).y >= (aliens(i).y - (6 * aliens(i).size)) AND
-				p_proj(j).y <= aliens(i).y) THEN
+				p_proj(j).y <= aliens(i).y AND p_proj(j).e = '1') THEN
 					aliens(i).collision <= '1';
-					p_proj(i).collision <= '1';
+					p_proj(j).collision <= '1';
 				END IF;
 			END LOOP;
         END LOOP;
