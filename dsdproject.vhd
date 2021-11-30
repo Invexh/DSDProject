@@ -77,7 +77,8 @@ ARCHITECTURE behavior OF dsdproject IS
 	signal digit : seg_array((max_digits - 1) downto 0);
 
 	--Lives--
-	signal spare_ships : INTEGER range 0 to 7 := 3;
+	signal spare_ships : INTEGER range -1 to 6 := 3;
+	signal rstScreenS  : STD_LOGIC := '0';
 	
 	--Aliens--
 	signal aliens : alien_array(11 downto 0) := (
@@ -156,6 +157,7 @@ ARCHITECTURE behavior OF dsdproject IS
 
 	COMPONENT pause IS
 		PORT(
+			dead  : IN STD_LOGIC;
 			start : OUT STD_LOGIC;
 			clock : IN STD_LOGIC;
 			btn_0 : IN STD_LOGIC;
@@ -194,7 +196,7 @@ BEGIN
 ------PORT MAPS------------------------------------------------------------------------------
 	U0 : ADXL345_controller port map('1', max10_clk, OPEN, data_x, data_y, data_z, GSENSOR_SDI, GSENSOR_SDO, GSENSOR_CS_N, GSENSOR_SCLK);
 	MC : controller generic map(x_start => x_min, y_start => (240 + ship_height/2)) port map(data_x, data_y, ship.x, ship.y, ship.exhaust, ship.right, pauseClock);
-	PC : pause port map(startOfGame, max10_clk, shoot, pause_toggle, pauseClock, paused);
+	PC : pause port map(ship.dead, startOfGame, max10_clk, shoot, pause_toggle, pauseClock, paused);
 	U1 : RNG10 port map(reset_RNG, '0', max10_clk, RNG);
 	B0 : buzzer port map(aliens, pauseClock, RNG, shoot, buzzer1);
 
@@ -276,7 +278,7 @@ BEGIN
 		calcB := ship.y - row;			--Relative Y position
 		calcC := -(ship_height * calcA)/ship_length + ship_height;	--Check if in area
 
-		IF (ship.right = '1' AND (calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0)) THEN
+		IF (ship.right = '1' AND (calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0) AND ship.dead = '0') THEN
 			IF ((calcA = 1 OR calcA = ship_length) OR (calcB = 1 OR calcB = calcC)) THEN
 				colorconcat <= "111111111111";
 			ELSE
@@ -288,7 +290,7 @@ BEGIN
 		calcB := ship.y - row;			--Relative Y position
 		calcC := (ship_height * calcA)/ship_length;	--Check if in area
 
-		IF (ship.right = '0' AND (calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0)) THEN
+		IF (ship.right = '0' AND (calcA > 0 AND calcA <= ship_length) AND (calcB <= calcC AND calcB > 0) AND ship.dead = '0') THEN
 			IF ((calcA > 1 AND calcA < ship_length) AND (calcB < calcC AND calcB > 1)) THEN
 				colorconcat <= "111100000000";
 			ELSE
@@ -389,7 +391,7 @@ BEGIN
 	projectileMoveClock : process (max10_clk, paused)
 	variable proj_clock_counter : integer := 0;
 	begin
-		if(rising_edge(max10_clk) AND paused = '0') then
+		if(rising_edge(max10_clk) AND paused = '0' AND ship.dead = '0') then
 			proj_clock_counter := proj_clock_counter + 1;		
 		end if;
 		
@@ -446,10 +448,10 @@ BEGIN
 	END PROCESS;
 
 ------ALIEN PROCESSING-----------------------------------------------------------------------
-	Move_CLK : process (max10_clk, paused)
+	Move_CLK : process (pauseClock)
 	variable movement_counter : integer range 0 to 200000 := 0;
 	begin
-		if(rising_edge(max10_clk) AND paused = '0') then
+		if(rising_edge(pauseClock)) then
 			movement_counter := movement_counter + 1;
 			if (movement_counter >= 200000) then
 				movement_clock <= NOT movement_clock;
@@ -537,54 +539,67 @@ BEGIN
     SA : PROCESS (pauseClock)
 	VARIABLE rst_Screen : STD_LOGIC := '0';
     BEGIN
-        IF (rst_Screen = '1') THEN
-            FOR i in 0 to 11 LOOP
-                aliens(i).collision <= '1';
-            END LOOP;
-			FOR i in 0 to (max_pproj - 1) LOOP
-				p_proj(i).collision <= '1';
-			END LOOP;
-        ELSE
-            FOR i in 0 to 11 LOOP
-                aliens(i).collision <= '0';
-            END LOOP;
-			FOR i in 0 to (max_pproj - 1) LOOP
-				p_proj(i).collision <= '0';
-			END LOOP;
-        END IF;
-
-        rst_Screen := '0';
-
-        FOR i in 0 to 11 LOOP
-			--Alien and Player Ship Collision--
-            IF (Paused = '0' AND 
-            aliens(i).x >= ship.x AND 
-            (aliens(i).x - (6 * aliens(i).size)) <= (ship.x + ship_length) AND 
-            (aliens(i).y - (6 * aliens(i).size)) <= ship.y AND 
-            aliens(i).y >= (ship.y - ship_height + ((aliens(i).x - (6 * aliens(i).size) - ship.x)*ship_height)/ship_length) AND
-            aliens(i).y >= (ship.y - ship_height)) THEN
-                spare_ships <= spare_ships - 1;
-                rst_Screen := '1';
-            ELSIF (Paused = '1' AND startOfGame = '1') THEN
-                spare_ships <= 3;
-            END IF;
-
-			--Alien and Projectile Collision--
-			FOR j in 0 to (max_pproj - 1) LOOP
-				IF ((p_proj(j).x + 20) >= (aliens(i).x - (6 * aliens(i).size)) AND
-				p_proj(j).x <= aliens(i).x AND
-				p_proj(j).y >= (aliens(i).y - (6 * aliens(i).size)) AND
-				p_proj(j).y <= aliens(i).y AND p_proj(j).e = '1') THEN
+		IF (rising_edge(pauseClock)) THEN
+			rstScreenS <= rst_Screen;
+			IF (rst_Screen = '1') THEN
+				FOR i in 0 to 11 LOOP
 					aliens(i).collision <= '1';
-					p_proj(j).collision <= '1';
-				END IF;
-			END LOOP;
-        END LOOP;
+				END LOOP;
+				FOR i in 0 to (max_pproj - 1) LOOP
+					p_proj(i).collision <= '1';
+				END LOOP;
+			ELSE
+				FOR i in 0 to 11 LOOP
+					aliens(i).collision <= '0';
+				END LOOP;
+				FOR i in 0 to (max_pproj - 1) LOOP
+					p_proj(i).collision <= '0';
+				END LOOP;
+			END IF;
 
-        IF ( spare_ships < 0 ) THEN
-            ship.dead <= '1';
-        END IF;
+			rst_Screen := '0';
+
+			FOR i in 0 to 11 LOOP
+				--Alien and Player Ship Collision--
+				IF (Paused = '0' AND 
+				aliens(i).x >= ship.x AND 
+				(aliens(i).x - (6 * aliens(i).size)) <= (ship.x + ship_length) AND 
+				(aliens(i).y - (6 * aliens(i).size)) <= ship.y AND 
+				aliens(i).y >= (ship.y - ship_height + ((aliens(i).x - (6 * aliens(i).size) - ship.x)*ship_height)/ship_length) AND
+				aliens(i).y >= (ship.y - ship_height)) THEN
+					rst_Screen := '1';
+				END IF;
+
+				--Alien and Projectile Collision--
+				FOR j in 0 to (max_pproj - 1) LOOP
+					IF ((p_proj(j).x + 20) >= (aliens(i).x - (6 * aliens(i).size)) AND
+					p_proj(j).x <= aliens(i).x AND
+					p_proj(j).y >= (aliens(i).y - (6 * aliens(i).size)) AND
+					p_proj(j).y <= aliens(i).y AND p_proj(j).e = '1') THEN
+						aliens(i).collision <= '1';
+						p_proj(j).collision <= '1';
+					END IF;
+				END LOOP;
+			END LOOP;
+		END IF;
     END PROCESS;
 
+------SPARE LIVES AND END O' GAME------------------------------------------------------------
+	LifeMngr : PROCESS (rstScreenS, pauseClock)
+	BEGIN
+		IF (rising_edge(rstScreenS) AND spare_ships < 4) THEN
+			spare_ships <= spare_ships - 1;
+		END IF;
+
+		IF (Paused = '1' AND startOfGame = '1') THEN
+			spare_ships <= 3;
+        END IF;
+
+		IF (spare_ships = -1) THEN
+			ship.dead <= '1';
+		ELSE
+			ship.dead <= '0';
+		END IF;
+	END PROCESS;
 
 END ARCHITECTURE;

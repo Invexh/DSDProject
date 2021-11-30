@@ -4,6 +4,7 @@ USE IEEE.NUMERIC_STD.ALL;
 
 ENTITY pause IS
     PORT(
+        dead  : IN STD_LOGIC;
         start : OUT STD_LOGIC;
         clock : IN STD_LOGIC;
         btn_0 : IN STD_LOGIC;
@@ -35,8 +36,8 @@ BEGIN
         else
             pause <= pause;
         end if;
-        
-        pauseClk <= clock AND NOT pause;
+
+        pauseClk <= clock AND (NOT pause) AND (NOT dead);
 
     end process;
 
