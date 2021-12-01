@@ -16,6 +16,8 @@ package custom_types is
 		tsls : INTEGER;
 		x : INTEGER range 0 to 2000;
 		y : INTEGER range 0 to 480;
+		scorePart : INTEGER range 0 to 10000;
+		die : STD_LOGIC;
 	end record alien_t;
 	
 	type ship_t is record

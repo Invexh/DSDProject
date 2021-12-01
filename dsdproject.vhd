@@ -32,7 +32,9 @@ ENTITY dsdproject IS
 		
 		--Spare ship data
 		ss_x : int_array(0 to 2) := (25, 70, 115);
-		ss_y : INTEGER := 57 --(y_max - bar_thickness - 5)
+		ss_y : INTEGER := 57; --(y_max - bar_thickness - 5)
+
+		awardScore : INT_ARRAY(0 to 7) := (10000, 500, 300, 250, 250, 200, 200, 150)
 	);
 
   PORT(
@@ -82,18 +84,18 @@ ARCHITECTURE behavior OF dsdproject IS
 	
 	--Aliens--
 	signal aliens : alien_array(11 downto 0) := (
-		0 => (color => "000000000000", collision => '0', alive => '0', min_p => 11, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
-		1 => (color => "000000000000", collision => '0', alive => '0', min_p => 20, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
-		2 => (color => "000000000000", collision => '0', alive => '0', min_p => 29, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
-		3 => (color => "000000000000", collision => '0', alive => '0', min_p => 35, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
-		4 => (color => "000000000000", collision => '0', alive => '0', min_p => 15, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
-		5 => (color => "000000000000", collision => '0', alive => '0', min_p => 21, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
-		6 => (color => "000000000000", collision => '0', alive => '0', min_p => 12, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
-		7 => (color => "000000000000", collision => '0', alive => '0', min_p => 17, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
-		8 => (color => "000000000000", collision => '0', alive => '0', min_p => 04, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
-		9 => (color => "000000000000", collision => '0', alive => '0', min_p => 05, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
-	   10 => (color => "000000000000", collision => '0', alive => '0', min_p => 03, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240),
-	   11 => (color => "000000000000", collision => '0', alive => '0', min_p => 07, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240)
+		0 => (color => "000000000000", collision => '0', alive => '0', min_p => 11, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
+		1 => (color => "000000000000", collision => '0', alive => '0', min_p => 20, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
+		2 => (color => "000000000000", collision => '0', alive => '0', min_p => 29, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
+		3 => (color => "000000000000", collision => '0', alive => '0', min_p => 35, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
+		4 => (color => "000000000000", collision => '0', alive => '0', min_p => 15, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
+		5 => (color => "000000000000", collision => '0', alive => '0', min_p => 21, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
+		6 => (color => "000000000000", collision => '0', alive => '0', min_p => 12, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
+		7 => (color => "000000000000", collision => '0', alive => '0', min_p => 17, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
+		8 => (color => "000000000000", collision => '0', alive => '0', min_p => 04, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
+		9 => (color => "000000000000", collision => '0', alive => '0', min_p => 05, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
+	   10 => (color => "000000000000", collision => '0', alive => '0', min_p => 03, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
+	   11 => (color => "000000000000", collision => '0', alive => '0', min_p => 07, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0)
 	);
 
 	--Timing Related Signals--
@@ -406,7 +408,6 @@ BEGIN
 		VARIABLE ei : INTEGER range 0 to 31; --Entity Index
 	BEGIN
 		IF (paused = '0' AND falling_edge(shoot)) THEN
-			score <= aliens(ei rem 11).min_p;
 			p_proj(ei).hs1 <= '1';
 			selProj <= ei;
 			ei := ((ei + 1) mod max_pproj);
@@ -422,9 +423,6 @@ BEGIN
 	BEGIN
 		IF (rising_edge(projectile_clock)) THEN	
 			FOR i in 0 to (max_pproj - 1) LOOP
-				IF (p_proj(i).collision = '1') THEN
-					p_proj(i).e <= '0';
-				END IF;
 				IF (p_proj(i).hs1 = '1') THEN
 					p_proj(selProj).e <= '1';
 					p_proj(i).hs2 <= '1';
@@ -461,10 +459,18 @@ BEGIN
 	end process;
 
 	hndl_Alien : process (pauseClock)
+	VARIABLE updateScore : INTEGER range 0 to 999999 := 0;
 	begin
 		FOR i in 0 to 11 LOOP
-			IF(rising_edge(pauseClock)) THEN
-				IF (aliens(i).collision = '1') THEN
+			IF (rising_edge(pauseClock)) THEN
+				IF (aliens(i).collision = '1' AND aliens(i).alive = '1') THEN
+					aliens(i).alive <= '0';
+					updateScore := updateScore + 200;
+				ELSE
+					updateScore := updateScore;
+				END IF;
+
+				IF(aliens(i).die = '1') THEN
 					aliens(i).alive <= '0';
 				END IF;
 
@@ -510,6 +516,8 @@ BEGIN
 				END IF;
 			END IF;
 		END LOOP;
+		score <= score + updateScore;
+		updateScore := 0;
 	END PROCESS;
 
 	move_Alien : process (movement_clock)
@@ -543,17 +551,12 @@ BEGIN
 			rstScreenS <= rst_Screen;
 			IF (rst_Screen = '1') THEN
 				FOR i in 0 to 11 LOOP
-					aliens(i).collision <= '1';
-				END LOOP;
-				FOR i in 0 to (max_pproj - 1) LOOP
-					p_proj(i).collision <= '1';
+					aliens(i).die <= '1';
 				END LOOP;
 			ELSE
 				FOR i in 0 to 11 LOOP
+					aliens(i).die <= '0';
 					aliens(i).collision <= '0';
-				END LOOP;
-				FOR i in 0 to (max_pproj - 1) LOOP
-					p_proj(i).collision <= '0';
 				END LOOP;
 			END IF;
 
@@ -575,9 +578,8 @@ BEGIN
 					IF ((p_proj(j).x + 20) >= (aliens(i).x - (6 * aliens(i).size)) AND
 					p_proj(j).x <= aliens(i).x AND
 					p_proj(j).y >= (aliens(i).y - (6 * aliens(i).size)) AND
-					p_proj(j).y <= aliens(i).y AND p_proj(j).e = '1') THEN
+					p_proj(j).y <= aliens(i).y AND p_proj(j).e = '1' AND aliens(i).alive = '1') THEN
 						aliens(i).collision <= '1';
-						p_proj(j).collision <= '1';
 					END IF;
 				END LOOP;
 			END LOOP;
