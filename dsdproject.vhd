@@ -276,307 +276,3203 @@ BEGIN
 			END IF;
 		END LOOP;
 ------DRAWS THE END GAME STUFF---------------------------------------------------------------
-		FOR i in 0 to 10 LOOP
-		calcR := i;
-
-			IF (column = (86*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (258*calcR)/10*((10-calcR)*(10-calcR))/100 + 259*expLookup(i) + 91*(calcR*calcR*calcR)/1000) AND row = (194*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (588*calcR)/10*((10-calcR)*(10-calcR))/100 + 589*expLookup(i) + 200*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (91*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (279*calcR)/10*((10-calcR)*(10-calcR))/100 + 292*expLookup(i) + 105*(calcR*calcR*calcR)/1000) AND row = (200*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (604*calcR)/10*((10-calcR)*(10-calcR))/100 + 627*expLookup(i) + 224*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (105*(10-calcR)/10 + 116*calcR/10) AND row = (224*(10-calcR)/10 + 247*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (116*(10-calcR)/10 + 116*calcR/10) AND row = (247*(10-calcR)/10 + 257*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (116*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (348*calcR)/10*((10-calcR)*(10-calcR))/100 + 344*expLookup(i) + 112*(calcR*calcR*calcR)/1000) AND row = (257*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (811*calcR)/10*((10-calcR)*(10-calcR))/100 + 828*expLookup(i) + 276*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (112*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (327*calcR)/10*((10-calcR)*(10-calcR))/100 + 315*expLookup(i) + 105*(calcR*calcR*calcR)/1000) AND row = (276*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (828*calcR)/10*((10-calcR)*(10-calcR))/100 + 834*expLookup(i) + 279*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (105*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (315*calcR)/10*((10-calcR)*(10-calcR))/100 + 323*expLookup(i) + 118*(calcR*calcR*calcR)/1000) AND row = (279*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (842*calcR)/10*((10-calcR)*(10-calcR))/100 + 843*expLookup(i) + 281*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (118*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (406*calcR)/10*((10-calcR)*(10-calcR))/100 + 419*expLookup(i) + 130*(calcR*calcR*calcR)/1000) AND row = (281*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (843*calcR)/10*((10-calcR)*(10-calcR))/100 + 837*expLookup(i) + 276*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (130*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (376*calcR)/10*((10-calcR)*(10-calcR))/100 + 375*expLookup(i) + 125*(calcR*calcR*calcR)/1000) AND row = (276*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (825*calcR)/10*((10-calcR)*(10-calcR))/100 + 822*expLookup(i) + 256*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (125*(10-calcR)/10 + 125*calcR/10) AND row = (256*(10-calcR)/10 + 241*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (125*(10-calcR)/10 + 132*calcR/10) AND row = (241*(10-calcR)/10 + 227*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (132*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (423*calcR)/10*((10-calcR)*(10-calcR))/100 + 443*expLookup(i) + 150*(calcR*calcR*calcR)/1000) AND row = (227*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (631*calcR)/10*((10-calcR)*(10-calcR))/100 + 600*expLookup(i) + 198*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (150*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (460*calcR)/10*((10-calcR)*(10-calcR))/100 + 460*expLookup(i) + 151*(calcR*calcR*calcR)/1000) AND row = (198*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (590*calcR)/10*((10-calcR)*(10-calcR))/100 + 583*expLookup(i) + 193*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (151*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (447*calcR)/10*((10-calcR)*(10-calcR))/100 + 404*expLookup(i) + 133*(calcR*calcR*calcR)/1000) AND row = (193*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (578*calcR)/10*((10-calcR)*(10-calcR))/100 + 578*expLookup(i) + 193*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (133*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (393*calcR)/10*((10-calcR)*(10-calcR))/100 + 399*expLookup(i) + 136*(calcR*calcR*calcR)/1000) AND row = (193*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (585*calcR)/10*((10-calcR)*(10-calcR))/100 + 592*expLookup(i) + 198*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (136*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (414*calcR)/10*((10-calcR)*(10-calcR))/100 + 417*expLookup(i) + 139*(calcR*calcR*calcR)/1000) AND row = (198*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (596*calcR)/10*((10-calcR)*(10-calcR))/100 + 599*expLookup(i) + 201*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (139*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (417*calcR)/10*((10-calcR)*(10-calcR))/100 + 368*expLookup(i) + 122*(calcR*calcR*calcR)/1000) AND row = (201*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (612*calcR)/10*((10-calcR)*(10-calcR))/100 + 708*expLookup(i) + 235*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (122*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (362*calcR)/10*((10-calcR)*(10-calcR))/100 + 318*expLookup(i) + 106*(calcR*calcR*calcR)/1000) AND row = (235*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (702*calcR)/10*((10-calcR)*(10-calcR))/100 + 606*expLookup(i) + 200*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (106*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (318*calcR)/10*((10-calcR)*(10-calcR))/100 + 322*expLookup(i) + 109*(calcR*calcR*calcR)/1000) AND row = (200*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (599*calcR)/10*((10-calcR)*(10-calcR))/100 + 596*expLookup(i) + 198*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (109*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (337*calcR)/10*((10-calcR)*(10-calcR))/100 + 345*expLookup(i) + 113*(calcR*calcR*calcR)/1000) AND row = (198*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (594*calcR)/10*((10-calcR)*(10-calcR))/100 + 587*expLookup(i) + 194*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (113*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (341*calcR)/10*((10-calcR)*(10-calcR))/100 + 321*expLookup(i) + 99*(calcR*calcR*calcR)/1000) AND row = (194*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (583*calcR)/10*((10-calcR)*(10-calcR))/100 + 581*expLookup(i) + 193*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (99*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (262*calcR)/10*((10-calcR)*(10-calcR))/100 + 258*expLookup(i) + 86*(calcR*calcR*calcR)/1000) AND row = (193*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (578*calcR)/10*((10-calcR)*(10-calcR))/100 + 578*expLookup(i) + 194*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (321*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (961*calcR)/10*((10-calcR)*(10-calcR))/100 + 965*expLookup(i) + 326*(calcR*calcR*calcR)/1000) AND row = (194*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (586*calcR)/10*((10-calcR)*(10-calcR))/100 + 589*expLookup(i) + 198*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (326*(10-calcR)/10 + 329*calcR/10) AND row = (198*(10-calcR)/10 + 200*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (329*(10-calcR)/10 + 329*calcR/10) AND row = (200*(10-calcR)/10 + 234*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (329*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (989*calcR)/10*((10-calcR)*(10-calcR))/100 + 989*expLookup(i) + 329*(calcR*calcR*calcR)/1000) AND row = (234*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (758*calcR)/10*((10-calcR)*(10-calcR))/100 + 808*expLookup(i) + 271*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (329*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (985*calcR)/10*((10-calcR)*(10-calcR))/100 + 981*expLookup(i) + 324*(calcR*calcR*calcR)/1000) AND row = (271*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (820*calcR)/10*((10-calcR)*(10-calcR))/100 + 825*expLookup(i) + 276*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (324*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (967*calcR)/10*((10-calcR)*(10-calcR))/100 + 961*expLookup(i) + 320*(calcR*calcR*calcR)/1000) AND row = (276*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (832*calcR)/10*((10-calcR)*(10-calcR))/100 + 837*expLookup(i) + 279*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (320*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (958*calcR)/10*((10-calcR)*(10-calcR))/100 + 975*expLookup(i) + 345*(calcR*calcR*calcR)/1000) AND row = (279*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (845*calcR)/10*((10-calcR)*(10-calcR))/100 + 846*expLookup(i) + 281*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (345*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1108*calcR)/10*((10-calcR)*(10-calcR))/100 + 1115*expLookup(i) + 379*(calcR*calcR*calcR)/1000) AND row = (281*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (842*calcR)/10*((10-calcR)*(10-calcR))/100 + 840*expLookup(i) + 272*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (379*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1164*calcR)/10*((10-calcR)*(10-calcR))/100 + 1174*expLookup(i) + 390*(calcR*calcR*calcR)/1000) AND row = (272*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (787*calcR)/10*((10-calcR)*(10-calcR))/100 + 756*expLookup(i) + 236*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (390*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1170*calcR)/10*((10-calcR)*(10-calcR))/100 + 1162*expLookup(i) + 381*(calcR*calcR*calcR)/1000) AND row = (236*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (667*calcR)/10*((10-calcR)*(10-calcR))/100 + 642*expLookup(i) + 205*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (381*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1132*calcR)/10*((10-calcR)*(10-calcR))/100 + 1125*expLookup(i) + 370*(calcR*calcR*calcR)/1000) AND row = (205*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (603*calcR)/10*((10-calcR)*(10-calcR))/100 + 596*expLookup(i) + 196*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (370*(10-calcR)/10 + 364*calcR/10) AND row = (196*(10-calcR)/10 + 193*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (364*(10-calcR)/10 + 343*calcR/10) AND row = (193*(10-calcR)/10 + 193*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (343*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (984*calcR)/10*((10-calcR)*(10-calcR))/100 + 966*expLookup(i) + 321*(calcR*calcR*calcR)/1000) AND row = (193*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (579*calcR)/10*((10-calcR)*(10-calcR))/100 + 579*expLookup(i) + 194*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (361*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1100*calcR)/10*((10-calcR)*(10-calcR))/100 + 1116*expLookup(i) + 375*(calcR*calcR*calcR)/1000) AND row = (201*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (612*calcR)/10*((10-calcR)*(10-calcR))/100 + 629*expLookup(i) + 216*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (375*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1135*calcR)/10*((10-calcR)*(10-calcR))/100 + 1135*expLookup(i) + 378*(calcR*calcR*calcR)/1000) AND row = (216*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (670*calcR)/10*((10-calcR)*(10-calcR))/100 + 671*expLookup(i) + 238*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (378*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1135*calcR)/10*((10-calcR)*(10-calcR))/100 + 1132*expLookup(i) + 371*(calcR*calcR*calcR)/1000) AND row = (238*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (764*calcR)/10*((10-calcR)*(10-calcR))/100 + 776*expLookup(i) + 266*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (371*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1096*calcR)/10*((10-calcR)*(10-calcR))/100 + 1064*expLookup(i) + 347*(calcR*calcR*calcR)/1000) AND row = (266*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (822*calcR)/10*((10-calcR)*(10-calcR))/100 + 835*expLookup(i) + 276*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (347*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1023*calcR)/10*((10-calcR)*(10-calcR))/100 + 1022*expLookup(i) + 340*(calcR*calcR*calcR)/1000) AND row = (276*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (821*calcR)/10*((10-calcR)*(10-calcR))/100 + 816*expLookup(i) + 236*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (340*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1020*calcR)/10*((10-calcR)*(10-calcR))/100 + 1020*expLookup(i) + 340*(calcR*calcR*calcR)/1000) AND row = (236*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (646*calcR)/10*((10-calcR)*(10-calcR))/100 + 610*expLookup(i) + 201*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (340*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1024*calcR)/10*((10-calcR)*(10-calcR))/100 + 1028*expLookup(i) + 345*(calcR*calcR*calcR)/1000) AND row = (201*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (599*calcR)/10*((10-calcR)*(10-calcR))/100 + 597*expLookup(i) + 198*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (345*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1048*calcR)/10*((10-calcR)*(10-calcR))/100 + 1073*expLookup(i) + 361*(calcR*calcR*calcR)/1000) AND row = (198*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (595*calcR)/10*((10-calcR)*(10-calcR))/100 + 599*expLookup(i) + 201*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (496*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1488*calcR)/10*((10-calcR)*(10-calcR))/100 + 1494*expLookup(i) + 501*(calcR*calcR*calcR)/1000) AND row = (193*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (584*calcR)/10*((10-calcR)*(10-calcR))/100 + 591*expLookup(i) + 198*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (501*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1518*calcR)/10*((10-calcR)*(10-calcR))/100 + 1518*expLookup(i) + 505*(calcR*calcR*calcR)/1000) AND row = (198*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (603*calcR)/10*((10-calcR)*(10-calcR))/100 + 610*expLookup(i) + 239*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (505*(10-calcR)/10 + 504*calcR/10) AND row = (239*(10-calcR)/10 + 274*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (504*(10-calcR)/10 + 500*calcR/10) AND row = (274*(10-calcR)/10 + 276*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (500*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1475*calcR)/10*((10-calcR)*(10-calcR))/100 + 1480*expLookup(i) + 515*(calcR*calcR*calcR)/1000) AND row = (276*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (840*calcR)/10*((10-calcR)*(10-calcR))/100 + 841*expLookup(i) + 281*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (515*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1632*calcR)/10*((10-calcR)*(10-calcR))/100 + 1661*expLookup(i) + 561*(calcR*calcR*calcR)/1000) AND row = (281*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (848*calcR)/10*((10-calcR)*(10-calcR))/100 + 836*expLookup(i) + 262*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (561*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1711*calcR)/10*((10-calcR)*(10-calcR))/100 + 1703*expLookup(i) + 555*(calcR*calcR*calcR)/1000) AND row = (262*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (730*calcR)/10*((10-calcR)*(10-calcR))/100 + 654*expLookup(i) + 203*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (555*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1658*calcR)/10*((10-calcR)*(10-calcR))/100 + 1645*expLookup(i) + 545*(calcR*calcR*calcR)/1000) AND row = (203*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (603*calcR)/10*((10-calcR)*(10-calcR))/100 + 593*expLookup(i) + 196*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (545*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1619*calcR)/10*((10-calcR)*(10-calcR))/100 + 1617*expLookup(i) + 518*(calcR*calcR*calcR)/1000) AND row = (196*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (581*calcR)/10*((10-calcR)*(10-calcR))/100 + 580*expLookup(i) + 193*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (518*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1515*calcR)/10*((10-calcR)*(10-calcR))/100 + 1491*expLookup(i) + 496*(calcR*calcR*calcR)/1000) AND row = (193*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (578*calcR)/10*((10-calcR)*(10-calcR))/100 + 579*expLookup(i) + 193*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (535*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1628*calcR)/10*((10-calcR)*(10-calcR))/100 + 1640*expLookup(i) + 549*(calcR*calcR*calcR)/1000) AND row = (201*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (614*calcR)/10*((10-calcR)*(10-calcR))/100 + 626*expLookup(i) + 215*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (549*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1673*calcR)/10*((10-calcR)*(10-calcR))/100 + 1667*expLookup(i) + 545*(calcR*calcR*calcR)/1000) AND row = (215*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (694*calcR)/10*((10-calcR)*(10-calcR))/100 + 770*expLookup(i) + 267*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (545*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1614*calcR)/10*((10-calcR)*(10-calcR))/100 + 1585*expLookup(i) + 522*(calcR*calcR*calcR)/1000) AND row = (267*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (827*calcR)/10*((10-calcR)*(10-calcR))/100 + 836*expLookup(i) + 275*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (522*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1549*calcR)/10*((10-calcR)*(10-calcR))/100 + 1548*expLookup(i) + 516*(calcR*calcR*calcR)/1000) AND row = (275*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (816*calcR)/10*((10-calcR)*(10-calcR))/100 + 810*expLookup(i) + 233*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (516*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1548*calcR)/10*((10-calcR)*(10-calcR))/100 + 1548*expLookup(i) + 517*(calcR*calcR*calcR)/1000) AND row = (233*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (618*calcR)/10*((10-calcR)*(10-calcR))/100 + 602*expLookup(i) + 199*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (517*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1558*calcR)/10*((10-calcR)*(10-calcR))/100 + 1590*expLookup(i) + 535*(calcR*calcR*calcR)/1000) AND row = (199*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (592*calcR)/10*((10-calcR)*(10-calcR))/100 + 595*expLookup(i) + 201*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (173*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (505*calcR)/10*((10-calcR)*(10-calcR))/100 + 483*expLookup(i) + 158*(calcR*calcR*calcR)/1000) AND row = (196*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (595*calcR)/10*((10-calcR)*(10-calcR))/100 + 618*expLookup(i) + 211*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (158*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (461*calcR)/10*((10-calcR)*(10-calcR))/100 + 458*expLookup(i) + 153*(calcR*calcR*calcR)/1000) AND row = (211*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (660*calcR)/10*((10-calcR)*(10-calcR))/100 + 679*expLookup(i) + 240*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (153*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (460*calcR)/10*((10-calcR)*(10-calcR))/100 + 460*expLookup(i) + 156*(calcR*calcR*calcR)/1000) AND row = (240*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (761*calcR)/10*((10-calcR)*(10-calcR))/100 + 764*expLookup(i) + 261*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (156*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (482*calcR)/10*((10-calcR)*(10-calcR))/100 + 500*expLookup(i) + 172*(calcR*calcR*calcR)/1000) AND row = (261*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (808*calcR)/10*((10-calcR)*(10-calcR))/100 + 828*expLookup(i) + 279*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (172*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (529*calcR)/10*((10-calcR)*(10-calcR))/100 + 537*expLookup(i) + 186*(calcR*calcR*calcR)/1000) AND row = (279*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (843*calcR)/10*((10-calcR)*(10-calcR))/100 + 844*expLookup(i) + 281*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (186*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (590*calcR)/10*((10-calcR)*(10-calcR))/100 + 598*expLookup(i) + 205*(calcR*calcR*calcR)/1000) AND row = (281*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (843*calcR)/10*((10-calcR)*(10-calcR))/100 + 841*expLookup(i) + 275*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (205*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (635*calcR)/10*((10-calcR)*(10-calcR))/100 + 651*expLookup(i) + 219*(calcR*calcR*calcR)/1000) AND row = (275*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (810*calcR)/10*((10-calcR)*(10-calcR))/100 + 785*expLookup(i) + 254*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (219*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (664*calcR)/10*((10-calcR)*(10-calcR))/100 + 664*expLookup(i) + 219*(calcR*calcR*calcR)/1000) AND row = (254*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (737*calcR)/10*((10-calcR)*(10-calcR))/100 + 689*expLookup(i) + 221*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (219*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (648*calcR)/10*((10-calcR)*(10-calcR))/100 + 623*expLookup(i) + 198*(calcR*calcR*calcR)/1000) AND row = (221*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (627*calcR)/10*((10-calcR)*(10-calcR))/100 + 596*expLookup(i) + 195*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (198*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (574*calcR)/10*((10-calcR)*(10-calcR))/100 + 535*expLookup(i) + 173*(calcR*calcR*calcR)/1000) AND row = (195*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (579*calcR)/10*((10-calcR)*(10-calcR))/100 + 580*expLookup(i) + 196*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (195*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (600*calcR)/10*((10-calcR)*(10-calcR))/100 + 612*expLookup(i) + 207*(calcR*calcR*calcR)/1000) AND row = (200*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (606*calcR)/10*((10-calcR)*(10-calcR))/100 + 621*expLookup(i) + 215*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (207*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (626*calcR)/10*((10-calcR)*(10-calcR))/100 + 628*expLookup(i) + 209*(calcR*calcR*calcR)/1000) AND row = (215*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (657*calcR)/10*((10-calcR)*(10-calcR))/100 + 670*expLookup(i) + 233*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (209*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (632*calcR)/10*((10-calcR)*(10-calcR))/100 + 615*expLookup(i) + 192*(calcR*calcR*calcR)/1000) AND row = (233*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (777*calcR)/10*((10-calcR)*(10-calcR))/100 + 818*expLookup(i) + 276*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (192*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (545*calcR)/10*((10-calcR)*(10-calcR))/100 + 522*expLookup(i) + 168*(calcR*calcR*calcR)/1000) AND row = (276*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (839*calcR)/10*((10-calcR)*(10-calcR))/100 + 826*expLookup(i) + 263*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (168*(10-calcR)/10 + 164*calcR/10) AND row = (263*(10-calcR)/10 + 255*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (164*(10-calcR)/10 + 164*calcR/10) AND row = (255*(10-calcR)/10 + 239*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (164*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (491*calcR)/10*((10-calcR)*(10-calcR))/100 + 494*expLookup(i) + 170*(calcR*calcR*calcR)/1000) AND row = (239*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (662*calcR)/10*((10-calcR)*(10-calcR))/100 + 646*expLookup(i) + 207*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (170*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (528*calcR)/10*((10-calcR)*(10-calcR))/100 + 559*expLookup(i) + 195*(calcR*calcR*calcR)/1000) AND row = (207*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (595*calcR)/10*((10-calcR)*(10-calcR))/100 + 586*expLookup(i) + 200*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (227*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (679*calcR)/10*((10-calcR)*(10-calcR))/100 + 683*expLookup(i) + 230*(calcR*calcR*calcR)/1000) AND row = (195*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (592*calcR)/10*((10-calcR)*(10-calcR))/100 + 597*expLookup(i) + 199*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (230*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (694*calcR)/10*((10-calcR)*(10-calcR))/100 + 699*expLookup(i) + 233*(calcR*calcR*calcR)/1000) AND row = (199*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (597*calcR)/10*((10-calcR)*(10-calcR))/100 + 598*expLookup(i) + 199*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (233*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (703*calcR)/10*((10-calcR)*(10-calcR))/100 + 705*expLookup(i) + 235*(calcR*calcR*calcR)/1000) AND row = (199*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (600*calcR)/10*((10-calcR)*(10-calcR))/100 + 630*expLookup(i) + 234*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (235*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (710*calcR)/10*((10-calcR)*(10-calcR))/100 + 709*expLookup(i) + 243*(calcR*calcR*calcR)/1000) AND row = (234*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (813*calcR)/10*((10-calcR)*(10-calcR))/100 + 812*expLookup(i) + 277*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (243*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (764*calcR)/10*((10-calcR)*(10-calcR))/100 + 822*expLookup(i) + 280*(calcR*calcR*calcR)/1000) AND row = (277*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (861*calcR)/10*((10-calcR)*(10-calcR))/100 + 852*expLookup(i) + 271*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (280*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (851*calcR)/10*((10-calcR)*(10-calcR))/100 + 852*expLookup(i) + 284*(calcR*calcR*calcR)/1000) AND row = (271*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (796*calcR)/10*((10-calcR)*(10-calcR))/100 + 785*expLookup(i) + 231*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (284*(10-calcR)/10 + 285*calcR/10) AND row = (231*(10-calcR)/10 + 199*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (285*(10-calcR)/10 + 288*calcR/10) AND row = (199*(10-calcR)/10 + 198*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (288*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (873*calcR)/10*((10-calcR)*(10-calcR))/100 + 876*expLookup(i) + 292*(calcR*calcR*calcR)/1000) AND row = (198*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (594*calcR)/10*((10-calcR)*(10-calcR))/100 + 592*expLookup(i) + 196*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (292*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (876*calcR)/10*((10-calcR)*(10-calcR))/100 + 873*expLookup(i) + 282*(calcR*calcR*calcR)/1000) AND row = (196*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (582*calcR)/10*((10-calcR)*(10-calcR))/100 + 582*expLookup(i) + 194*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (282*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (830*calcR)/10*((10-calcR)*(10-calcR))/100 + 816*expLookup(i) + 271*(calcR*calcR*calcR)/1000) AND row = (194*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (582*calcR)/10*((10-calcR)*(10-calcR))/100 + 582*expLookup(i) + 194*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (271*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (813*calcR)/10*((10-calcR)*(10-calcR))/100 + 818*expLookup(i) + 275*(calcR*calcR*calcR)/1000) AND row = (194*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (585*calcR)/10*((10-calcR)*(10-calcR))/100 + 591*expLookup(i) + 199*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (275*(10-calcR)/10 + 279*calcR/10) AND row = (199*(10-calcR)/10 + 202*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (279*(10-calcR)/10 + 279*calcR/10) AND row = (202*(10-calcR)/10 + 231*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (279*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (840*calcR)/10*((10-calcR)*(10-calcR))/100 + 838*expLookup(i) + 274*(calcR*calcR*calcR)/1000) AND row = (231*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (789*calcR)/10*((10-calcR)*(10-calcR))/100 + 803*expLookup(i) + 272*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (274*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (796*calcR)/10*((10-calcR)*(10-calcR))/100 + 757*expLookup(i) + 247*(calcR*calcR*calcR)/1000) AND row = (272*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (838*calcR)/10*((10-calcR)*(10-calcR))/100 + 833*expLookup(i) + 268*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (247*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (737*calcR)/10*((10-calcR)*(10-calcR))/100 + 736*expLookup(i) + 245*(calcR*calcR*calcR)/1000) AND row = (268*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (794*calcR)/10*((10-calcR)*(10-calcR))/100 + 789*expLookup(i) + 236*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (245*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (735*calcR)/10*((10-calcR)*(10-calcR))/100 + 735*expLookup(i) + 245*(calcR*calcR*calcR)/1000) AND row = (236*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (660*calcR)/10*((10-calcR)*(10-calcR))/100 + 617*expLookup(i) + 203*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (245*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (739*calcR)/10*((10-calcR)*(10-calcR))/100 + 741*expLookup(i) + 249*(calcR*calcR*calcR)/1000) AND row = (203*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (601*calcR)/10*((10-calcR)*(10-calcR))/100 + 598*expLookup(i) + 198*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (249*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (766*calcR)/10*((10-calcR)*(10-calcR))/100 + 764*expLookup(i) + 247*(calcR*calcR*calcR)/1000) AND row = (198*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (590*calcR)/10*((10-calcR)*(10-calcR))/100 + 586*expLookup(i) + 194*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (247*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (710*calcR)/10*((10-calcR)*(10-calcR))/100 + 684*expLookup(i) + 227*(calcR*calcR*calcR)/1000) AND row = (194*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (580*calcR)/10*((10-calcR)*(10-calcR))/100 + 581*expLookup(i) + 195*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (397*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1189*calcR)/10*((10-calcR)*(10-calcR))/100 + 1194*expLookup(i) + 402*(calcR*calcR*calcR)/1000) AND row = (195*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (590*calcR)/10*((10-calcR)*(10-calcR))/100 + 594*expLookup(i) + 199*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (402*(10-calcR)/10 + 406*calcR/10) AND row = (199*(10-calcR)/10 + 200*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (406*(10-calcR)/10 + 407*calcR/10) AND row = (200*(10-calcR)/10 + 213*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (407*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1224*calcR)/10*((10-calcR)*(10-calcR))/100 + 1223*expLookup(i) + 406*(calcR*calcR*calcR)/1000) AND row = (213*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (684*calcR)/10*((10-calcR)*(10-calcR))/100 + 820*expLookup(i) + 274*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (406*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1219*calcR)/10*((10-calcR)*(10-calcR))/100 + 1212*expLookup(i) + 401*(calcR*calcR*calcR)/1000) AND row = (274*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (824*calcR)/10*((10-calcR)*(10-calcR))/100 + 826*expLookup(i) + 275*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (401*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1196*calcR)/10*((10-calcR)*(10-calcR))/100 + 1192*expLookup(i) + 397*(calcR*calcR*calcR)/1000) AND row = (275*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (828*calcR)/10*((10-calcR)*(10-calcR))/100 + 831*expLookup(i) + 278*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (397*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1190*calcR)/10*((10-calcR)*(10-calcR))/100 + 1194*expLookup(i) + 412*(calcR*calcR*calcR)/1000) AND row = (278*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (839*calcR)/10*((10-calcR)*(10-calcR))/100 + 840*expLookup(i) + 280*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (412*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1277*calcR)/10*((10-calcR)*(10-calcR))/100 + 1281*expLookup(i) + 426*(calcR*calcR*calcR)/1000) AND row = (280*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (840*calcR)/10*((10-calcR)*(10-calcR))/100 + 839*expLookup(i) + 278*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (426*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1279*calcR)/10*((10-calcR)*(10-calcR))/100 + 1275*expLookup(i) + 423*(calcR*calcR*calcR)/1000) AND row = (278*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (832*calcR)/10*((10-calcR)*(10-calcR))/100 + 828*expLookup(i) + 275*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (423*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1263*calcR)/10*((10-calcR)*(10-calcR))/100 + 1258*expLookup(i) + 419*(calcR*calcR*calcR)/1000) AND row = (275*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (825*calcR)/10*((10-calcR)*(10-calcR))/100 + 822*expLookup(i) + 272*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (419*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1255*calcR)/10*((10-calcR)*(10-calcR))/100 + 1254*expLookup(i) + 418*(calcR*calcR*calcR)/1000) AND row = (272*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (813*calcR)/10*((10-calcR)*(10-calcR))/100 + 764*expLookup(i) + 235*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (418*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1254*calcR)/10*((10-calcR)*(10-calcR))/100 + 1253*expLookup(i) + 422*(calcR*calcR*calcR)/1000) AND row = (235*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (593*calcR)/10*((10-calcR)*(10-calcR))/100 + 597*expLookup(i) + 199*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (422*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1271*calcR)/10*((10-calcR)*(10-calcR))/100 + 1276*expLookup(i) + 426*(calcR*calcR*calcR)/1000) AND row = (199*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (597*calcR)/10*((10-calcR)*(10-calcR))/100 + 594*expLookup(i) + 197*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (426*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1284*calcR)/10*((10-calcR)*(10-calcR))/100 + 1284*expLookup(i) + 427*(calcR*calcR*calcR)/1000) AND row = (197*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (588*calcR)/10*((10-calcR)*(10-calcR))/100 + 587*expLookup(i) + 195*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (427*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1275*calcR)/10*((10-calcR)*(10-calcR))/100 + 1194*expLookup(i) + 397*(calcR*calcR*calcR)/1000) AND row = (195*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (581*calcR)/10*((10-calcR)*(10-calcR))/100 + 581*expLookup(i) + 195*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (432*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1296*calcR)/10*((10-calcR)*(10-calcR))/100 + 1302*expLookup(i) + 437*(calcR*calcR*calcR)/1000) AND row = (195*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (591*calcR)/10*((10-calcR)*(10-calcR))/100 + 595*expLookup(i) + 199*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (437*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1323*calcR)/10*((10-calcR)*(10-calcR))/100 + 1323*expLookup(i) + 440*(calcR*calcR*calcR)/1000) AND row = (199*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (600*calcR)/10*((10-calcR)*(10-calcR))/100 + 607*expLookup(i) + 242*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (440*(10-calcR)/10 + 440*calcR/10) AND row = (242*(10-calcR)/10 + 276*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (440*(10-calcR)/10 + 436*calcR/10) AND row = (276*(10-calcR)/10 + 277*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (436*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1301*calcR)/10*((10-calcR)*(10-calcR))/100 + 1297*expLookup(i) + 432*(calcR*calcR*calcR)/1000) AND row = (277*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (831*calcR)/10*((10-calcR)*(10-calcR))/100 + 834*expLookup(i) + 279*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (432*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1297*calcR)/10*((10-calcR)*(10-calcR))/100 + 1309*expLookup(i) + 461*(calcR*calcR*calcR)/1000) AND row = (279*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (840*calcR)/10*((10-calcR)*(10-calcR))/100 + 841*expLookup(i) + 280*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (461*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1461*calcR)/10*((10-calcR)*(10-calcR))/100 + 1469*expLookup(i) + 490*(calcR*calcR*calcR)/1000) AND row = (280*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (843*calcR)/10*((10-calcR)*(10-calcR))/100 + 842*expLookup(i) + 279*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (490*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1475*calcR)/10*((10-calcR)*(10-calcR))/100 + 1479*expLookup(i) + 492*(calcR*calcR*calcR)/1000) AND row = (279*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (828*calcR)/10*((10-calcR)*(10-calcR))/100 + 775*expLookup(i) + 257*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (492*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1474*calcR)/10*((10-calcR)*(10-calcR))/100 + 1468*expLookup(i) + 486*(calcR*calcR*calcR)/1000) AND row = (257*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (771*calcR)/10*((10-calcR)*(10-calcR))/100 + 779*expLookup(i) + 265*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (486*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1449*calcR)/10*((10-calcR)*(10-calcR))/100 + 1446*expLookup(i) + 479*(calcR*calcR*calcR)/1000) AND row = (265*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (819*calcR)/10*((10-calcR)*(10-calcR))/100 + 822*expLookup(i) + 275*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (479*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1427*calcR)/10*((10-calcR)*(10-calcR))/100 + 1398*expLookup(i) + 455*(calcR*calcR*calcR)/1000) AND row = (275*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (827*calcR)/10*((10-calcR)*(10-calcR))/100 + 828*expLookup(i) + 276*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (455*(10-calcR)/10 + 452*calcR/10) AND row = (276*(10-calcR)/10 + 276*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (452*(10-calcR)/10 + 452*calcR/10) AND row = (276*(10-calcR)/10 + 237*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (452*(10-calcR)/10 + 462*calcR/10) AND row = (237*(10-calcR)/10 + 238*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (462*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1403*calcR)/10*((10-calcR)*(10-calcR))/100 + 1419*expLookup(i) + 473*(calcR*calcR*calcR)/1000) AND row = (238*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (716*calcR)/10*((10-calcR)*(10-calcR))/100 + 719*expLookup(i) + 240*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (473*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1422*calcR)/10*((10-calcR)*(10-calcR))/100 + 1425*expLookup(i) + 475*(calcR*calcR*calcR)/1000) AND row = (240*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (722*calcR)/10*((10-calcR)*(10-calcR))/100 + 727*expLookup(i) + 244*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (475*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1427*calcR)/10*((10-calcR)*(10-calcR))/100 + 1430*expLookup(i) + 477*(calcR*calcR*calcR)/1000) AND row = (244*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (738*calcR)/10*((10-calcR)*(10-calcR))/100 + 747*expLookup(i) + 251*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (477*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1437*calcR)/10*((10-calcR)*(10-calcR))/100 + 1437*expLookup(i) + 480*(calcR*calcR*calcR)/1000) AND row = (251*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (762*calcR)/10*((10-calcR)*(10-calcR))/100 + 762*expLookup(i) + 252*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (480*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1443*calcR)/10*((10-calcR)*(10-calcR))/100 + 1443*expLookup(i) + 480*(calcR*calcR*calcR)/1000) AND row = (252*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (750*calcR)/10*((10-calcR)*(10-calcR))/100 + 696*expLookup(i) + 225*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (480*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1438*calcR)/10*((10-calcR)*(10-calcR))/100 + 1428*expLookup(i) + 476*(calcR*calcR*calcR)/1000) AND row = (225*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (656*calcR)/10*((10-calcR)*(10-calcR))/100 + 659*expLookup(i) + 226*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (476*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1428*calcR)/10*((10-calcR)*(10-calcR))/100 + 1422*expLookup(i) + 462*(calcR*calcR*calcR)/1000) AND row = (226*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (697*calcR)/10*((10-calcR)*(10-calcR))/100 + 700*expLookup(i) + 233*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (462*(10-calcR)/10 + 452*calcR/10) AND row = (233*(10-calcR)/10 + 234*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (452*(10-calcR)/10 + 452*calcR/10) AND row = (234*(10-calcR)/10 + 217*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (452*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1356*calcR)/10*((10-calcR)*(10-calcR))/100 + 1356*expLookup(i) + 452*(calcR*calcR*calcR)/1000) AND row = (217*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (625*calcR)/10*((10-calcR)*(10-calcR))/100 + 602*expLookup(i) + 200*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (452*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1359*calcR)/10*((10-calcR)*(10-calcR))/100 + 1376*expLookup(i) + 465*(calcR*calcR*calcR)/1000) AND row = (200*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (601*calcR)/10*((10-calcR)*(10-calcR))/100 + 599*expLookup(i) + 199*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (465*(10-calcR)/10 + 477*calcR/10) AND row = (199*(10-calcR)/10 + 198*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (477*(10-calcR)/10 + 481*calcR/10) AND row = (198*(10-calcR)/10 + 206*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (481*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1448*calcR)/10*((10-calcR)*(10-calcR))/100 + 1453*expLookup(i) + 485*(calcR*calcR*calcR)/1000) AND row = (206*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (634*calcR)/10*((10-calcR)*(10-calcR))/100 + 645*expLookup(i) + 215*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (485*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1458*calcR)/10*((10-calcR)*(10-calcR))/100 + 1461*expLookup(i) + 487*(calcR*calcR*calcR)/1000) AND row = (215*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (645*calcR)/10*((10-calcR)*(10-calcR))/100 + 628*expLookup(i) + 201*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (487*(10-calcR)/10 + 487*calcR/10) AND row = (201*(10-calcR)/10 + 195*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (487*(10-calcR)/10 + 459*calcR/10) AND row = (195*(10-calcR)/10 + 195*calcR/10)) THEN
-				colorconcat <= "011000100000";
-			ELSIF (column = (459*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (1333*calcR)/10*((10-calcR)*(10-calcR))/100 + 1296*expLookup(i) + 432*(calcR*calcR*calcR)/1000) AND row = (195*((10-calcR)*(10-calcR)*(10-calcR))/1000 + (585*calcR)/10*((10-calcR)*(10-calcR))/100 + 586*expLookup(i) + 195*(calcR*calcR*calcR)/1000)) THEN
-				colorconcat <= "011000100000";
-			END IF;
-		END LOOP;
+	IF (ship.dead = '1') THEN
+		IF (column = 86 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 91 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 105 AND row = 224) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 116 AND row = 247) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 116 AND row = 257) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 112 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 105 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 118 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 130 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 125 AND row = 256) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 125 AND row = 241) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 132 AND row = 227) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 150 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 151 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 133 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 136 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 139 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 122 AND row = 235) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 106 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 109 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 113 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 99 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 321 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 326 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 234) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 271) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 324 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 320 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 345 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 379 AND row = 272) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 390 AND row = 236) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 381 AND row = 205) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 370 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 364 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 343 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 361 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 375 AND row = 216) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 378 AND row = 238) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 371 AND row = 266) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 347 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 340 AND row = 236) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 340 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 345 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 496 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 501 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 505 AND row = 239) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 504 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 500 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 515 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 561 AND row = 262) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 555 AND row = 203) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 545 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 518 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 535 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 549 AND row = 215) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 545 AND row = 267) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 522 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 516 AND row = 233) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 517 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 173 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 158 AND row = 211) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 153 AND row = 240) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 156 AND row = 261) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 172 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 186 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 205 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 219 AND row = 254) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 219 AND row = 221) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 198 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 195 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 207 AND row = 215) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 209 AND row = 233) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 192 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 168 AND row = 263) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 164 AND row = 255) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 164 AND row = 239) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 170 AND row = 207) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 227 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 230 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 233 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 235 AND row = 234) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 243 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 280 AND row = 271) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 284 AND row = 231) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 285 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 288 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 292 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 282 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 271 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 275 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 279 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 279 AND row = 231) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 274 AND row = 272) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 247 AND row = 268) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 245 AND row = 236) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 245 AND row = 203) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 249 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 247 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 397 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 402 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 406 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 407 AND row = 213) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 406 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 401 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 397 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 412 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 426 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 423 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 419 AND row = 272) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 418 AND row = 235) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 422 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 426 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 427 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 432 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 437 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 440 AND row = 242) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 440 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 436 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 432 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 461 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 490 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 492 AND row = 257) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 486 AND row = 265) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 479 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 455 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 237) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 462 AND row = 238) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 473 AND row = 240) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 475 AND row = 244) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 477 AND row = 251) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 480 AND row = 252) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 480 AND row = 225) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 476 AND row = 226) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 462 AND row = 233) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 234) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 217) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 465 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 477 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 481 AND row = 206) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 485 AND row = 215) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 487 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 487 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 86 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 91 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 106 AND row = 226) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 116 AND row = 248) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 115 AND row = 261) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 111 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 105 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 123 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 128 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 125 AND row = 254) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 125 AND row = 240) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 135 AND row = 222) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 151 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 150 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 132 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 136 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 138 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 121 AND row = 234) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 106 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 110 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 113 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 96 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 321 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 326 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 203) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 239) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 328 AND row = 271) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 323 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 320 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 352 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 381 AND row = 269) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 390 AND row = 232) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 380 AND row = 204) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 369 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 362 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 339 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 363 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 376 AND row = 218) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 378 AND row = 243) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 369 AND row = 268) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 345 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 340 AND row = 230) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 341 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 346 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 496 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 502 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 505 AND row = 243) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 504 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 498 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 523 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 563 AND row = 256) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 554 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 543 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 514 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 537 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 551 AND row = 220) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 543 AND row = 270) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 520 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 516 AND row = 226) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 518 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 171 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 157 AND row = 214) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 153 AND row = 244) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 158 AND row = 263) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 173 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 189 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 207 AND row = 273) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 219 AND row = 251) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 218 AND row = 217) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 196 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 196 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 207 AND row = 216) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 209 AND row = 240) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 189 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 167 AND row = 262) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 164 AND row = 253) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 164 AND row = 234) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 172 AND row = 204) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 227 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 230 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 233 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 236 AND row = 244) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 247 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 281 AND row = 269) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 284 AND row = 227) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 285 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 289 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 291 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 280 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 271 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 275 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 279 AND row = 205) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 279 AND row = 240) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 271 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 247 AND row = 267) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 245 AND row = 231) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 245 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 251 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 244 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 397 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 402 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 406 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 407 AND row = 218) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 406 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 401 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 397 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 415 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 426 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 422 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 418 AND row = 271) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 417 AND row = 224) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 423 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 427 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 425 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 432 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 438 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 440 AND row = 245) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 440 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 435 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 432 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 468 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 490 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 491 AND row = 257) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 485 AND row = 267) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 477 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 455 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 272) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 453 AND row = 237) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 463 AND row = 238) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 473 AND row = 240) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 475 AND row = 244) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 478 AND row = 251) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 480 AND row = 251) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 480 AND row = 223) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 475 AND row = 228) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 461 AND row = 233) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 232) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 215) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 453 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 466 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 478 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 481 AND row = 208) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 485 AND row = 214) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 487 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 484 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 86 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 92 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 107 AND row = 229) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 116 AND row = 249) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 115 AND row = 264) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 110 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 105 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 127 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 127 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 125 AND row = 253) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 126 AND row = 238) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 137 AND row = 217) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 152 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 148 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 132 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 137 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 137 AND row = 205) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 119 AND row = 231) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 106 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 111 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 113 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 93 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 321 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 326 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 207) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 245) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 328 AND row = 272) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 323 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 320 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 357 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 383 AND row = 266) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 390 AND row = 228) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 379 AND row = 203) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 369 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 360 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 335 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 364 AND row = 203) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 376 AND row = 220) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 378 AND row = 246) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 367 AND row = 270) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 344 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 340 AND row = 224) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 341 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 348 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 496 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 503 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 505 AND row = 246) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 503 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 496 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 530 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 565 AND row = 250) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 553 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 542 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 511 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 539 AND row = 203) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 553 AND row = 225) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 541 AND row = 271) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 519 AND row = 273) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 516 AND row = 219) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 519 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 170 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 155 AND row = 216) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 153 AND row = 247) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 159 AND row = 265) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 174 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 191 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 209 AND row = 271) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 220 AND row = 248) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 216 AND row = 214) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 193 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 198 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 208 AND row = 217) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 209 AND row = 247) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 186 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 167 AND row = 261) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 164 AND row = 252) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 164 AND row = 229) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 174 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 227 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 231 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 234 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 236 AND row = 252) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 251 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 282 AND row = 267) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 285 AND row = 224) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 286 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 289 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 291 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 279 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 271 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 276 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 279 AND row = 208) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 279 AND row = 247) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 268 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 246 AND row = 266) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 245 AND row = 226) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 246 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 252 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 241 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 397 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 403 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 406 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 407 AND row = 225) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 406 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 400 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 397 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 418 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 426 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 422 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 418 AND row = 269) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 418 AND row = 216) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 423 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 427 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 423 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 432 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 439 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 440 AND row = 249) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 439 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 435 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 433 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 474 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 491 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 491 AND row = 257) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 484 AND row = 269) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 476 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 455 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 268) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 454 AND row = 237) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 465 AND row = 238) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 474 AND row = 240) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 475 AND row = 245) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 478 AND row = 252) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 480 AND row = 249) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 479 AND row = 222) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 475 AND row = 229) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 460 AND row = 233) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 230) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 212) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 453 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 468 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 478 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 482 AND row = 209) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 485 AND row = 214) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 487 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 481 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 86 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 93 AND row = 203) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 108 AND row = 231) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 116 AND row = 250) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 115 AND row = 267) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 109 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 105 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 130 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 127 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 125 AND row = 251) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 127 AND row = 237) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 139 AND row = 213) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 152 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 146 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 132 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 137 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 135 AND row = 209) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 117 AND row = 227) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 106 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 112 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 112 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 91 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 321 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 327 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 210) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 250) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 328 AND row = 273) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 322 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 321 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 362 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 385 AND row = 263) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 389 AND row = 225) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 378 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 368 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 358 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 332 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 366 AND row = 204) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 377 AND row = 221) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 378 AND row = 250) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 365 AND row = 272) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 343 AND row = 273) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 340 AND row = 219) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 341 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 349 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 496 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 504 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 505 AND row = 250) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 503 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 495 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 536 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 566 AND row = 244) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 552 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 541 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 507 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 541 AND row = 204) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 554 AND row = 231) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 538 AND row = 273) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 518 AND row = 271) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 516 AND row = 214) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 521 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 168 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 155 AND row = 218) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 153 AND row = 249) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 160 AND row = 268) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 175 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 193 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 210 AND row = 269) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 220 AND row = 244) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 215 AND row = 211) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 190 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 199 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 208 AND row = 219) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 208 AND row = 253) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 183 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 167 AND row = 260) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 164 AND row = 250) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 164 AND row = 225) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 176 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 227 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 231 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 234 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 236 AND row = 258) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 255 AND row = 282) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 282 AND row = 265) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 285 AND row = 221) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 286 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 290 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 291 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 277 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 271 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 276 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 279 AND row = 211) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 279 AND row = 253) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 265 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 246 AND row = 264) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 245 AND row = 222) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 246 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 253 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 238 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 397 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 403 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 407 AND row = 204) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 407 AND row = 232) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 406 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 399 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 397 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 421 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 426 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 421 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 418 AND row = 267) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 418 AND row = 210) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 423 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 427 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 419 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 432 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 439 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 440 AND row = 252) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 439 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 434 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 434 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 478 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 491 AND row = 273) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 491 AND row = 258) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 484 AND row = 270) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 474 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 454 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 264) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 455 AND row = 238) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 467 AND row = 238) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 474 AND row = 240) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 476 AND row = 246) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 478 AND row = 253) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 480 AND row = 246) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 479 AND row = 221) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 475 AND row = 230) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 459 AND row = 233) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 229) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 210) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 454 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 469 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 478 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 482 AND row = 210) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 485 AND row = 213) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 487 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 478 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 86 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 94 AND row = 204) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 109 AND row = 233) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 116 AND row = 251) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 115 AND row = 269) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 108 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 106 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 132 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 126 AND row = 273) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 125 AND row = 250) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 128 AND row = 235) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 141 AND row = 210) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 152 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 144 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 132 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 138 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 133 AND row = 214) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 115 AND row = 222) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 106 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 112 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 111 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 89 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 321 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 327 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 214) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 254) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 328 AND row = 273) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 322 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 322 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 365 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 387 AND row = 260) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 388 AND row = 221) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 377 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 368 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 356 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 367 AND row = 206) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 377 AND row = 223) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 377 AND row = 253) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 362 AND row = 273) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 342 AND row = 271) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 340 AND row = 215) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 341 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 351 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 497 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 505 AND row = 203) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 505 AND row = 253) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 503 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 495 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 541 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 566 AND row = 237) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 551 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 539 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 505 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 542 AND row = 205) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 554 AND row = 237) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 536 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 517 AND row = 269) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 516 AND row = 210) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 523 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 166 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 154 AND row = 221) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 153 AND row = 251) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 162 AND row = 270) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 177 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 195 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 212 AND row = 267) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 220 AND row = 241) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 213 AND row = 208) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 188 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 200 AND row = 204) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 208 AND row = 220) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 207 AND row = 258) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 181 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 166 AND row = 260) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 164 AND row = 248) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 164 AND row = 222) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 179 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 227 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 231 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 234 AND row = 205) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 236 AND row = 263) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 259 AND row = 283) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 283 AND row = 263) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 285 AND row = 218) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 286 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 290 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 291 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 276 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 272 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 276 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 279 AND row = 214) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 279 AND row = 258) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 262 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 246 AND row = 263) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 245 AND row = 218) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 246 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 253 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 236 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 397 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 404 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 407 AND row = 205) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 407 AND row = 240) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 405 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 399 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 398 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 423 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 425 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 420 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 418 AND row = 264) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 418 AND row = 206) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 424 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 427 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 415 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 432 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 440 AND row = 203) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 440 AND row = 256) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 438 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 433 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 435 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 482 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 491 AND row = 270) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 490 AND row = 258) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 483 AND row = 271) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 472 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 454 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 260) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 456 AND row = 238) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 468 AND row = 239) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 474 AND row = 241) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 476 AND row = 246) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 478 AND row = 253) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 480 AND row = 243) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 478 AND row = 221) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 474 AND row = 231) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 458 AND row = 233) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 227) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 207) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 455 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 470 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 479 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 483 AND row = 211) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 486 AND row = 212) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 487 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 476 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 86 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 96 AND row = 207) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 110 AND row = 235) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 116 AND row = 252) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 115 AND row = 271) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 107 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 107 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 134 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 125 AND row = 272) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 125 AND row = 248) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 128 AND row = 234) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 143 AND row = 207) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 152 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 141 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 132 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 138 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 130 AND row = 219) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 113 AND row = 217) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 107 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 113 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 109 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 88 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 321 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 327 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 217) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 259) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 327 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 321 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 324 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 368 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 388 AND row = 256) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 388 AND row = 218) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 376 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 367 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 353 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 326 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 369 AND row = 207) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 378 AND row = 224) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 377 AND row = 255) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 360 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 341 AND row = 268) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 340 AND row = 211) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 342 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 353 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 497 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 505 AND row = 206) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 505 AND row = 257) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 502 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 496 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 546 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 566 AND row = 231) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 550 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 537 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 502 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 544 AND row = 207) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 554 AND row = 243) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 533 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 516 AND row = 267) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 516 AND row = 206) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 525 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 164 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 153 AND row = 224) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 153 AND row = 253) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 164 AND row = 272) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 178 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 197 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 213 AND row = 265) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 221 AND row = 237) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 211 AND row = 205) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 185 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 202 AND row = 205) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 208 AND row = 222) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 206 AND row = 263) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 178 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 166 AND row = 259) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 164 AND row = 247) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 165 AND row = 219) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 181 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 227 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 232 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 234 AND row = 208) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 237 AND row = 267) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 263 AND row = 282) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 283 AND row = 260) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 285 AND row = 215) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 287 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 291 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 290 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 275 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 272 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 277 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 279 AND row = 217) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 279 AND row = 262) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 259 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 245 AND row = 260) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 245 AND row = 214) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 247 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 253 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 233 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 397 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 404 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 407 AND row = 206) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 407 AND row = 249) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 405 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 398 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 399 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 424 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 425 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 420 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 418 AND row = 260) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 418 AND row = 203) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 424 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 427 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 411 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 433 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 440 AND row = 206) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 440 AND row = 259) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 438 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 433 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 437 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 485 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 492 AND row = 267) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 490 AND row = 259) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 482 AND row = 272) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 470 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 453 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 256) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 457 AND row = 238) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 469 AND row = 239) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 474 AND row = 241) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 476 AND row = 247) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 479 AND row = 253) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 480 AND row = 240) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 477 AND row = 221) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 473 AND row = 232) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 457 AND row = 234) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 225) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 205) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 456 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 471 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 479 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 483 AND row = 212) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 486 AND row = 211) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 487 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 473 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 87 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 97 AND row = 209) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 111 AND row = 238) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 116 AND row = 253) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 114 AND row = 273) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 106 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 109 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 135 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 125 AND row = 270) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 125 AND row = 247) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 129 AND row = 232) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 145 AND row = 204) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 152 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 139 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 133 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 138 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 128 AND row = 224) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 111 AND row = 213) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 107 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 113 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 107 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 87 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 322 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 328 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 220) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 262) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 327 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 321 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 327 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 371 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 389 AND row = 253) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 387 AND row = 216) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 375 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 366 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 351 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 325 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 370 AND row = 209) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 378 AND row = 226) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 376 AND row = 258) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 357 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 341 AND row = 265) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 340 AND row = 208) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 342 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 355 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 498 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 505 AND row = 210) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 505 AND row = 260) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 502 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 498 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 550 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 565 AND row = 225) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 549 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 535 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 500 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 545 AND row = 208) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 553 AND row = 249) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 531 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 516 AND row = 263) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 516 AND row = 204) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 527 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 163 AND row = 204) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 153 AND row = 226) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 154 AND row = 255) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 165 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 179 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 199 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 215 AND row = 263) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 220 AND row = 234) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 208 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 182 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 203 AND row = 207) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 209 AND row = 223) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 204 AND row = 267) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 176 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 166 AND row = 258) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 164 AND row = 245) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 165 AND row = 216) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 184 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 227 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 232 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 235 AND row = 211) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 238 AND row = 269) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 268 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 284 AND row = 256) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 285 AND row = 212) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 287 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 291 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 289 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 273 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 272 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 277 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 279 AND row = 219) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 278 AND row = 265) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 256 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 245 AND row = 258) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 245 AND row = 211) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 247 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 253 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 231 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 398 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 405 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 407 AND row = 208) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 407 AND row = 256) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 404 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 398 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 400 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 425 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 425 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 420 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 418 AND row = 256) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 418 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 425 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 427 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 407 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 434 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 440 AND row = 210) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 440 AND row = 262) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 438 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 433 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 440 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 487 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 492 AND row = 264) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 489 AND row = 260) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 482 AND row = 273) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 467 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 453 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 253) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 458 AND row = 238) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 470 AND row = 239) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 474 AND row = 242) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 476 AND row = 248) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 479 AND row = 253) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 480 AND row = 237) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 477 AND row = 221) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 472 AND row = 232) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 456 AND row = 234) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 224) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 204) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 458 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 472 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 479 AND row = 203) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 483 AND row = 213) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 486 AND row = 209) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 487 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 470 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 88 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 99 AND row = 212) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 112 AND row = 240) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 116 AND row = 254) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 114 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 105 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 111 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 135 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 125 AND row = 268) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 125 AND row = 246) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 130 AND row = 231) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 147 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 152 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 137 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 133 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 138 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 126 AND row = 228) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 109 AND row = 208) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 107 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 114 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 106 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 86 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 322 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 328 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 224) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 266) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 326 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 320 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 331 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 373 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 390 AND row = 249) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 385 AND row = 213) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 374 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 366 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 349 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 323 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 371 AND row = 210) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 378 AND row = 228) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 375 AND row = 260) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 354 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 340 AND row = 260) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 340 AND row = 206) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 343 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 357 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 498 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 505 AND row = 215) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 505 AND row = 263) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 501 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 500 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 553 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 563 AND row = 219) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 548 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 532 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 499 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 546 AND row = 210) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 552 AND row = 254) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 528 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 516 AND row = 258) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 516 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 529 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 161 AND row = 206) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 153 AND row = 229) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 154 AND row = 256) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 167 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 180 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 200 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 216 AND row = 261) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 220 AND row = 230) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 206 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 179 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 204 AND row = 208) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 209 AND row = 225) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 201 AND row = 270) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 174 AND row = 272) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 165 AND row = 257) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 164 AND row = 244) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 166 AND row = 214) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 187 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 228 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 232 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 235 AND row = 216) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 239 AND row = 272) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 271 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 284 AND row = 252) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 285 AND row = 209) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 287 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 291 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 288 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 273 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 273 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 278 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 279 AND row = 222) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 277 AND row = 267) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 253 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 245 AND row = 254) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 245 AND row = 208) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 247 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 252 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 229 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 399 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 405 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 407 AND row = 209) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 407 AND row = 263) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 403 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 397 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 402 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 426 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 424 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 419 AND row = 273) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 418 AND row = 251) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 419 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 425 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 427 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 403 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 434 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 440 AND row = 215) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 440 AND row = 266) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 437 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 432 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 444 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 488 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 492 AND row = 262) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 489 AND row = 261) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 481 AND row = 273) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 464 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 453 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 249) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 459 AND row = 238) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 471 AND row = 239) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 475 AND row = 242) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 476 AND row = 249) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 479 AND row = 253) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 480 AND row = 233) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 476 AND row = 222) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 470 AND row = 233) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 455 AND row = 234) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 222) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 459 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 474 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 480 AND row = 204) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 484 AND row = 214) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 486 AND row = 208) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 487 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 467 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 88 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 100 AND row = 216) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 113 AND row = 242) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 116 AND row = 255) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 113 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 105 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 113 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 134 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 125 AND row = 264) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 125 AND row = 244) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 131 AND row = 230) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 148 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 152 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 135 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 134 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 138 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 124 AND row = 232) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 107 AND row = 204) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 108 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 114 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 104 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 86 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 323 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 328 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 227) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 268) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 326 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 320 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 335 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 375 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 390 AND row = 245) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 384 AND row = 210) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 373 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 365 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 347 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 322 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 373 AND row = 212) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 378 AND row = 231) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 374 AND row = 262) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 352 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 340 AND row = 253) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 340 AND row = 204) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 343 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 358 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 499 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 505 AND row = 221) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 504 AND row = 267) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 501 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 504 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 556 AND row = 270) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 561 AND row = 213) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 547 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 528 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 497 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 547 AND row = 211) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 550 AND row = 259) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 526 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 516 AND row = 251) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 516 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 531 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 160 AND row = 208) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 153 AND row = 233) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 155 AND row = 257) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 169 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 182 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 202 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 217 AND row = 258) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 220 AND row = 227) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 203 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 177 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 205 AND row = 210) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 209 AND row = 227) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 199 AND row = 273) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 172 AND row = 269) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 165 AND row = 257) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 164 AND row = 242) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 167 AND row = 211) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 190 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 228 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 233 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 235 AND row = 221) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 240 AND row = 273) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 275 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 284 AND row = 246) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 285 AND row = 205) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 288 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 291 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 286 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 272 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 273 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 278 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 279 AND row = 225) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 276 AND row = 269) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 251 AND row = 273) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 245 AND row = 249) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 245 AND row = 206) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 248 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 251 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 228 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 400 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 405 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 407 AND row = 210) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 407 AND row = 269) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 403 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 397 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 405 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 426 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 424 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 419 AND row = 273) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 418 AND row = 246) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 420 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 425 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 427 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 400 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 435 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 440 AND row = 222) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 440 AND row = 269) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 437 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 432 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 448 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 489 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 492 AND row = 259) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 488 AND row = 262) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 480 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 461 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 245) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 460 AND row = 238) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 472 AND row = 239) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 475 AND row = 243) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 477 AND row = 249) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 479 AND row = 253) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 480 AND row = 230) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 476 AND row = 223) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 468 AND row = 233) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 454 AND row = 234) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 220) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 461 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 475 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 480 AND row = 205) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 484 AND row = 214) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 486 AND row = 206) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 487 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 465 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 89 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 102 AND row = 220) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 114 AND row = 244) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 116 AND row = 256) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 112 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 105 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 115 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 132 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 125 AND row = 260) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 125 AND row = 243) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 131 AND row = 228) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 149 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 151 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 133 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 135 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 138 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 122 AND row = 234) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 106 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 109 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 114 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 102 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 86 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 324 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 230) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 270) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 325 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 320 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 340 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 377 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 390 AND row = 240) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 382 AND row = 208) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 371 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 365 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 345 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 321 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 374 AND row = 214) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 378 AND row = 234) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 373 AND row = 264) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 349 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 340 AND row = 245) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 340 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 344 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 360 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 500 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 505 AND row = 229) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 504 AND row = 270) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 500 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 509 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 559 AND row = 267) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 558 AND row = 208) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 546 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 524 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 497 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 548 AND row = 213) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 548 AND row = 264) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 524 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 516 AND row = 243) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 517 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 533 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 159 AND row = 209) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 153 AND row = 236) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 155 AND row = 259) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 170 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 184 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 203 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 218 AND row = 256) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 220 AND row = 224) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 201 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 175 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 206 AND row = 212) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 209 AND row = 230) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 195 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 170 AND row = 266) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 164 AND row = 256) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 164 AND row = 240) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 168 AND row = 209) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 192 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 229 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 233 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 235 AND row = 227) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 241 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 278 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 284 AND row = 239) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 285 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 288 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 291 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 284 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 271 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 274 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 279 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 279 AND row = 228) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 275 AND row = 270) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 249 AND row = 271) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 245 AND row = 243) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 245 AND row = 204) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 249 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 249 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 227 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 401 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 406 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 407 AND row = 211) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 407 AND row = 272) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 402 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 397 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 408 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 426 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 423 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 419 AND row = 272) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 418 AND row = 240) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 421 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 426 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 427 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 398 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 436 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 440 AND row = 231) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 440 AND row = 273) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 436 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 432 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 454 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 490 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 492 AND row = 258) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 487 AND row = 263) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 479 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 458 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 241) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 461 AND row = 238) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 473 AND row = 240) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 475 AND row = 243) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 477 AND row = 250) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 479 AND row = 252) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 480 AND row = 227) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 476 AND row = 224) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 465 AND row = 233) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 453 AND row = 234) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 219) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 463 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 476 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 480 AND row = 206) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 484 AND row = 214) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 486 AND row = 204) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 487 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 462 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 91 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 105 AND row = 224) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 116 AND row = 247) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 116 AND row = 257) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 112 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 104 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 118 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 130 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 125 AND row = 256) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 125 AND row = 241) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 132 AND row = 227) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 150 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 151 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 133 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 136 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 138 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 122 AND row = 235) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 105 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 109 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 113 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 99 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 85 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 326 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 234) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 329 AND row = 271) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 324 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 320 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 345 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 379 AND row = 272) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 390 AND row = 236) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 381 AND row = 205) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 370 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 364 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 343 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 321 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 375 AND row = 216) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 378 AND row = 238) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 371 AND row = 266) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 347 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 340 AND row = 236) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 340 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 345 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 361 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 501 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 505 AND row = 239) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 504 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 500 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 515 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 561 AND row = 262) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 554 AND row = 203) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 545 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 518 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 496 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 549 AND row = 215) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 545 AND row = 267) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 521 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 516 AND row = 233) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 517 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 535 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 158 AND row = 211) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 153 AND row = 240) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 156 AND row = 261) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 172 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 186 AND row = 281) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 205 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 219 AND row = 254) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 219 AND row = 221) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 198 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 173 AND row = 196) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 207 AND row = 215) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 209 AND row = 233) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 192 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 168 AND row = 263) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 164 AND row = 255) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 164 AND row = 239) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 170 AND row = 207) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 195 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 230 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 233 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 235 AND row = 233) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 243 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 280 AND row = 271) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 284 AND row = 231) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 285 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 288 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 291 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 282 AND row = 193) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 271 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 275 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 279 AND row = 202) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 279 AND row = 231) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 273 AND row = 272) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 247 AND row = 268) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 245 AND row = 236) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 245 AND row = 203) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 249 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 247 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 227 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 402 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 406 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 407 AND row = 213) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 406 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 401 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 397 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 411 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 426 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 423 AND row = 275) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 418 AND row = 272) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 417 AND row = 235) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 422 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 426 AND row = 197) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 427 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 397 AND row = 194) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 437 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 440 AND row = 242) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 440 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 436 AND row = 277) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 432 AND row = 278) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 461 AND row = 280) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 490 AND row = 279) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 492 AND row = 257) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 486 AND row = 265) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 479 AND row = 274) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 455 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 276) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 237) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 462 AND row = 238) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 473 AND row = 240) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 475 AND row = 244) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 477 AND row = 251) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 480 AND row = 252) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 480 AND row = 225) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 476 AND row = 226) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 462 AND row = 233) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 234) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 217) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 452 AND row = 200) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 465 AND row = 199) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 477 AND row = 198) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 481 AND row = 206) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 485 AND row = 215) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 487 AND row = 201) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 487 AND row = 195) THEN
+			colorconcat <= "011000100000";
+			ELSIF (column = 459 AND row = 195) THEN
+			colorconcat <= "011000100000";
+		END IF;
+	END IF;
 
 ------DRAWS ENEMY EXPLOSIONS ON THE SCREEN---------------------------------------------------
 		FOR i in 0 to 11 LOOP
-			IF (aliens(i).expClk > 0 AND ( ( ((column - aliens(i).deathX) ** 2) + ((row - aliens(i).deathY) ** 2) ) <= ((aliens(i).size * 6) ** 2) )) THEN
+			IF (aliens(i).expClk > 0 AND ship.dead = '0' AND ( ( ((column - aliens(i).deathX) ** 2) + ((row - aliens(i).deathY) ** 2) ) <= ((aliens(i).size * 6) ** 2) )) THEN
 				colorconcat <= "111111111111";
 			END IF;
 		END LOOP;
@@ -668,7 +3564,7 @@ BEGIN
 
 ------DRAWS THE ENEMIES ON THE SCREEN--------------------------------------------------------
 		FOR i in 0 to 11 LOOP
-			IF (aliens(i).alive = '1') THEN
+			IF (aliens(i).alive = '1' AND ship.dead = '0') THEN
 				calcA := aliens(i).x - column;	--Relative X position
 				calcB := aliens(i).y - row;		--Relative Y position
 				calcC := (aliens(i).size) * 6;			--Calc adjusted size
