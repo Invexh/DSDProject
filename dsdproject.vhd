@@ -75,7 +75,7 @@ ARCHITECTURE behavior OF dsdproject IS
 	signal p_proj : player_proj_array((max_pproj - 1) downto 0);
 
 	--Score--
-	signal score : INTEGER range 0 to 999999 := 1;
+	signal score : INTEGER range 0 to 999999 := 0;
 	signal digit : seg_array((max_digits - 1) downto 0);
 
 	--Lives--
@@ -461,11 +461,12 @@ BEGIN
 	hndl_Alien : process (pauseClock)
 	VARIABLE updateScore : INTEGER range 0 to 999999 := 0;
 	begin
-		FOR i in 0 to 11 LOOP
-			IF (rising_edge(pauseClock)) THEN
+		IF (rising_edge(pauseClock)) THEN
+			updateScore := 0;
+			FOR i in 0 to 11 LOOP
 				IF (aliens(i).collision = '1' AND aliens(i).alive = '1') THEN
 					aliens(i).alive <= '0';
-					updateScore := updateScore + 200;
+					updateScore := updateScore + awardScore(aliens(i).size);
 				ELSE
 					updateScore := updateScore;
 				END IF;
@@ -514,10 +515,9 @@ BEGIN
 				ELSIF ((aliens(i).x > 60000) OR (aliens(i).x <= 0)) THEN
 					aliens(i).alive <= '0';
 				END IF;
-			END IF;
-		END LOOP;
-		score <= score + updateScore;
-		updateScore := 0;
+			END LOOP;
+			score <= score + updateScore;
+		END IF;
 	END PROCESS;
 
 	move_Alien : process (movement_clock)
