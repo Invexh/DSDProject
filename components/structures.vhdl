@@ -18,6 +18,9 @@ package custom_types is
 		y : INTEGER range 0 to 480;
 		scorePart : INTEGER range 0 to 10000;
 		die : STD_LOGIC;
+		expClk : INTEGER;
+		deathX : INTEGER range 0 to 640;
+		deathY : INTEGER range 0 to 480;
 	end record alien_t;
 	
 	type ship_t is record

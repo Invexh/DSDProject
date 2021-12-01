@@ -84,18 +84,18 @@ ARCHITECTURE behavior OF dsdproject IS
 	
 	--Aliens--
 	signal aliens : alien_array(11 downto 0) := (
-		0 => (color => "000000000000", collision => '0', alive => '0', min_p => 11, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
-		1 => (color => "000000000000", collision => '0', alive => '0', min_p => 20, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
-		2 => (color => "000000000000", collision => '0', alive => '0', min_p => 29, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
-		3 => (color => "000000000000", collision => '0', alive => '0', min_p => 35, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
-		4 => (color => "000000000000", collision => '0', alive => '0', min_p => 15, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
-		5 => (color => "000000000000", collision => '0', alive => '0', min_p => 21, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
-		6 => (color => "000000000000", collision => '0', alive => '0', min_p => 12, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
-		7 => (color => "000000000000", collision => '0', alive => '0', min_p => 17, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
-		8 => (color => "000000000000", collision => '0', alive => '0', min_p => 04, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
-		9 => (color => "000000000000", collision => '0', alive => '0', min_p => 05, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
-	   10 => (color => "000000000000", collision => '0', alive => '0', min_p => 03, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0),
-	   11 => (color => "000000000000", collision => '0', alive => '0', min_p => 07, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0)
+		0 => (color => "000000000000", collision => '0', alive => '0', min_p => 11, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0, expClk => 0, deathX => 0, deathY => 0),
+		1 => (color => "000000000000", collision => '0', alive => '0', min_p => 20, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0, expClk => 0, deathX => 0, deathY => 0),
+		2 => (color => "000000000000", collision => '0', alive => '0', min_p => 29, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0, expClk => 0, deathX => 0, deathY => 0),
+		3 => (color => "000000000000", collision => '0', alive => '0', min_p => 35, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0, expClk => 0, deathX => 0, deathY => 0),
+		4 => (color => "000000000000", collision => '0', alive => '0', min_p => 15, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0, expClk => 0, deathX => 0, deathY => 0),
+		5 => (color => "000000000000", collision => '0', alive => '0', min_p => 21, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0, expClk => 0, deathX => 0, deathY => 0),
+		6 => (color => "000000000000", collision => '0', alive => '0', min_p => 12, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0, expClk => 0, deathX => 0, deathY => 0),
+		7 => (color => "000000000000", collision => '0', alive => '0', min_p => 17, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0, expClk => 0, deathX => 0, deathY => 0),
+		8 => (color => "000000000000", collision => '0', alive => '0', min_p => 04, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0, expClk => 0, deathX => 0, deathY => 0),
+		9 => (color => "000000000000", collision => '0', alive => '0', min_p => 05, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0, expClk => 0, deathX => 0, deathY => 0),
+	   10 => (color => "000000000000", collision => '0', alive => '0', min_p => 03, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0, expClk => 0, deathX => 0, deathY => 0),
+	   11 => (color => "000000000000", collision => '0', alive => '0', min_p => 07, hs1 => '0', hs2 => '0', size => 1, tsls => 0, x => 640, y => 240, die => '0', scorePart => 0, expClk => 0, deathX => 0, deathY => 0)
 	);
 
 	--Timing Related Signals--
@@ -322,7 +322,7 @@ BEGIN
 					colorconcat <= "111100000000";
 				END IF;
 			END IF;
-		END LOOP;	
+		END LOOP;
 
 ------DRAWS THE SCOREBOARD TO THE SCREEN-----------------------------------------------------
 		calcA := (digit_thickness - 1)/2;	--Onesided thickness of digit
@@ -376,7 +376,14 @@ BEGIN
 				END IF;
 			END IF;
 		END LOOP;
-		
+
+------DRAWS ENEMY EXPLOSIONS ON THE SCREEN---------------------------------------------------
+		FOR i in 0 to 11 LOOP
+			IF (aliens(i).expClk > 0 AND ( ( ((column - aliens(i).deathX) ** 2) + ((row - aliens(i).deathY) ** 2) ) <= ((aliens(i).size * 6) ** 2) )) THEN
+				colorconcat <= "111111111111";
+			END IF;
+		END LOOP;
+
 ------OUTPUTS THE RESULTING COLORS TO THE SCREEN---------------------------------------------
 		red <= "0000" & colorconcat(11 downto 8);
 		green <= "0000" & colorconcat(7 downto 4);
@@ -464,9 +471,16 @@ BEGIN
 		IF (rising_edge(pauseClock)) THEN
 			updateScore := 0;
 			FOR i in 0 to 11 LOOP
+				IF (aliens(i).expClk > 0) THEN
+					aliens(i).expClk <= aliens(i).expClk - 1;
+				END IF;
+
 				IF (aliens(i).collision = '1' AND aliens(i).alive = '1') THEN
 					aliens(i).alive <= '0';
 					updateScore := updateScore + awardScore(aliens(i).size);
+					aliens(i).deathX <= aliens(i).x;
+					aliens(i).deathY <= aliens(i).y;
+					aliens(i).expClk <= 25000000;
 				ELSE
 					updateScore := updateScore;
 				END IF;
@@ -497,7 +511,7 @@ BEGIN
 					aliens(i).hs1 <= '1';
 					aliens(i).tsls <= 0;
 
-					IF (score > 1000 AND RNG(1) = '1') THEN
+					IF (score > 10000 AND RNG(1) = '1' AND aliens(i).min_p > 10) THEN
 						aliens(i).min_p <= aliens(i).min_p - 2;
 					END IF;
 					
@@ -508,7 +522,7 @@ BEGIN
 					aliens(i).hs1 <= '1';
 					aliens(i).tsls <= 0;
 
-					IF (score > 2000) THEN
+					IF (score > 20000 AND aliens(i).min_p > 2) THEN
 						aliens(i).min_p <= aliens(i).min_p - 2;
 					END IF;
 
@@ -578,7 +592,7 @@ BEGIN
 					IF ((p_proj(j).x + 20) >= (aliens(i).x - (6 * aliens(i).size)) AND
 					p_proj(j).x <= aliens(i).x AND
 					p_proj(j).y >= (aliens(i).y - (6 * aliens(i).size)) AND
-					p_proj(j).y <= aliens(i).y AND p_proj(j).e = '1' AND aliens(i).alive = '1') THEN
+					p_proj(j).y <= aliens(i).y AND p_proj(j).e = '1' AND aliens(i).alive = '1' AND aliens(i).x < (640 + aliens(i).size * 6)) THEN
 						aliens(i).collision <= '1';
 					END IF;
 				END LOOP;
